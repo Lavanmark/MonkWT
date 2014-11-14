@@ -14,7 +14,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import monkWT.mapSys.Tile;
+import monkWT.model.Tile;
 
 public class ResourceLoader implements Serializable{
 

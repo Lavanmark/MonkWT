@@ -19,8 +19,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import monkWT.system.Item;
-import monkWT.system.SaveLoad;
+import monkWT.controller.SaveLoad;
+import monkWT.model.Item;
+import monkWT.model.Levels;
+import monkWT.model.Player;
+import monkWT.view.Menu;
 
 
 import resources.ResourceLoader;
