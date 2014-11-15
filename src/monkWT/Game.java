@@ -1,10 +1,12 @@
 package monkWT;
 
+
 import javax.swing.SwingUtilities;
 
 
 import monkWT.controller.Controller;
 import monkWT.model.Model;
+import monkWT.model.Model.State;
 import monkWT.view.View;
 
 public class Game {
@@ -18,34 +20,16 @@ public class Game {
 	static int TICKS = 0;
 	
 	
+	   
 	public Game(){
 	     gameInit();
 	     gameStart();
-		
-		
-		
-		/*;
-	   
-	      // UI components
-	      canvas = new GameCanvas();
-	      canvas.setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
-	      this.setContentPane(canvas);
-	      // Other UI components such as button, score board, if any.
-	      // ......
-	      this.setIconImage(gameIcon);
-	      this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	      this.pack();
-	      //do most things after packing it
-	      this.setLocationRelativeTo(null);
-	      this.setTitle("Monk: Worldly Things");
-	      this.setVisible(true);
-	      
-	      gameStart();*/
 	   }
 	private void gameInit(){
 		model = new Model();
 		view = new View(model);
 		controller = new Controller(model, view);
+		model.setState(State.INITIALIZED);
 	}
 	private void gameStart(){
 		Thread gameThread =  new Thread() {
@@ -60,8 +44,6 @@ public class Game {
 	}
 	private void gameLoop(){
 		long beginTime, timeTaken, timeLeft;
-		
-		
 		while(true){
 			beginTime = System.nanoTime();
 			
@@ -77,7 +59,9 @@ public class Game {
 	        try{
 	        	// Provides the necessary delay and also yields control so that other thread can do work.
 	            Thread.sleep(timeLeft);
-	         }catch(InterruptedException ex) { }
+	         }catch(InterruptedException ex){
+	        	 System.out.println("ERROR: Thread Interupted.");
+	         }
 		}
 	}
 	
@@ -86,7 +70,7 @@ public class Game {
 	      SwingUtilities.invokeLater(new Runnable() {
 	         @Override
 	         public void run() {
-	            new Main();
+	            new Game();
 	         }
 	      });
 	}

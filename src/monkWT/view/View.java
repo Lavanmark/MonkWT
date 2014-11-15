@@ -1,9 +1,10 @@
 package monkWT.view;
 
+
 import monkWT.controller.MonkKeyListener;
 import monkWT.controller.MonkMouseListener;
 import monkWT.model.Model;
-
+import monkWT.model.Model.State;;
 
 
 public class View {
@@ -14,16 +15,12 @@ public class View {
 	private MonkKeyListener contrlMKL;
 	private MonkMouseListener contrlMML;
 	
-	static enum State {
-	      INITIALIZED, MENU, LOAD, STARTNEW, PLAYING, INVENTORY, PAUSED, GAMEOVER, DESTROYED
-	   }
-	static State state;   // current state of the game
 	
 	public View(Model model){
 		mainModel = model;
 		frame = new ViewFrame();
 		frame.linkModel(mainModel);
-		state = State.MENU;
+		mainModel.setState(State.MENU);
 	}
 	
 	public void linkMKL(MonkKeyListener p){
@@ -38,4 +35,5 @@ public class View {
 	public void update(){
 		frame.update();
 	}
+	
 }

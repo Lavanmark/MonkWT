@@ -73,7 +73,8 @@ public class Main extends JFrame {
 	   
 	   
 	   
-	   // Handle for the custom drawing panel
+	   // Handle for the custom import monkWT.Main.State;
+	   //drawing panel
 	   private GameCanvas canvas;
 	   
 	   // Constructor to initialize the UI components and game objects
@@ -1259,7 +1260,7 @@ public class Main extends JFrame {
 	   }
 	   
 	   // main
-	   public static void main(String[] args) {
+	  /* public static void main(String[] args) {
 	      // Use the event dispatch thread to build the UI for thread-safety.
 	      SwingUtilities.invokeLater(new Runnable() {
 	         @Override
@@ -1267,6 +1268,6 @@ public class Main extends JFrame {
 	            new Main();
 	         }
 	      });
-	   }
+	   }*/
   
 }
