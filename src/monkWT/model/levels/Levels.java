@@ -22,9 +22,9 @@ public class Levels {
 		public Rectangle[] city1Blocks = new Rectangle[1200];
 		
 		//player local
-		public int playerInSec;
-		public int playerInCity = 1;
-		public boolean playerInside = false;
+		private int playerInSec;
+		private int playerInCity = 1;
+		private boolean playerInside = false;
 		
 		//city info
 		public int cityDeaths;
@@ -45,9 +45,9 @@ public class Levels {
 		public void setBuildingEnt(int buildingNum){
 			c1i.setBuildingEnt(buildingNum);
 			if(buildingNum == 0){
-				playerInside = false;
+				setPlayerInside(false);
 			}else{
-				playerInside = true;
+				setPlayerInside(true);
 			}
 		}
 		public void loadCity(int whichCity){
@@ -487,7 +487,7 @@ public class Levels {
 		public void loadCity16(){
 			int arrayNum = 1200;
 			int s = 5;
-			playerInSec = 6;
+			//setSecIn(6);
 			
 			for(int i=0; i<arrayNum; i++){
 				//grass
@@ -855,7 +855,7 @@ public class Levels {
 				}
 				//fence
 				if(i > 1159 && i < 1200){
-					city1[s][i] = TILE_GRASS_FENCE_HORZ;
+					city1[s][i] = TILE_GRASS_FENCE_HORZ;9
 					
 				}
 				
@@ -938,9 +938,9 @@ public class Levels {
 		*/
 		
 		public void draw(Graphics g){
-			int s = playerInSec-1;
-			if(playerInCity == 1){
-				if(playerInside){
+			int s = getSecIn()-1;
+			if(getCityIn() == 1){
+				if(isPlayerInside()){
 					c1i.draw(g);
 				}else{
 					for(int i = 0; i < 1200; i++){
@@ -955,17 +955,35 @@ public class Levels {
 			
 		}
 		public void drawTrees(Graphics g){
-			if(playerInCity == 1){
-				if(playerInside){
+			if(getCityIn() == 1){
+				if(isPlayerInside()){
 					
 				}else{
-					int s = playerInSec-1;
+					int s = getSecIn()-1;
 					for(int i = 0; i < 1200; i++){
 						if(s>5)
 							g.drawImage(city1Tree[s][i].getImage(), city1Blocks[i].x, city1Blocks[i].y, null);
 					}
 				}
 			}
+		}
+		public int getSecIn() {
+			return playerInSec;
+		}
+		public void setSecIn(int playerInSec) {
+			this.playerInSec = playerInSec;
+		}
+		public int getCityIn() {
+			return playerInCity;
+		}
+		public void setCityIn(int playerInCity) {
+			this.playerInCity = playerInCity;
+		}
+		public boolean isPlayerInside() {
+			return playerInside;
+		}
+		public void setPlayerInside(boolean playerInside) {
+			this.playerInside = playerInside;
 		}
 }
 	

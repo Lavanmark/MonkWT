@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import monkWT.Main;
 import monkWT.model.Item;
 import resources.ResourceLoader;
 
@@ -82,7 +78,7 @@ public class HUD {
 			dagger = new Item(020,25,100,rl.getIcon("daggerIcon.png"),"dagger",0,0,10,5);
 			spoon =  new Item(001,5,100,rl.getIcon("spoonIcon.png"),"spoon",0,0,10,4);
 		}catch(IOException e){
-			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, e);
+
 		}
 		for(int i = 0; i < inventory.length; i++){
 			inventory[i] = empty;

@@ -45,9 +45,9 @@ public class Controller {
 		case LOAD:
 			//TODO finish load
 		    //load the game then start it
+			mainView.update();
 			mainModel.prepareLoad(saveLoad);
 			mainModel.update();
-			mainView.update();
 			mainModel.setState(State.PLAYING);
 			System.out.println("LOADED");
 			break;

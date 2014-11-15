@@ -63,15 +63,11 @@ public class Model {
 		 checkDoor();
 		 //Update the player
 		 player.update();
-		 //Double check that all player section is the same across the system
-		 if(player.currentSec != lvl.playerInSec){
-			 lvl.playerInSec = player.currentSec;
-			 //make the sign disappear if the section changed
-			 player.HUD.dispSignText = false;
-		 }
 		 //Double check that the city your in is the same as it says across the system
-		 if(player.currentCity != lvl.playerInCity){
-			 lvl.playerInCity = player.currentCity;
+		 //does not actually do anything yet. 
+		 //probably take it out until a second city is there.
+		 if(player.currentCity != lvl.getCityIn()){
+			 lvl.setCityIn(player.currentCity);
 			 player.HUD.setCityName(player.currentCity);
 		 }
 		 //sync the HUD cash and hand cash
@@ -107,8 +103,8 @@ public class Model {
 			if(playerLocalRightTop < 0){playerLocalRightTop += 40;}
 		   
 		   //TODO adding doors sucks. make it better
-		   if(lvl.playerInCity == 1){
-			   if(lvl.playerInside){
+		   if(lvl.getCityIn() == 1){
+			   if(lvl.isPlayerInside()){
 				   //Building 12 : Large Orange House Left Side
 				   if(player.buildingIn == 12){
 					   if(playerLocalLeftBtm == 579 || playerLocalRightBtm == 579
@@ -222,16 +218,16 @@ public class Model {
 					   }
 				   }
 			   }else{
-				   if(lvl.playerInSec == 1){
+				   if(lvl.getSecIn() == 1){
 					   
 				   }
-				   if(lvl.playerInSec == 2){
+				   if(lvl.getSecIn() == 2){
 					   
 				   }
-				   if(lvl.playerInSec == 3){
+				   if(lvl.getSecIn() == 3){
 					   
 				   }
-				   if(lvl.playerInSec == 4){
+				   if(lvl.getSecIn() == 4){
 					   //Building 12 : Large Orange House Left Side
 					   if(playerLocalLeftTop == 165 || playerLocalRightTop == 165
 							   || playerLocalLeftTop == 166 || playerLocalRightTop == 166){
@@ -304,7 +300,7 @@ public class Model {
 					   }
 					   
 				   }
-				   if(lvl.playerInSec == 5){
+				   if(lvl.getSecIn() == 5){
 					   //Building 21 : Club
 					   if(playerLocalRightTop == 264 || playerLocalRightBtm == 264 
 							   || playerLocalRightTop == 304 || playerLocalRightBtm == 304
@@ -316,7 +312,7 @@ public class Model {
 						   stopSprint();
 					   }
 				   }
-				   if(lvl.playerInSec == 6){
+				   if(lvl.getSecIn() == 6){
 					   if((playerLocalRightBtm > 848 && playerLocalRightBtm < 855 ) || (playerLocalLeftBtm > 848 && playerLocalLeftBtm < 855)){
 						   int xDist = -80;
 						   int yDist = -40;
@@ -325,13 +321,13 @@ public class Model {
 						   stopSprint();
 					   }
 				   }
-				   if(lvl.playerInSec == 7){
+				   if(lvl.getSecIn() == 7){
 					   
 				   }
-				   if(lvl.playerInSec == 8){
+				   if(lvl.getSecIn() == 8){
 					   
 				   }
-				   if(lvl.playerInSec == 9){
+				   if(lvl.getSecIn() == 9){
 					   
 				   }	   
 			   }
@@ -478,13 +474,12 @@ public class Model {
 		//load levels
 		lvl.cityDeaths = contrlSaveLoad.getDeaths();
 		lvl.loadCity(currentCity);
-		lvl.playerInSec = currentLvl;
+		lvl.setSecIn(currentLvl);
 		lvl.setBuildingEnt(contrlSaveLoad.getBuilding());
 		lvl.ownerHouse = contrlSaveLoad.getOwners();
 		//load player
 		player.playerInitialize(currentCity);
 		player.currentCity = currentCity;
-		player.currentSec = currentLvl;
 		player.buildingIn = contrlSaveLoad.getBuilding();
 		player.outside = contrlSaveLoad.getOutside();
 		player.entBuilding(contrlSaveLoad.getBuilding(),0,0);
@@ -492,7 +487,7 @@ public class Model {
 		player.setDeathsForColl(contrlSaveLoad.getDeaths());
 		//load HUD
 		player.HUD.HUDInitialize();
-		player.HUD.setCityName(lvl.playerInCity);
+		player.HUD.setCityName(lvl.getCityIn());
 		player.HUD.setQuest(getCurrentQuest());
 		player.HUD.cash = getHandCash();
 		int[] tempSlist = contrlSaveLoad.getInv();

@@ -2,10 +2,6 @@ package monkWT.model;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import monkWT.Main;
 import monkWT.controller.SheetGrabber;
 import resources.ResourceLoader;
 
@@ -54,7 +50,7 @@ public class TileLoader {
 				try{
 					tiles = rl.getSquares("squareSheet.png");
 				}catch(IOException ex){
-					Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+					
 				}
 				SheetGrabber sg1 = new SheetGrabber(tiles);
 				tileArray[0] = TILE_GRASS_BASIC = new Tile(false, false, 0, 0, sg1,0);
@@ -139,7 +135,7 @@ public class TileLoader {
 				try{
 					tiles = rl.getSquares("squareSheet.png");
 				}catch(IOException ex){
-					Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+
 				}
 				SheetGrabber sg1 = new SheetGrabber(tiles);
 				int loc = 1000;

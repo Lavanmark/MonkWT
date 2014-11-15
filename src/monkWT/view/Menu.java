@@ -68,7 +68,7 @@ public class Menu {
 		
 	}
 	public void drawLoad(Graphics g){
-		
    	 	g.drawImage(loadImg, 50, 250, null);
+   	 	System.out.println("load drawn");
 	}
 }

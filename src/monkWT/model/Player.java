@@ -29,7 +29,7 @@ public class Player {
 	public Rectangle playerFeet;
 	
 	public int currentCity;
-	public int currentSec;
+	
 	public int buildingIn;
 	public boolean justChanged = false;
 	public boolean outside = true;
@@ -500,16 +500,16 @@ public class Player {
 				//TODO add monestary chairs. this is a pain in the butt. change how chairs work?
 				
 			}else{
-				if(currentSec == 1){
+				if(lvl.getSecIn() == 1){
 					
 				}
-				if(currentSec == 2){
+				if(lvl.getSecIn() == 2){
 					
 				}
-				if(currentSec == 3){
+				if(lvl.getSecIn() == 3){
 					
 				}
-				if(currentSec == 4){					
+				if(lvl.getSecIn() == 4){					
 					if(nearChair(567)){
 						pDir = 0; 
 						setCharLoc(144,282);
@@ -522,7 +522,7 @@ public class Player {
 						sittingDown = true;
 					}
 				}
-				if(currentSec == 5){
+				if(lvl.getSecIn() == 5){
 					if(nearChair(733)){
 						pDir = 1; 
 						setCharLoc(264,362);
@@ -546,7 +546,7 @@ public class Player {
 						sittingUp = true;
 					}
 				}
-				if(currentSec == 6){
+				if(lvl.getSecIn() == 6){
 					if(nearChair(41)){
 						pDir = 0; 
 						setCharLoc(24,22);
@@ -559,10 +559,10 @@ public class Player {
 						sittingDown = true;
 					}
 				}
-				if(currentSec == 7){
+				if(lvl.getSecIn() == 7){
 					
 				}
-				if(currentSec == 8){
+				if(lvl.getSecIn() == 8){
 					if(nearChair(496)){
 						pDir = 0; 
 						setCharLoc(324,240);
@@ -586,7 +586,7 @@ public class Player {
 						sittingUp = true;
 					}
 				}
-				if(currentSec == 9){
+				if(lvl.getSecIn() == 9){
 					
 				}
 			}
@@ -659,8 +659,8 @@ public class Player {
 						playerRight.y = uColRH - 15;
 						playerTop.y = uColRH - 15;
 						playerFeet.y = uColRH;
-						lvl.playerInSec = 3;
-						currentSec = 3;
+						lvl.setSecIn(3);
+						lvl.setSecIn(3);
 						doIt = true;
 					}
 				}
@@ -672,8 +672,8 @@ public class Player {
 						playerRight.x = lColRH;
 						playerTop.x = lColRH;
 						playerFeet.x = lColRH;
-						lvl.playerInSec = 5;
-						currentSec = 5;
+						lvl.setSecIn(5);
+						lvl.setSecIn(5);
 						doIt = true;
 					}
 				}
@@ -696,7 +696,7 @@ public class Player {
 	}
 	
 	public void checkCollisionsOut(){
-		int s = currentSec-1;
+		int s = lvl.getSecIn()-1;
 		
 		int playerLocalLeftTop = ((((playerTop.y/20) * 40) ) + (playerTop.x/20) ); 
 		int playerLocalRightTop = ((((playerTop.y/20) * 40) ) + ((playerTop.x + 14)/20) );
@@ -748,10 +748,9 @@ public class Player {
 				if(playerTop.y < 2 && !justChanged){
 					
 					//if that then check for solid and if not solid move up section
-					if(currentSec > 3){
+					if(lvl.getSecIn() > 3){
 						if(!lvl.city1[s][playerLocalLeftTop].isSolid() && !lvl.city1[s][playerLocalRightTop].isSolid()){
-							lvl.playerInSec -= 3;
-							currentSec -= 3;
+							lvl.setSecIn(lvl.getSecIn() - 3);
 							justChanged = true;
 							playerRect.y = uColRH - 15;//- height
 							playerLeft.y = uColRH - 15;
@@ -759,6 +758,7 @@ public class Player {
 							playerTop.y = uColRH - 15;
 							playerFeet.y = uColRH;
 							justChanged = true;
+							HUD.dispSignText = false;
 						}else {
 							
 						}
@@ -768,10 +768,10 @@ public class Player {
 				//bottom wall check
 				if(playerFeet.y > 598 && (playerFeet.y+14) > 598 && !justChanged){
 					//if that then check for solid and if not solid move down section
-					if(currentSec < 7){
+					if(lvl.getSecIn() < 7){
 						if(!lvl.city1[s][playerLocalLeftBtm].isSolid() && !lvl.city1[s][playerLocalRightBtm].isSolid() && !justChanged){
 							
-							if(currentSec == 3){
+							if(lvl.getSecIn() == 3){
 								justChanged = true;
 								playerRect.y = dColRH;
 								playerLeft.y = dColRH;
@@ -779,12 +779,10 @@ public class Player {
 								playerTop.y = dColRH;
 								playerFeet.y = dColRH + 15;//+ height
 								if(!preCheck(1,6,3)){
-									lvl.playerInSec += 3;
-									currentSec += 3;
+									lvl.setSecIn(lvl.getSecIn() + 3);
 								}
 							}else{
-								lvl.playerInSec += 3;
-								currentSec += 3;
+								lvl.setSecIn(lvl.getSecIn() + 3);
 								justChanged = true;
 								playerRect.y = dColRH;
 								playerLeft.y = dColRH;
@@ -792,6 +790,7 @@ public class Player {
 								playerTop.y = dColRH;
 								playerFeet.y = dColRH + 15;//+ height
 								justChanged = true;
+								HUD.dispSignText = false;
 							}
 						}else{
 							
@@ -802,17 +801,16 @@ public class Player {
 				if(playerFeet.x < 2 && playerTop.x < 2 && !justChanged){
 					
 					//if that then check for solid and if not solid move down section
-					if(currentSec != 1 && currentSec != 4 && currentSec != 7){
+					if(lvl.getSecIn() != 1 && lvl.getSecIn() != 4 && lvl.getSecIn() != 7){
 						if(!lvl.city1[s][playerLocalLeftBtm].isSolid() && !lvl.city1[s][playerLocalLeftTop].isSolid() && !justChanged){
-							lvl.playerInSec -= 1;
-							currentSec -= 1;
-							
+							lvl.setSecIn(lvl.getSecIn() - 1);							
 							playerRect.x = lColRH;
 							playerLeft.x = lColRH;
 							playerRight.x = lColRH;
 							playerTop.x = lColRH;
 							playerFeet.x = lColRH;
 							justChanged = true;
+							HUD.dispSignText = false;
 						}else {
 						
 						}
@@ -824,10 +822,10 @@ public class Player {
 					//if that then check for solid and if not solid move down section
 					
 					//if you go to the bottom and you hit the right wall and bottom wall you get an error
-					if(currentSec != 3 && currentSec != 6 && currentSec != 9){
+					if(lvl.getSecIn() != 3 && lvl.getSecIn() != 6 && lvl.getSecIn() != 9){
 						if(!lvl.city1[s][playerLocalRightBtm].isSolid() && !lvl.city1[s][playerLocalRightTop].isSolid() && !justChanged){
 
-							if(currentSec == 5){
+							if(lvl.getSecIn() == 5){
 								justChanged = true;
 								playerRect.x = rColRH;
 								playerLeft.x = rColRH;
@@ -835,12 +833,10 @@ public class Player {
 								playerTop.x = rColRH;
 								playerFeet.x = rColRH;
 								if(!preCheck(1,6,5)){
-									lvl.playerInSec += 1;
-									currentSec += 1;
+									lvl.setSecIn(lvl.getSecIn() + 1);
 								}
 							}else{
-								lvl.playerInSec += 1;
-								currentSec += 1;								
+								lvl.setSecIn(lvl.getSecIn() + 1);
 								justChanged = true;
 								playerRect.x = rColRH;
 								playerLeft.x = rColRH;
@@ -848,6 +844,7 @@ public class Player {
 								playerTop.x = rColRH;
 								playerFeet.x = rColRH;
 								justChanged = true;
+								HUD.dispSignText = false;
 							}
 						}else{
 							
