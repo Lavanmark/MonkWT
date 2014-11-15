@@ -14,17 +14,19 @@ public class Controller {
 	private View mainView;
 	private MonkKeyListener monkKL;
 	private MonkMouseListener monkML;
+	private SaveLoad saveLoad;
 	
 	
 	
 	public Controller(Model model, View view){
 		mainModel = model;
 		mainView = view;
-		
+		saveLoad = new SaveLoad();
 		monkKL = new MonkKeyListener(mainModel);
-		monkML = new MonkMouseListener();
+		monkML = new MonkMouseListener(mainModel);
 		mainView.linkMKL(monkKL);
 		mainView.linkMML(monkML);
+		monkKL.setSaveLoad(saveLoad);
 	}
 	
 	
@@ -43,10 +45,11 @@ public class Controller {
 		case LOAD:
 			//TODO finish load
 		    //load the game then start it
-			
+			mainModel.prepareLoad(saveLoad);
 			mainModel.update();
 			mainView.update();
 			mainModel.setState(State.PLAYING);
+			System.out.println("LOADED");
 			break;
 		case PLAYING:
 			mainModel.update();
@@ -54,7 +57,8 @@ public class Controller {
 			break;
 		case INVENTORY:
         	// during the inventory state do this stuff
-
+			mainModel.update();
+			mainView.update();
 			break;
 		case PAUSED:
 			// while paused do this stuff

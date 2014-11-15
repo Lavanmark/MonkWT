@@ -30,6 +30,7 @@ public class View {
 	public void linkMML(MonkMouseListener p){
 		contrlMML = p;
 		frame.linkMMLtoJF(contrlMML);
+	    contrlMML.setMenu(frame.getMenu());
 	}
 	
 	public void update(){

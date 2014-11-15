@@ -1,8 +1,11 @@
-package monkWT.model;
+package monkWT.model.levels;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.IOException;
+
+import monkWT.model.Tile;
+import monkWT.model.TileLoader;
 import resources.ResourceLoader;
 
 
@@ -185,7 +188,8 @@ public class Levels {
 				if(i > 0 && i < 40){
 					city1[s][i] = TILE_GRASS_FENCE_HORZ;
 				}
-				if(i == 0){
+				if(i == 0){, "city1s9tree");
+				} catch (IOException e) {
 					city1[s][i] = TILE_GRASS_FENCE_TLC;
 				}
 				//grey path
@@ -254,7 +258,8 @@ public class Levels {
 					city1[s][i] = TILE_DOOR_HOUSE_WHITE_PAT_BLUE_RIGHT;
 				}rl.saveMap(city1Inside[17], "city1iBusStation");
 				//grey pathi > 848 && i < 855)
-				if(i >= 600 && i<=639 || i>= 640 && i <= 679 || i >= 680 && i <= 719 || i > 858 && i < 862 
+				if(i >= 600 && i<=639 || i>, "city1s9tree");
+				} catch (IOException e) {= 640 && i <= 679 || i >= 680 && i <= 719 || i > 858 && i < 862 
 						|| i > 898 && i < 902 || i > 938 && i < 942 || i > 818 && i < 822 || i > 778 && i < 782 || i > 737 && i < 743 
 						|| i > 577 && i < 583 || i > 978 && i < 982 || i > 1018 && i < 1022 || i > 1058 && i < 1062 || i > 1098 && i < 1102 
 						|| i > 1138 && i < 1142 || i > 1178 && i < 1182 || i > 497 && i < 503 || i > 538 && i < 542 || i > 768 && i < 771
@@ -279,7 +284,8 @@ public class Levels {
 			int s = 2;
 			playerInSec = 3;
 			
-			
+			, "city1s9tree");
+				} catch (IOException e) {
 			for(int i=0; i<arrayNum; i++){
 				
 				//grass
@@ -309,7 +315,8 @@ public class Levels {
 					city1[s][i] = TILE_HOUSE_LBLUE;
 				}
 				if(i > 448 && i < 455){
-					city1[s][i] = TILE_DOOR_HOUSE_LBLUE_DOWN;
+					city1[s][i] = TILE_DOOR_, "city1s9tree");
+				} catch (IOException e) {HOUSE_LBLUE_DOWN;
 				}
 				if(i == 905 || i == 945 || i == 985){
 					city1[s][i] = TILE_DOOR_HOUSE_LBLUE_LEFT;
@@ -407,7 +414,8 @@ public class Levels {
 				if(i == 765 || i == 817 || i == 225 || i == 234 || i == 345 || i == 354 || i == 204 || i == 212){
 					city1[s][i] = TILE_GRASS_SIGN;
 				}
-				
+				, "city1s9tree");
+				} catch (IOException e) {
 			}
 			if(city1[s][1100].getImage() != null){
 				System.out.println("the image 4 is good");
@@ -441,7 +449,8 @@ public class Levels {
 				}
 				if(i == 264 || i == 304 || i == 344){
 					city1[s][i] = TILE_DOOR_HOUSE_BLACK_PAT_GREY;
-				}
+				}, "city1s9tree");
+				} catch (IOException e) {
 				//town hall
 				if(i > 803 && i < 836 || i > 843 && i < 876 || i > 883 && i < 916 || i > 923 && i < 956 || i > 963 && i < 996
 						|| i > 1003 && i < 1036 || i > 1043 && i < 1076 || i > 1083 && i < 1116 ){

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import monkWT.model.levels.Levels;
 import monkWT.view.HUD;
 
 import resources.ResourceLoader;
@@ -12,7 +13,7 @@ import resources.ResourceLoader;
 public class Player {
 
 	
-	private Levels lvl = new Levels();;
+	private Levels lvl;
 	public HUD HUD = new HUD();
 	
 	private ResourceLoader rl = new ResourceLoader();
@@ -20,12 +21,12 @@ public class Player {
 	private BufferedImage monkDown, monkUp, monkLeft, monkRight;
 	
 	// 0 = down 1 = up  2 = left  3 = right  
-	int pDir = 0;
-	Rectangle playerRect;
-	Rectangle playerLeft;
-	Rectangle playerRight;
-	Rectangle playerTop;
-	Rectangle playerFeet;
+	public int pDir = 0;
+	public Rectangle playerRect;
+	public Rectangle playerLeft;
+	public Rectangle playerRight;
+	public Rectangle playerTop;
+	public Rectangle playerFeet;
 	
 	public int currentCity;
 	public int currentSec;
@@ -42,6 +43,10 @@ public class Player {
 	
 	public int xDirection = 0, yDirection = 0;
 	private final int dColRH = 2, uColRH = 598, rColRH = 5, lColRH = 777;
+	
+	public Player(Levels l){
+		lvl = l;
+	}
 	
 	//initialize player variables
 	public void playerInitialize(int whichCity){
@@ -99,6 +104,39 @@ public class Player {
 	public void update(){
 		movePlayer();
 	}
+	
+	public void openInventory(){
+		HUD.dispInv = true;
+	   	HUD.dispSignText = false;
+	   	if(HUD.inMouse != HUD.empty){
+	   		//if bag is closed with object in hand then put it in first open one
+			for(int i = 1; i < HUD.inventory.length; i++){
+				if(HUD.inventory[i].getItemNum() == HUD.empty.getItemNum()){
+					HUD.inventory[i] = HUD.inMouse;
+				 	HUD.inMouse = HUD.empty;
+				}
+			}
+			if(HUD.inMouse != HUD.empty && HUD.inventory[0] == HUD.empty){
+			 	HUD.inventory[0] = HUD.inMouse;
+			}
+		}
+	}
+	public void closeInventory(){
+		HUD.dispInv = false;
+		if(HUD.inMouse != HUD.empty){
+			//if bag is closed with object in hand then put it in first open one
+			for(int i = 1; i < HUD.inventory.length; i++){
+				if(HUD.inventory[i].getItemNum() == HUD.empty.getItemNum()){
+					HUD.inventory[i] = HUD.inMouse;
+					HUD.inMouse = HUD.empty;
+				}
+			}
+			if(HUD.inMouse != HUD.empty && HUD.inventory[0] == HUD.empty){
+				HUD.inventory[0] = HUD.inMouse;
+			}
+		}
+	}
+	
 	
 	//checks if the player is near a chair
 	private boolean nearChair(int chairLoc){

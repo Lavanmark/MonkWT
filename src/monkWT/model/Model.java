@@ -5,6 +5,7 @@ import java.io.IOException;
 import resources.ResourceLoader;
 
 import monkWT.controller.SaveLoad;
+import monkWT.model.levels.Levels;
 
 
 
@@ -17,6 +18,7 @@ public class Model {
 	private Levels lvl;
 	private Player player;
 	private ResourceLoader rl = new ResourceLoader();
+	
 	
 	public enum State {
 		INITIALIZED, MENU, LOAD, STARTNEW, PLAYING, INVENTORY, PAUSED, GAMEOVER, DESTROYED
@@ -33,16 +35,19 @@ public class Model {
 	
 	public Model(){
 		lvl = new Levels();
-		player = new Player();
+		player = new Player(lvl);
+		setState(State.INITIALIZED);
 	}
-	
 	
 	public void update(){
 		switch(getState()){
-		case INITIALIZED:
+		case LOAD:
 			loadGame();
 		  	setState(State.PLAYING);
 		  	break;
+		case PLAYING:
+			gameUpdate();
+			break;
 		default:
 			break;
 		}
@@ -70,7 +75,7 @@ public class Model {
 			 player.HUD.setCityName(player.currentCity);
 		 }
 		 //sync the HUD cash and hand cash
-		 handCash = player.HUD.cash;
+		 setHandCash(player.HUD.cash);
 		 //check for lives
 		 if(player.lives < 0){
 			 setState(State.GAMEOVER);
@@ -248,6 +253,7 @@ public class Model {
 					   //Building 14 : Small Orange House Top Left Side
 					   if(playerLocalLeftTop == 186 || playerLocalRightTop == 186){
 						   int xDist = -120;
+						   
 						   int yDist = 160;
 						   lvl.setBuildingEnt(14);
 						   player.entBuilding(14, xDist, yDist);
@@ -466,9 +472,9 @@ public class Model {
 	  	  //load main
 		currentCity = contrlSaveLoad.getCity();
 		currentLvl = contrlSaveLoad.getSec();
-		handCash = contrlSaveLoad.getCash();
-		bankCash = contrlSaveLoad.getBankCash();
-		currentQuest = contrlSaveLoad.getQuest();
+		setHandCash(contrlSaveLoad.getCash());
+		setBankCash(contrlSaveLoad.getBankCash());
+		setCurrentQuest(contrlSaveLoad.getQuest());
 		//load levels
 		lvl.cityDeaths = contrlSaveLoad.getDeaths();
 		lvl.loadCity(currentCity);
@@ -487,8 +493,8 @@ public class Model {
 		//load HUD
 		player.HUD.HUDInitialize();
 		player.HUD.setCityName(lvl.playerInCity);
-		player.HUD.setQuest(currentQuest);
-		player.HUD.cash = handCash;
+		player.HUD.setQuest(getCurrentQuest());
+		player.HUD.cash = getHandCash();
 		int[] tempSlist = contrlSaveLoad.getInv();
 		//Reset all items
 		for(int i = 0; i < tempSlist.length; i++){
@@ -531,8 +537,38 @@ public class Model {
 	public State getState() {
 		return state;
 	}
-	public  void setState(State state) {
+	public void setState(State state) {
 		this.state = state;
+	}
+
+
+	public double getHandCash() {
+		return handCash;
+	}
+
+
+	public void setHandCash(double handCash) {
+		this.handCash = handCash;
+	}
+
+
+	public int getCurrentQuest() {
+		return currentQuest;
+	}
+
+
+	public void setCurrentQuest(int currentQuest) {
+		this.currentQuest = currentQuest;
+	}
+
+
+	public double getBankCash() {
+		return bankCash;
+	}
+
+
+	public void setBankCash(double bankCash) {
+		this.bankCash = bankCash;
 	}
 	
 	

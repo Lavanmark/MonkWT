@@ -21,8 +21,8 @@ import javax.swing.SwingUtilities;
 
 import monkWT.controller.SaveLoad;
 import monkWT.model.Item;
-import monkWT.model.Levels;
 import monkWT.model.Player;
+import monkWT.model.levels.Levels;
 import monkWT.view.Menu;
 
 
@@ -106,7 +106,7 @@ public class Main extends JFrame {
 		   
 		   menu = new Menu();
 		   lvl = new Levels();
-		   player = new Player();
+		   player = new Player(lvl);
 		   saveLoad = new SaveLoad();
 		   
 		   state = State.INITIALIZED;
@@ -811,7 +811,7 @@ public class Main extends JFrame {
 			        	 player.HUD.dispSignText = false;
 			        	 if(player.HUD.inMouse != player.HUD.empty){
 							 for(int i = 1; i < player.HUD.inventory.length; i++){
-								 //if bag is closed with object in hand then put it in first open one
+								 //if bag is cloplayer.
 								 if(player.HUD.inventory[i].getItemNum() == player.HUD.empty.getItemNum()){
 									 player.HUD.inventory[i] = player.HUD.inMouse;
 									 player.HUD.inMouse = player.HUD.empty;

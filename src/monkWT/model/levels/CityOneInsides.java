@@ -1,8 +1,11 @@
-package monkWT.model;
+package monkWT.model.levels;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.IOException;
+
+import monkWT.model.Tile;
+import monkWT.model.TileLoader;
 
 import resources.ResourceLoader;
 

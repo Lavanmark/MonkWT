@@ -48,7 +48,7 @@ public class ViewFrame extends JFrame{
 	      this.setLocationRelativeTo(null);
 	      this.setTitle("Monk: Worldly Things");
 	      this.setVisible(true);
-	      menu = new Menu();
+	      setMenu(new Menu());
 	}
 	public void update(){
 		repaint();
@@ -61,11 +61,11 @@ public class ViewFrame extends JFrame{
            break;
         case MENU:
        	 //draw the menu
-       	 menu.drawMain(g2d);
+       	 getMenu().drawMain(g2d);
        	break;
         case LOAD:
        	 //draw the load thing while its loading 
-       	 menu.drawLoad(g2d);
+       	 getMenu().drawLoad(g2d);
        	 break;
         case PLAYING:
             //draw the main map
@@ -92,7 +92,7 @@ public class ViewFrame extends JFrame{
        	 mainModel.getPlayer().HUD.draw(g2d);
            break;
         case GAMEOVER:
-           menu.drawMain(g2d);
+           getMenu().drawMain(g2d);
            break;
 	default:
 		break;
@@ -111,6 +111,13 @@ public class ViewFrame extends JFrame{
 		mainModel = m;
 	}
 	
+	public Menu getMenu() {
+		return menu;
+	}
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+
 	class GameCanvas extends JPanel {
 
 		private static final long serialVersionUID = 1L;
@@ -134,7 +141,8 @@ public class ViewFrame extends JFrame{
 	        super.paintComponent(g2d);   // paint background
 	        setBackground(Color.BLACK);  // may use an image for background
 	        // Draw the game objects
-	        gameDraw(g2d);
+	        if(mainModel != null)
+	        	gameDraw(g2d);
 	     }
 		
 	}

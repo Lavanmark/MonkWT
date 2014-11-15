@@ -24,7 +24,7 @@ public class Game {
 	public Game(){
 	     gameInit();
 	     gameStart();
-	   }
+	}
 	private void gameInit(){
 		model = new Model();
 		view = new View(model);
