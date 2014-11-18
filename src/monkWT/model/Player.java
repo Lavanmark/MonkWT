@@ -104,8 +104,7 @@ public class Player {
 		sprintChecks();
 		//Stealth updating
 		stealthChecks();
-		//Check if hitting a door
-		
+		//Move the player + Collisions
 		movePlayer();
 	}
 	
@@ -150,7 +149,7 @@ public class Player {
 						   stopSprint();
 						   break;
 					   }
-				   } 
+				   }
 			   }
 		   }
 	   }
@@ -387,51 +386,78 @@ public class Player {
 			sittingRight = false;
 		}
 	}
+	private void makeSit(Chair chair){
+		pDir = chair.getPlayerSitDir();
+		setCharLoc(chair.getPlayerX(),chair.getPlayerY());
+		sitting = true;
+		sittingHigh = chair.isExtra();
+		if(chair.getChairDir() == 0){
+			sittingDown = true;
+		}else{
+			sittingDown = false;
+		}
+		if(chair.getChairDir() == 1){
+			sittingUp = true;
+		}else{
+			sittingUp = false;
+		}
+		if(chair.getChairDir() == 2){
+			sittingLeft = true;
+		}else{
+			sittingLeft = false;
+		}
+		if(chair.getChairDir() == 3){
+			sittingRight = true;
+		}else{
+			sittingRight = false;
+		}
+	}
 	
 	//called when player presses the sit button
 	public void checkChair(){
 		System.out.println("checking chair");
-		/*if(currentCity == 1){
+		
+		if(currentCity == 1){
 			if(lvl.isPlayerInside()){
 				//Building 12 : Large Orange House Left
-				if(buildingIn == 12){
+				if(lvl.c1i.getBuildingIn() == 12){
 					if(nearChair(420)){
 						makeSit(0,0,false,402,204);
 					}
 				}
 				//Building 13 : Large Orange House Right
-				if(buildingIn == 13){
+				if(lvl.c1i.getBuildingIn() == 13){
 					if(nearChair(420)){
 						makeSit(0,0,false,402,204);
 					}
 				}
 				//Building 14 : Small Orange House Top Left
-				if(buildingIn == 14){
+				if(lvl.c1i.getBuildingIn() == 14){
 					if(nearChair(420)){
 						makeSit(0,0,false,402,204);
 					}
 				}
 				//Building 15 : Small Orange House Top Right
-				if(buildingIn == 15){
+				if(lvl.c1i.getBuildingIn() == 15){
 					if(nearChair(420)){
 						makeSit(0,0,false,402,204);
 					}
 				}
 				//Building 16 : Small Orange House Bottom Left
-				if(buildingIn == 16){
+				if(lvl.c1i.getBuildingIn() == 16){
 					if(nearChair(540)){
 						makeSit(1,1,false,402,264);
 					}
 				}
 				//Building 17 : Small Orange House Bottom Right
-				if(buildingIn == 17){
+				if(lvl.c1i.getBuildingIn() == 17){
 					if(nearChair(540)){
 						makeSit(1,1,false,402,264);
 					}
 				}
 				//Building 18 : Bus Station
 				
-				if(buildingIn == 18){
+				if(lvl.c1i.getBuildingIn() == 18){
 					//Inside Benches
 					if(nearChair(821)){
 						makeSit(1,1,false,424,400);
@@ -467,7 +493,7 @@ public class Player {
 					}
 				}
 				//Building 19 : Hotel 
-				if(buildingIn == 19){
+				/*if(lvl.c1i.getBuildingIn() == 19){
 					//First Floor
 					if(lvl.c1i.buildingSubSec == 1){
 						//Lobby Couches
@@ -659,9 +685,9 @@ public class Player {
 							makeSit(2,2,false,682,540);
 						}
 					}
-				}
+				}*/
 				//Building 21 : Club
-				if(buildingIn == 21){
+				if(lvl.c1i.getBuildingIn() == 21){
 					//booths top left
 					if(nearChair(206)){
 						makeSit(3,0,false,120,100);
@@ -699,97 +725,18 @@ public class Player {
 				//TODO add monestary chairs. this is a pain in the butt. change how chairs work?
 				
 			}else{
-				if(lvl.getSecIn() == 1){
-					
-				}
-				if(lvl.getSecIn() == 2){
-					
-				}
-				if(lvl.getSecIn() == 3){
-					
-				}
-				if(lvl.getSecIn() == 4){					
-					if(nearChair(567)){
-						pDir = 0; 
-						setCharLoc(144,282);
-						sitting = true;
-						sittingDown = true;
-					}else if(nearChair(568)){
-						pDir = 0; 
-						setCharLoc(160,282); 
-						sitting = true; 
-						sittingDown = true;
+				if(lvl.chairsLvlOne.containsKey(lvl.getSecIn())){
+					System.out.println("found chair");
+					Set<Chair> checkChair = lvl.chairsLvlOne.get(lvl.getSecIn());
+					for(Chair c : checkChair){
+						if(nearChair(c.getChairLoc())){
+							makeSit(c);
+							break;
+						}
 					}
-				}
-				if(lvl.getSecIn() == 5){
-					if(nearChair(733)){
-						pDir = 1; 
-						setCharLoc(264,362);
-						sitting = true;
-						sittingUp = true;
-					}else if(nearChair(734)){
-						pDir = 1; 
-						setCharLoc(280,362); 
-						sitting = true; 
-						sittingUp = true;
-					}
-					if(nearChair(746)){
-						pDir = 1; 
-						setCharLoc(524,362);
-						sitting = true;
-						sittingUp = true;
-					}else if(nearChair(747)){
-						pDir = 1; 
-						setCharLoc(540,362); 
-						sitting = true; 
-						sittingUp = true;
-					}
-				}
-				if(lvl.getSecIn() == 6){
-					if(nearChair(41)){
-						pDir = 0; 
-						setCharLoc(24,22);
-						sitting = true;
-						sittingDown = true;
-					}else if(nearChair(42)){
-						pDir = 0; 
-						setCharLoc(40,22); 
-						sitting = true; 
-						sittingDown = true;
-					}
-				}
-				if(lvl.getSecIn() == 7){
-					
-				}
-				if(lvl.getSecIn() == 8){
-					if(nearChair(496)){
-						pDir = 0; 
-						setCharLoc(324,240);
-						sitting = true;
-						sittingUp = true;
-					}else if(nearChair(497)){
-						pDir = 0; 
-						setCharLoc(340,240); 
-						sitting = true; 
-						sittingUp = true;
-					}
-					if(nearChair(503)){
-						pDir = 0; 
-						setCharLoc(464,240);
-						sitting = true;
-						sittingUp = true;
-					}else if(nearChair(504)){
-						pDir = 0; 
-						setCharLoc(480,240); 
-						sitting = true; 
-						sittingUp = true;
-					}
-				}
-				if(lvl.getSecIn() == 9){
-					
 				}
 			}
-		}*/
+		}
 	}
 	
 	//called to check where it is sitting
@@ -826,7 +773,7 @@ public class Player {
 		}
 	}
 	
-	//used for checking if a fence or other object is in place.
+	//used for checking if a fence or other object is in place before moving across sections
 	private boolean preCheck(int cit, int lev, int ret){
 		boolean doIt = false;
 		int playerLocalLeftTop = ((((playerTop.y/20) * 40) ) + (playerTop.x/20) ); 
@@ -910,8 +857,9 @@ public class Player {
 			if(currentCity == 1){
 				if(!justChanged){
 					if(!sitting){
-						if(lvl.city1[s][playerLocalLeftTop].isDoor() || lvl.city1[s][playerLocalRightTop].isDoor() || lvl.city1[s][playerLocalLeftBtm].isDoor()
-								|| lvl.city1[s][playerLocalRightBtm].isDoor()){
+						if((lvl.city1[s][playerLocalLeftTop].isDoor() || lvl.city1[s][playerLocalRightTop].isDoor() || lvl.city1[s][playerLocalLeftBtm].isDoor()
+								|| lvl.city1[s][playerLocalRightBtm].isDoor())
+								&& lvl.doorsLvlOne.containsKey(lvl.c1i.getBuildingIn())){
 							checkDoor();
 						}else{
 							if(lvl.city1[s][playerLocalLeftTop].isSolid() || lvl.city1[s][playerLocalRightTop].isSolid() || lvl.city1[s][playerLocalLeftBtm].isSolid()
@@ -1091,10 +1039,10 @@ public class Player {
 					if(playerLeft.x < 0){
 						colLeftRight(3);
 					}
-					if(lvl.c1i.city1Inside[s][playerLocalLeftTop].isDoor() || lvl.c1i.city1Inside[s][playerLocalRightTop].isDoor() 
-							|| lvl.c1i.city1Inside[s][playerLocalLeftBtm].isDoor() || lvl.c1i.city1Inside[s][playerLocalRightBtm].isDoor()){
+					if((lvl.c1i.city1Inside[s][playerLocalLeftTop].isDoor() || lvl.c1i.city1Inside[s][playerLocalRightTop].isDoor() 
+							|| lvl.c1i.city1Inside[s][playerLocalLeftBtm].isDoor() || lvl.c1i.city1Inside[s][playerLocalRightBtm].isDoor()) 
+							&& lvl.c1i.doorsInsideOne.containsKey(lvl.c1i.getBuildingIn())){
 						checkDoor();
-						
 					}else{
 						if(lvl.c1i.city1Inside[s][playerLocalLeftTop].isSolid() || lvl.c1i.city1Inside[s][playerLocalRightTop].isSolid() 
 								|| lvl.c1i.city1Inside[s][playerLocalLeftBtm].isSolid() || lvl.c1i.city1Inside[s][playerLocalRightBtm].isSolid()){

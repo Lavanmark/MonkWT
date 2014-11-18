@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import monkWT.model.Chair;
 import monkWT.model.Door;
 import resources.ResourceLoader;
 
@@ -41,6 +42,7 @@ public class Levels {
 		//Doors
 			//map<(int) Map section, set of doors>
 		public HashMap<Integer, Set<Door>> doorsLvlOne = new HashMap<Integer, Set<Door>>();
+		public HashMap<Integer, Set<Chair>> chairsLvlOne = new HashMap<Integer, Set<Chair>>();
 		
 		
 		//class declarations
@@ -79,6 +81,7 @@ public class Levels {
 					e.printStackTrace();
 				}
 				addDoorsLvlOne();
+				addChairsLvlOne();
 				
 				spawnRect = new Rectangle(400, 243, 15, 15);
 		        spawnLeft = new Rectangle(400, 245, 1, 13);
@@ -113,7 +116,6 @@ public class Levels {
 					e.printStackTrace();
 				}*/
 				c1i.cityOneInsidesInit(tl);
-				c1i.addInsideDoors();
 			}
 			
 			if(whichCity == 2){
@@ -176,6 +178,38 @@ public class Levels {
 			doors.add(new Door(false, 855, 24, -80, -40));
 			
 			doorsLvlOne.put(6, doors);			
+		}
+		private void addChairsLvlOne(){
+			Set<Chair> chairs = new HashSet<Chair>();
+			
+			chairs.add(new Chair(567, 0, 0, false, 144, 282));
+			chairs.add(new Chair(568, 0, 0, false, 160, 282));
+			
+			chairsLvlOne.put(4, chairs);
+			chairs = new HashSet<Chair>();
+			
+			chairs.add(new Chair(733, 1, 1, false, 264, 362));
+			chairs.add(new Chair(734, 1, 1, false, 280, 362));
+			chairs.add(new Chair(746, 1, 1, false, 524, 362));
+			chairs.add(new Chair(747, 1, 1, false, 540, 362));
+
+			chairsLvlOne.put(5, chairs);
+			chairs = new HashSet<Chair>();
+			
+			chairs.add(new Chair(41, 0, 0, false, 24, 22));
+			chairs.add(new Chair(42, 0, 0, false, 40, 22));
+
+			chairsLvlOne.put(6, chairs);
+			chairs = new HashSet<Chair>();
+			
+			chairs.add(new Chair(496, 0, 0, false, 324, 240));
+			chairs.add(new Chair(497, 0, 0, false, 340, 240));
+			chairs.add(new Chair(503, 0, 0, false, 464, 240));
+			chairs.add(new Chair(504, 0, 0, false, 480, 240));
+			
+			chairsLvlOne.put(8, chairs);
+			chairs = new HashSet<Chair>();
+			
 		}
 		
 		//loads levels

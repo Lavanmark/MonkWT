@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import monkWT.model.Chair;
 import monkWT.model.Door;
 import resources.ResourceLoader;
 
@@ -39,7 +40,8 @@ public class CityOneInsides {
 	//Doors
 		//map<(int) Map section, set of doors>
 	public HashMap<Integer, Set<Door>> doorsInsideOne = new HashMap<Integer, Set<Door>>();
-	
+	public HashMap<Integer, Set<Chair>> chairsInsideOne = new HashMap<Integer, Set<Chair>>();
+
 	
 	
 	public void setBuildingEnt(int buildingNum){
@@ -98,6 +100,9 @@ public class CityOneInsides {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
+		
+		addInsideDoors();
+		addInsideChairs();
 	}
 	public Tile[] setMapSecs(int[] mapIn){
 		Tile[] m = new Tile[1200];
@@ -176,8 +181,329 @@ public class CityOneInsides {
 		doors.add(new Door(true, 605, 0, 340, -140));
 
 		doorsInsideOne.put(21, doors);
-		
 	}
+	
+	private void addInsideChairs(){
+		Set<Chair> chairs = new HashSet<Chair>();
+		
+		chairs.add(new Chair(567, 0, 0, false, 144, 282));
+		chairs.add(new Chair(568, 0, 0, false, 160, 282));
+		
+		chairsInsideOne.put(4, chairs);
+		chairs = new HashSet<Chair>();
+	}
+	
+	/*
+	 * 
+	 * //Building 12 : Large Orange House Left
+				if(lvl.c1i.getBuildingIn() == 12){
+					if(nearChair(420)){
+						makeSit(0,0,false,402,204);
+					}
+				}
+				//Building 13 : Large Orange House Right
+				if(lvl.c1i.getBuildingIn() == 13){
+					if(nearChair(420)){
+						makeSit(0,0,false,402,204);
+					}
+				}
+				//Building 14 : Small Orange House Top Left
+				if(lvl.c1i.getBuildingIn() == 14){
+					if(nearChair(420)){
+						makeSit(0,0,false,402,204);
+					}
+				}
+				//Building 15 : Small Orange House Top Right
+				if(lvl.c1i.getBuildingIn() == 15){
+					if(nearChair(420)){
+						makeSit(0,0,false,402,204);
+					}
+				}
+				//Building 16 : Small Orange House Bottom Left
+				if(lvl.c1i.getBuildingIn() == 16){
+					if(nearChair(540)){
+						makeSit(1,1,false,402,264);
+					}
+				}
+				//Building 17 : Small Orange House Bottom Right
+				if(lvl.c1i.getBuildingIn() == 17){
+					if(nearChair(540)){
+						makeSit(1,1,false,402,264);
+					}
+				}
+				//Building 18 : Bus Station
+				
+				if(lvl.c1i.getBuildingIn() == 18){
+					//Inside Benches
+					if(nearChair(821)){
+						makeSit(1,1,false,424,400);
+					}else if(nearChair(822)){
+						makeSit(1,1,false,440,400);
+					}
+					if(nearChair(824)){
+						makeSit(1,1,false,484,400);
+					}else if(nearChair(825)){
+						makeSit(1,1,false,500,400);
+					}
+					if(nearChair(741)){
+						makeSit(0,0,false,424,362);
+					}else if(nearChair(742)){
+						makeSit(0,0,false,440,362);
+					}
+					if(nearChair(744)){
+						makeSit(0,0,false,484,362);
+					}else if(nearChair(745)){
+						makeSit(0,0,false,500,362);
+					}
+					//TODO add when you sit on a bench it takes you to where ever you have a ticket to.
+					//Outside Benches
+					if(nearChair(533)){
+						makeSit(2,2,false,262,264);
+					}else if(nearChair(573)){
+						makeSit(2,2,false,262,280);
+					}
+					if(nearChair(733)){
+						makeSit(2,2,false,262,364);
+					}else if(nearChair(773)){
+						makeSit(2,2,false,262,380);
+					}
+				}
+				//Building 19 : Hotel 
+				if(lvl.c1i.getBuildingIn() == 19){
+					//First Floor
+					if(lvl.c1i.buildingSubSec == 1){
+						//Lobby Couches
+						if(nearChair(668)){
+							makeSit(2,2,false,562,324);
+						}else if(nearChair(708)){
+							makeSit(2,2,false,562,340);
+						}
+						if(nearChair(788)){
+							makeSit(2,2,false,562,384);
+						}else if(nearChair(828)){
+							makeSit(0,0,false,562,400);
+						}
+						//Room 101
+						if(nearChair(1044)){
+							makeSit(2,2,false,82,524);
+						}else if(nearChair(1084)){
+							makeSit(2,2,false,82,540);
+						}
+						//Room 103
+						if(nearChair(1049)){
+							makeSit(2,2,false,182,524);
+						}else if(nearChair(1089)){
+							makeSit(2,2,false,182,540);
+						}
+						//Room 105
+						if(nearChair(1054)){
+							makeSit(2,2,false,282,524);
+						}else if(nearChair(1094)){
+							makeSit(2,2,false,282,540);
+						}
+						//Room 107
+						if(nearChair(1059)){
+							makeSit(2,2,false,382,524);
+						}else if(nearChair(1099)){
+							makeSit(2,2,false,382,540);
+						}
+						//Room 109
+						if(nearChair(1064)){
+							makeSit(2,2,false,482,524);
+						}else if(nearChair(1104)){
+							makeSit(2,2,false,482,540);
+						}
+						//Room 111
+						if(nearChair(1069)){
+							makeSit(2,2,false,582,524);
+						}else if(nearChair(1109)){
+							makeSit(2,2,false,582,540);
+						}
+						//Room 113
+						if(nearChair(1074)){
+							makeSit(2,2,false,682,524);
+						}else if(nearChair(1114)){
+							makeSit(2,2,false,682,540);
+						}
+					}
+					if(lvl.c1i.buildingSubSec == 2){
+						//Room 202
+						if(nearChair(650)){
+							makeSit(2,2,false,202,324);
+						}else if(nearChair(690)){
+							makeSit(2,2,false,202,340);
+						}
+						if(nearChair(770)){
+							makeSit(2,2,false,202,384);
+						}else if(nearChair(810)){
+							makeSit(2,2,false,202,400);
+						}
+						//Top chairs
+						if(nearChair(645)){
+							makeSit(0,2,false,102,324);
+						}else if(nearChair(646)){
+							makeSit(0,3,false,122,324);
+						}
+						//bottom chairs
+						if(nearChair(765)){
+							makeSit(1,2,false,102,380);
+						}else if(nearChair(766)){
+							makeSit(1,3,false,122,380);
+						}
+						//Room 206
+						if(nearChair(659)){
+							makeSit(2,2,false,382,324);
+						}else if(nearChair(699)){
+							makeSit(2,2,false,382,340);
+						}
+						if(nearChair(779)){
+							makeSit(2,2,false,382,384);
+						}else if(nearChair(819)){
+							makeSit(2,2,false,382,400);
+						}
+						//Top chairs
+						if(nearChair(655)){
+							makeSit(0,2,false,302,324);
+						}
+						//bottom chairs
+						if(nearChair(775)){
+							makeSit(1,2,false,302,380);
+						}else if(nearChair(776)){
+							makeSit(1,3,false,322,380);
+						}
+						//Room 210
+						if(nearChair(668)){
+							makeSit(2,2,false,562,324);
+						}else if(nearChair(708)){
+							makeSit(2,2,false,562,340);
+							//TODO change these to makeSit(2,2,false,182,524);
+						}
+						if(nearChair(788)){
+							makeSit(2,2,false,562,384);
+						}else if(nearChair(828)){
+							makeSit(2,2,false,562,400);
+						}
+						//Top chairs
+						if(nearChair(664)){
+							makeSit(0,2,false,482,324);
+						}else if(nearChair(665)){
+							makeSit(0,3,false,502,324);
+						}
+						//bottom chairs
+						if(nearChair(784)){
+							makeSit(1,2,false,482,380);
+						}else if(nearChair(785)){
+							makeSit(1,3,false,502,380);
+						}
+						//Room 214
+						if(nearChair(678)){
+							makeSit(2,2,false,762,324);
+						}else if(nearChair(718)){
+							makeSit(2,2,false,762,340);
+						}
+						if(nearChair(798)){
+							makeSit(2,2,false,762,384);
+						}else if(nearChair(838)){
+							makeSit(2,2,false,762,400);
+						}
+						//Top chairs
+						if(nearChair(674)){
+							makeSit(0,2,false,682,324);
+						}else if(nearChair(675)){
+							makeSit(0,3,false,702,324);
+						}
+						//bottom chairs
+						if(nearChair(794)){
+							makeSit(1,2,false,682,380);
+						}else if(nearChair(795)){
+							makeSit(1,3,false,702,380);
+						}
+						//Room 201
+						if(nearChair(1044)){
+							makeSit(2,2,false,82,524);
+						}else if(nearChair(1084)){
+							makeSit(2,2,false,82,540);
+						}
+						//Room 203
+						if(nearChair(1049)){
+							makeSit(2,2,false,182,524);
+						}else if(nearChair(1089)){
+							makeSit(2,2,false,182,540);
+						}
+						//Room 205
+						if(nearChair(1054)){
+							makeSit(2,2,false,282,524);
+						}else if(nearChair(1094)){
+							makeSit(2,2,false,282,540);
+						}
+						//Room 207
+						if(nearChair(1059)){
+							makeSit(2,2,false,382,524);
+						}else if(nearChair(1099)){
+							makeSit(2,2,false,382,540);
+						}
+						//Room 209
+						if(nearChair(1064)){
+							makeSit(2,2,false,482,524);
+						}else if(nearChair(1104)){
+							makeSit(2,2,false,482,540);
+						}
+						//Room 211
+						if(nearChair(1069)){
+							makeSit(2,2,false,582,524);
+						}else if(nearChair(1109)){
+							makeSit(2,2,false,582,540);
+						}
+						//Room 213
+						if(nearChair(1074)){
+							makeSit(2,2,false,682,524);
+						}else if(nearChair(1114)){
+							makeSit(2,2,false,682,540);
+						}
+					}
+				}
+				//Building 21 : Club
+				if(lvl.c1i.getBuildingIn() == 21){
+					//booths top left
+					if(nearChair(206)){
+						makeSit(3,0,false,120,100);
+					}else if(nearChair(208)){
+						makeSit(2,0,false,164,100);
+					}else if(nearChair(166)){
+						makeSit(3,0,true,120,84);
+					}else if(nearChair(168)){
+						makeSit(2,0,true,164,84);
+					}
+					//booths top middle
+					if(nearChair(209)){
+						makeSit(3,0,false,180,100);
+					}else if(nearChair(211)){
+						makeSit(2,0,false,224,100);
+					}else if(nearChair(169)){
+						makeSit(3,0,true,180,84);
+					}else if(nearChair(171)){
+						makeSit(2,0,true,224,84);
+					}
+					//TODO wrong positions
+					//booths top middle
+					if(nearChair(212)){
+						makeSit(3,0,false,180,100);
+					}else if(nearChair(214)){
+						makeSit(2,0,false,224,100);
+					}else if(nearChair(169)){
+						makeSit(3,0,true,180,84);
+					}else if(nearChair(171)){
+						makeSit(2,0,true,224,84);
+					}
+					//TODO sitting isn't possible due to proximity in the booths or was it not changed yet??
+					//TODO finish booths here and then bar stools
+				}
+				//TODO add monestary chairs. this is a pain in the butt. change how chairs work?
+				
+	 * 
+	 * 
+	 * 
+	 */
 	
 	public int getBuildingInArray(){
 		return (buildingEnt-1);
@@ -185,8 +511,6 @@ public class CityOneInsides {
 	public int getBuildingIn(){
 		return buildingEnt;
 	}
-	
-	
 	/*
 	private void loadLargeHouseOrange(){
 		int arrayNum = 1200;
