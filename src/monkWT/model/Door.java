@@ -2,7 +2,7 @@ package monkWT.model;
 
 public class Door {
 
-	if(lvl.isPlayerInside()){
+	/*if(lvl.isPlayerInside()){
 		   //Building 12 : Large Orange House Left Side
 		   if(buildingIn == 12){
 			   if(playerLocalLeftBtm == 579 || playerLocalRightBtm == 579
@@ -13,7 +13,7 @@ public class Door {
 				   entBuilding(0, xDist, yDist);
 			   }
 		   }
-	}
+	}*/
 	
 	
 		   
