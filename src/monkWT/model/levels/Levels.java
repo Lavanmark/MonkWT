@@ -3,8 +3,11 @@ package monkWT.model.levels;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
+import monkWT.model.Door;
 import monkWT.model.Tile;
 import monkWT.model.TileLoader;
 import resources.ResourceLoader;
@@ -38,7 +41,8 @@ public class Levels {
 		public Rectangle spawnFeet;
 		
 		//Doors
-		public Set doors;
+			//map<(int) Map section, set of doors>
+		public HashMap<Integer, Set<Door>> doorsLvlOne = new HashMap<Integer, Set<Door>>();
 		
 		
 		//class declarations
@@ -76,6 +80,7 @@ public class Levels {
 				}catch(IOException e){
 					e.printStackTrace();
 				}
+				addDoorsLvlOne();
 				
 				spawnRect = new Rectangle(400, 243, 15, 15);
 		        spawnLeft = new Rectangle(400, 245, 1, 13);
@@ -110,6 +115,7 @@ public class Levels {
 					e.printStackTrace();
 				}*/
 				c1i.cityOneInsidesInit(tl);
+				c1i.addInsideDoors();
 			}
 			
 			if(whichCity == 2){
@@ -128,6 +134,50 @@ public class Levels {
 		
 		public void setHouseOwner(int house, String name){
 			ownerHouse[house] = name;
+		}
+		
+		public void addDoorsLvlOne(){
+			Set<Door> doors = new HashSet<Door>();
+			
+			doors.add(new Door(false, 165, 12, 280, 160));
+			doors.add(new Door(false, 166, 12, 280, 160));
+			doors.add(new Door(false, 173, 13, 120, 160));
+			doors.add(new Door(false, 174, 13, 120, 160));
+			doors.add(new Door(false, 186, 14, -120, 160));
+			doors.add(new Door(false, 195, 15, -300, 160));
+			doors.add(new Door(false, 386, 16, -120, 40));
+			doors.add(new Door(false, 395, 17, -300, 40));
+			doors.add(new Door(false, 605, 18, 400, 0));
+			doors.add(new Door(false, 645, 18, 400, 0));
+			doors.add(new Door(false, 685, 18, 400, 0));
+			doors.add(new Door(false, 857, 19, 0, -100));
+			doors.add(new Door(false, 858, 19, 0, -100));
+			doors.add(new Door(false, 859, 19, 0, -100));
+			doors.add(new Door(false, 860, 19, 0, -100));
+			doors.add(new Door(false, 861, 19, 0, -100));
+			doors.add(new Door(false, 862, 19, 0, -100));
+			doors.add(new Door(false, 863, 19, 0, -100));
+			
+			doorsLvlOne.put(4, doors);
+			doors = new HashSet<Door>();
+			
+			doors.add(new Door(false, 264, 21, -340, 140));
+			doors.add(new Door(false, 304, 21, -340, 140));
+			doors.add(new Door(false, 344, 21, -340, 140));
+			
+			doorsLvlOne.put(5, doors);
+			doors = new HashSet<Door>();
+			
+			doors.add(new Door(false, 848, 24, -80, -40));
+			doors.add(new Door(false, 849, 24, -80, -40));
+			doors.add(new Door(false, 850, 24, -80, -40));
+			doors.add(new Door(false, 851, 24, -80, -40));
+			doors.add(new Door(false, 852, 24, -80, -40));
+			doors.add(new Door(false, 853, 24, -80, -40));
+			doors.add(new Door(false, 854, 24, -80, -40));
+			doors.add(new Door(false, 855, 24, -80, -40));
+			
+			doorsLvlOne.put(6, doors);			
 		}
 		
 		//loads levels

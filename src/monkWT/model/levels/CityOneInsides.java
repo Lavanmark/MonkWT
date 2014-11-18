@@ -3,10 +3,13 @@ package monkWT.model.levels;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
+import monkWT.model.Door;
 import monkWT.model.Tile;
 import monkWT.model.TileLoader;
-
 import resources.ResourceLoader;
 
 public class CityOneInsides {
@@ -36,6 +39,11 @@ public class CityOneInsides {
 	public Rectangle[] city1InsideBlocks = new Rectangle[1200];
 	
 	private TileLoader tl;
+	
+	//Doors
+		//map<(int) Map section, set of doors>
+	public HashMap<Integer, Set<Door>> doorsInsideOne = new HashMap<Integer, Set<Door>>();
+	
 	
 	
 	public void setBuildingEnt(int buildingNum){
@@ -103,6 +111,73 @@ public class CityOneInsides {
 		}
 		return m;
 	}
+	
+	
+	public void addInsideDoors(){
+		Set<Door> doors = new HashSet<Door>();
+		
+		doors.add(new Door(true, 579, 0, -280, -160));
+		doors.add(new Door(true, 580, 0, -280, -160));
+		
+		doorsInsideOne.put(12, doors);
+		doors = new HashSet<Door>();
+		
+		doors.add(new Door(true, 579, 0, -120, -160));
+		doors.add(new Door(true, 580, 0, -120, -160));
+		
+		doorsInsideOne.put(13, doors);
+		doors = new HashSet<Door>();
+		
+		doors.add(new Door(true, 580, 0, 120, -160));
+		
+		doorsInsideOne.put(14, doors);
+		doors = new HashSet<Door>();
+		
+		doors.add(new Door(true, 580, 0, 300, -160));
+		
+		doorsInsideOne.put(15, doors);
+		doors = new HashSet<Door>();
+		
+		doors.add(new Door(true, 380, 0, 120,-40));
+		
+		doorsInsideOne.put(16, doors);
+		doors = new HashSet<Door>();
+		
+		doors.add(new Door(true, 380, 0, 300, -120));
+		
+		doorsInsideOne.put(17, doors);
+		doors = new HashSet<Door>();
+		
+		doors.add(new Door(true, 627, 0, -400, 0));
+		doors.add(new Door(true, 667, 0, -400, 0));
+		doors.add(new Door(true, 707, 0, -400, 0));
+		
+		doorsInsideOne.put(18, doors);
+		doors = new HashSet<Door>();
+		
+		doors.add(new Door(true, 577, 0, 0, 100));
+		doors.add(new Door(true, 578, 0, 0, 100));
+		doors.add(new Door(true, 579, 0, 0, 100));
+		doors.add(new Door(true, 580, 0, 0, 100));
+		doors.add(new Door(true, 581, 0, 0, 100));
+		doors.add(new Door(true, 582, 0, 0, 100));
+		doors.add(new Door(true, 583, 0, 0, 100));
+		//stairs only need one because they are at same location
+		doors.add(new Door(true, 1197, 19, 0, -20));
+		doors.add(new Door(true, 1198, 19, 0, -20));
+
+		doorsInsideOne.put(19, doors);
+		doors = new HashSet<Door>();
+		
+		doors.add(new Door(true, 525, 0, 340, -140));
+		doors.add(new Door(true, 565, 0, 340, -140));
+		doors.add(new Door(true, 605, 0, 340, -140));
+
+		doorsInsideOne.put(21, doors);
+		
+	}
+	
+	
 	/*
 	private void loadLargeHouseOrange(){
 		int arrayNum = 1200;

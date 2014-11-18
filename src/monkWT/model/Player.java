@@ -3,10 +3,11 @@ package monkWT.model;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
+import java.util.Set;
 
 import monkWT.model.levels.Levels;
 import monkWT.view.HUD;
-
 import resources.ResourceLoader;
 
 
@@ -106,7 +107,7 @@ public class Player {
 		//Stealth updating
 		stealthChecks();
 		//Check if hitting a door
-		checkDoor();
+		
 		movePlayer();
 	}
 	
@@ -132,234 +133,27 @@ public class Player {
 		   if(playerLocalLeftTop < 0){playerLocalLeftTop += 40;}
 		   if(playerLocalRightTop < 0){playerLocalRightTop += 40;}
 		   
-		   //TODO adding doors sucks. make it better
 		   if(lvl.getCityIn() == 1){
 			   if(lvl.isPlayerInside()){
-				   //Building 12 : Large Orange House Left Side
-				   if(buildingIn == 12){
-					   if(playerLocalLeftBtm == 579 || playerLocalRightBtm == 579
-							   || playerLocalLeftBtm == 580 || playerLocalRightBtm == 580){
-						   int xDist = -280;
-						   int yDist = -160;
-						   lvl.setBuildingEnt(0);
-						   entBuilding(0, xDist, yDist);
-					   }
-				   }
-				   //Building 13 : Large Orange House Right side
-				   if(buildingIn == 13){
-					   if(playerLocalLeftBtm == 579 || playerLocalRightBtm == 579
-							   || playerLocalLeftBtm == 580 || playerLocalRightBtm == 580){
-						   int xDist = -120;
-						   int yDist = -160;
-						   lvl.setBuildingEnt(0);
-						   entBuilding(0, xDist, yDist);
-					   }
-				   }
-				   //Building 14 : Small Orange House Top Left
-				   if(buildingIn == 14){
-					   if(playerLocalLeftBtm == 580 || playerLocalRightBtm == 580){
-						   int xDist = 120;
-						   int yDist = -160;
-						   lvl.setBuildingEnt(0);
-						   entBuilding(0, xDist, yDist);
-					   }
-				   }
-				   //Building 15 : Small Orange House Top Right
-				   if(buildingIn == 15){
-					   if(playerLocalLeftBtm == 580 || playerLocalRightBtm == 580){
-						   int xDist = 300;
-						   int yDist = -160;
-						   lvl.setBuildingEnt(0);
-						   entBuilding(0, xDist, yDist);
-					   }
-				   }
-				   //Building 16 : Small Orange House Bottom Left
-				   if(buildingIn == 16){
-					   if(playerLocalLeftTop == 380 || playerLocalRightTop == 380){
-						   int xDist = 120;
-						   int yDist = -40;
-						   lvl.setBuildingEnt(0);
-						   entBuilding(0, xDist, yDist);
-					   }
-				   }
-				   //Building 17 : Small Orange House Bottom Right
-				   if(buildingIn == 17){
-					   if(playerLocalLeftTop == 380 || playerLocalRightTop == 380){
-						   int xDist = 300;
-						   int yDist = -40;
-						   lvl.setBuildingEnt(0);
-						   entBuilding(0, xDist, yDist);
-					   }
-				   }
-				   //Building 18 : Bus Station
-				   if(buildingIn == 18){
-					   if(playerLocalRightTop == 627 || playerLocalRightBtm == 627
-							   || playerLocalRightTop == 667 || playerLocalRightBtm == 667
-							   || playerLocalRightTop == 707 || playerLocalRightBtm == 707 ){
-						   int xDist = -400;
-						   int yDist = 0;
-						   lvl.setBuildingEnt(0);
-						   entBuilding(0, xDist, yDist);
-					   }
-				   }
-				 //Building 19 : Hotel
-				   if(buildingIn == 19){
-					   //entrance
-					   if(playerLocalLeftTop > 577 && playerLocalLeftTop < 583 
-							   || playerLocalRightTop > 577 && playerLocalRightTop < 583){
-						   int xDist = 0;
-						   int yDist = 100;
-						   lvl.setBuildingEnt(0);
-						   entBuilding(0, xDist, yDist);
-					   }
-					   //stairs
-					   if(lvl.c1i.buildingSubSec == 1 && !justChanged){
-						   if(playerLocalLeftBtm == 1197 || playerLocalRightBtm == 1197 && playerLocalLeftBtm !=1196
-								   || playerLocalLeftBtm == 1198 || playerLocalRightBtm == 1198 ){
-							   int xDist = 0;
-							   int yDist = -20;
-							   lvl.c1i.buildingSubSec = 2;
-							   pDir = 1;
-							   changeFloor(2);
-							   entMove(xDist, yDist);
-						   }
-					   }
-					   if(lvl.c1i.buildingSubSec == 2 && !justChanged){
-						   if(playerLocalLeftBtm == 1197 || playerLocalRightBtm == 1197 && playerLocalLeftBtm !=1196
-								   || playerLocalLeftBtm == 1198 || playerLocalRightBtm == 1198 ){
-							   int xDist = 0;
-							   int yDist = -20;
-							   lvl.c1i.buildingSubSec = 1;
-							   pDir = 1;
-							   changeFloor(1);
-							   entMove(xDist, yDist);
-						   }
-					   }					   
-				   }
-				 //Building 21 : Club
-				   if(buildingIn == 21){
-					   if(playerLocalLeftTop == 525 || playerLocalLeftBtm == 525
-							   || playerLocalLeftTop == 565 || playerLocalLeftBtm == 565
-							   || playerLocalLeftTop == 605 || playerLocalLeftBtm == 605 ){
-						   int xDist = 340;
-						   int yDist = -140;
-						   lvl.setBuildingEnt(0);
-						   entBuilding(0, xDist, yDist);
+				   Set<Door> checkDoor = lvl.c1i.doorsInsideOne.get(buildingIn);
+				   for(Door d : checkDoor){
+					   if(d.getBlockLoc() == playerLocalLeftTop || d.getBlockLoc() == playerLocalRightTop 
+							   || d.getBlockLoc() == playerLocalLeftBtm || d.getBlockLoc() == playerLocalRightBtm){
+						   lvl.setBuildingEnt(d.getBuildingEnt());
+						   entBuilding(d.getBuildingEnt(),d.getxMoveDist(), d.getyMoveDist());
+						   break;
 					   }
 				   }
 			   }else{
-				   if(lvl.getSecIn() == 1){
-					   
-				   }
-				   if(lvl.getSecIn() == 2){
-					   
-				   }
-				   if(lvl.getSecIn() == 3){
-					   
-				   }
-				   if(lvl.getSecIn() == 4){
-					   //Building 12 : Large Orange House Left Side
-					   if(playerLocalLeftTop == 165 || playerLocalRightTop == 165
-							   || playerLocalLeftTop == 166 || playerLocalRightTop == 166){
-						   int xDist = 280;
-						   int yDist = 160;
-						   lvl.setBuildingEnt(12);
-						   entBuilding(12, xDist, yDist);
-						   stopSprint();
+				   Set<Door> checkDoor = lvl.doorsLvlOne.get(lvl.getSecIn());
+				   for(Door d : checkDoor){
+					   if(d.getBlockLoc() == playerLocalLeftTop || d.getBlockLoc() == playerLocalRightTop 
+							   || d.getBlockLoc() == playerLocalLeftBtm || d.getBlockLoc() == playerLocalRightBtm){
+						   lvl.setBuildingEnt(d.getBuildingEnt());
+						   entBuilding(d.getBuildingEnt(),d.getxMoveDist(), d.getyMoveDist());
+						   break;
 					   }
-					   //Building 13 : Large Orange House Right side
-					   if(playerLocalLeftTop == 173 || playerLocalRightTop == 173
-							   || playerLocalLeftTop == 174 || playerLocalRightTop == 174){
-						   int xDist = 120;
-						   int yDist = 160;
-						   lvl.setBuildingEnt(13);
-						   entBuilding(13, xDist, yDist);
-						   stopSprint();
-					   }
-					   //Building 14 : Small Orange House Top Left Side
-					   if(playerLocalLeftTop == 186 || playerLocalRightTop == 186){
-						   int xDist = -120;
-						   
-						   int yDist = 160;
-						   lvl.setBuildingEnt(14);
-						   entBuilding(14, xDist, yDist);
-						   stopSprint();
-					   }
-					   //Building 15 : Small Orange House Top Right Side
-					   if(playerLocalLeftTop == 195 || playerLocalRightTop == 195){
-						   int xDist = -300;
-						   int yDist = 160;
-						   lvl.setBuildingEnt(15);
-						   entBuilding(15, xDist, yDist);
-						   stopSprint();
-					   }
-					   //Building 16 : Small Orange House Bottom Left Side
-					   if(playerLocalLeftBtm == 386 || playerLocalRightBtm == 386){
-						   int xDist = -120;
-						   int yDist = 40;
-						   lvl.setBuildingEnt(16);
-						   entBuilding(16, xDist, yDist);
-						   stopSprint();
-					   }
-					   //Building 17 : Small Orange House Bottom Right Side
-					   if(playerLocalLeftBtm == 395 || playerLocalRightBtm == 395){
-						   int xDist = -300;
-						   int yDist = 40;
-						   lvl.setBuildingEnt(17);
-						   entBuilding(17, xDist, yDist);
-						   stopSprint();
-					   }
-					   //Building 18 : Bus Station
-					   if(playerLocalLeftTop == 605 || playerLocalLeftBtm == 605
-							   || playerLocalLeftTop == 645 || playerLocalLeftBtm == 645
-							   || playerLocalLeftTop == 685 || playerLocalLeftBtm == 685 ){
-						   int xDist = 400;
-						   int yDist = 0;
-						   lvl.setBuildingEnt(18);
-						   entBuilding(18, xDist, yDist);
-						   stopSprint();
-					   }
-					   //Building 19 : Hotel
-					   if(playerLocalLeftBtm > 857 && playerLocalLeftBtm < 863 
-							   || playerLocalRightBtm > 857 && playerLocalRightBtm < 863){
-						   int xDist = 0;
-						   int yDist = -100;
-						   lvl.setBuildingEnt(19);
-						   entBuilding(19, xDist, yDist);
-						   stopSprint();
-					   }
-					   
-				   }
-				   if(lvl.getSecIn() == 5){
-					   //Building 21 : Club
-					   if(playerLocalRightTop == 264 || playerLocalRightBtm == 264 
-							   || playerLocalRightTop == 304 || playerLocalRightBtm == 304
-							   || playerLocalRightTop == 344 || playerLocalRightBtm == 344){
-						   int xDist = -340;
-						   int yDist = 140;
-						   lvl.setBuildingEnt(21);
-						   entBuilding(21, xDist, yDist);
-						   stopSprint();
-					   }
-				   }
-				   if(lvl.getSecIn() == 6){
-					   if((playerLocalRightBtm > 848 && playerLocalRightBtm < 855 ) || (playerLocalLeftBtm > 848 && playerLocalLeftBtm < 855)){
-						   int xDist = -80;
-						   int yDist = -40;
-						   lvl.setBuildingEnt(24);
-						   entBuilding(24, xDist, yDist);
-						   stopSprint();
-					   }
-				   }
-				   if(lvl.getSecIn() == 7){
-					   
-				   }
-				   if(lvl.getSecIn() == 8){
-					   
-				   }
-				   if(lvl.getSecIn() == 9){
-					   
-				   }	   
+				   } 
 			   }
 		   }
 	   }
@@ -1110,36 +904,41 @@ public class Player {
 			if(currentCity == 1){
 				if(!justChanged){
 					if(!sitting){
-						if(lvl.city1[s][playerLocalLeftTop].isSolid() || lvl.city1[s][playerLocalRightTop].isSolid() || lvl.city1[s][playerLocalLeftBtm].isSolid()
-								|| lvl.city1[s][playerLocalRightBtm].isSolid()){
-							if(xDirection == 1 || xDirection == 2){
-								colLeftRight(-3);
-							}else if(xDirection == -1 || xDirection == -2){
-								colLeftRight(3);
-							}
-							if(yDirection == 1 || yDirection == 2){
-								colUpDown(-3);
-							}else if(yDirection == -1 || yDirection == -2){
-								colUpDown(3);
-							}
-							if(lvl.city1[s][playerLocalLeftTop].isSolid() && lvl.city1[s][playerLocalRightTop].isSolid() && yDirection == 0){
-								colUpDown(3);
-							}
-							if(lvl.city1[s][playerLocalLeftBtm].isSolid() && lvl.city1[s][playerLocalRightBtm].isSolid() && yDirection == 0){
-								colUpDown(-3);
-							}
-							if(lvl.city1[s][playerLocalLeftTop].isSolid() && !lvl.city1[s][playerLocalRightTop].isSolid() && xDirection == 0 
-									|| lvl.city1[s][playerLocalLeftBtm].isSolid() && !lvl.city1[s][playerLocalRightBtm].isSolid() && xDirection == 0){
-								colLeftRight(3);
+						if(lvl.city1[s][playerLocalLeftTop].isDoor() || lvl.city1[s][playerLocalRightTop].isDoor() || lvl.city1[s][playerLocalLeftBtm].isDoor()
+								|| lvl.city1[s][playerLocalRightBtm].isDoor()){
+							checkDoor();
+						}else{
+							if(lvl.city1[s][playerLocalLeftTop].isSolid() || lvl.city1[s][playerLocalRightTop].isSolid() || lvl.city1[s][playerLocalLeftBtm].isSolid()
+									|| lvl.city1[s][playerLocalRightBtm].isSolid()){
+								if(xDirection == 1 || xDirection == 2){
+									colLeftRight(-3);
+								}else if(xDirection == -1 || xDirection == -2){
+									colLeftRight(3);
+								}
+								if(yDirection == 1 || yDirection == 2){
+									colUpDown(-3);
+								}else if(yDirection == -1 || yDirection == -2){
+									colUpDown(3);
+								}
+								if(lvl.city1[s][playerLocalLeftTop].isSolid() && lvl.city1[s][playerLocalRightTop].isSolid() && yDirection == 0){
+									colUpDown(3);
+								}
+								if(lvl.city1[s][playerLocalLeftBtm].isSolid() && lvl.city1[s][playerLocalRightBtm].isSolid() && yDirection == 0){
+									colUpDown(-3);
+								}
+								if(lvl.city1[s][playerLocalLeftTop].isSolid() && !lvl.city1[s][playerLocalRightTop].isSolid() && xDirection == 0 
+										|| lvl.city1[s][playerLocalLeftBtm].isSolid() && !lvl.city1[s][playerLocalRightBtm].isSolid() && xDirection == 0){
+									colLeftRight(3);
+									
+								}
+								if(lvl.city1[s][playerLocalRightTop].isSolid() && !lvl.city1[s][playerLocalLeftTop].isSolid() && xDirection == 0 
+										|| lvl.city1[s][playerLocalRightBtm].isSolid() && !lvl.city1[s][playerLocalLeftBtm].isSolid() && yDirection == 0){
+									colLeftRight(-3);
+								}
 								
+								System.out.println("collision");
+								stopMoveChar();
 							}
-							if(lvl.city1[s][playerLocalRightTop].isSolid() && !lvl.city1[s][playerLocalLeftTop].isSolid() && xDirection == 0 
-									|| lvl.city1[s][playerLocalRightBtm].isSolid() && !lvl.city1[s][playerLocalLeftBtm].isSolid() && yDirection == 0){
-								colLeftRight(-3);
-							}
-							
-							System.out.println("collision");
-							stopMoveChar();
 						}
 					}
 				}
@@ -1286,36 +1085,42 @@ public class Player {
 					if(playerLeft.x < 0){
 						colLeftRight(3);
 					}
-					if(lvl.c1i.city1Inside[s][playerLocalLeftTop].isSolid() || lvl.c1i.city1Inside[s][playerLocalRightTop].isSolid() 
-							|| lvl.c1i.city1Inside[s][playerLocalLeftBtm].isSolid() || lvl.c1i.city1Inside[s][playerLocalRightBtm].isSolid()){
-						if(xDirection == 1 || xDirection == 2){
-							colLeftRight(-3);
-						}else if(xDirection == -1 || xDirection == -2){
-							colLeftRight(3);
-						}
-						if(yDirection == 1 || yDirection == 2){
-							colUpDown(-3);
-						}else if(yDirection == -1 || yDirection == -2){
-							colUpDown(3);
-						}
-						if(lvl.c1i.city1Inside[s][playerLocalLeftTop].isSolid() && lvl.c1i.city1Inside[s][playerLocalRightTop].isSolid() && yDirection == 0){
-							colUpDown(3);
-						}
-						if(lvl.c1i.city1Inside[s][playerLocalLeftBtm].isSolid() && lvl.c1i.city1Inside[s][playerLocalRightBtm].isSolid() && yDirection == 0){
-							colUpDown(-3);
-						}
-						if(lvl.c1i.city1Inside[s][playerLocalLeftTop].isSolid() && !lvl.c1i.city1Inside[s][playerLocalRightTop].isSolid() && xDirection == 0 
-								|| lvl.c1i.city1Inside[s][playerLocalLeftBtm].isSolid() && !lvl.c1i.city1Inside[s][playerLocalRightBtm].isSolid() && xDirection == 0){
-							colLeftRight(3);
-							
-						}
-						if(lvl.c1i.city1Inside[s][playerLocalRightTop].isSolid() && !lvl.c1i.city1Inside[s][playerLocalLeftTop].isSolid() && xDirection == 0 
-								|| lvl.c1i.city1Inside[s][playerLocalRightBtm].isSolid() && !lvl.c1i.city1Inside[s][playerLocalLeftBtm].isSolid() && yDirection == 0){
-							colLeftRight(-3);
-						}
+					if(lvl.c1i.city1Inside[s][playerLocalLeftTop].isDoor() || lvl.c1i.city1Inside[s][playerLocalRightTop].isDoor() 
+							|| lvl.c1i.city1Inside[s][playerLocalLeftBtm].isDoor() || lvl.c1i.city1Inside[s][playerLocalRightBtm].isDoor()){
+						checkDoor();
 						
-						System.out.println("collision inside");
-						stopMoveChar();
+					}else{
+						if(lvl.c1i.city1Inside[s][playerLocalLeftTop].isSolid() || lvl.c1i.city1Inside[s][playerLocalRightTop].isSolid() 
+								|| lvl.c1i.city1Inside[s][playerLocalLeftBtm].isSolid() || lvl.c1i.city1Inside[s][playerLocalRightBtm].isSolid()){
+							if(xDirection == 1 || xDirection == 2){
+								colLeftRight(-3);
+							}else if(xDirection == -1 || xDirection == -2){
+								colLeftRight(3);
+							}
+							if(yDirection == 1 || yDirection == 2){
+								colUpDown(-3);
+							}else if(yDirection == -1 || yDirection == -2){
+								colUpDown(3);
+							}
+							if(lvl.c1i.city1Inside[s][playerLocalLeftTop].isSolid() && lvl.c1i.city1Inside[s][playerLocalRightTop].isSolid() && yDirection == 0){
+								colUpDown(3);
+							}
+							if(lvl.c1i.city1Inside[s][playerLocalLeftBtm].isSolid() && lvl.c1i.city1Inside[s][playerLocalRightBtm].isSolid() && yDirection == 0){
+								colUpDown(-3);
+							}
+							if(lvl.c1i.city1Inside[s][playerLocalLeftTop].isSolid() && !lvl.c1i.city1Inside[s][playerLocalRightTop].isSolid() && xDirection == 0 
+									|| lvl.c1i.city1Inside[s][playerLocalLeftBtm].isSolid() && !lvl.c1i.city1Inside[s][playerLocalRightBtm].isSolid() && xDirection == 0){
+								colLeftRight(3);
+								
+							}
+							if(lvl.c1i.city1Inside[s][playerLocalRightTop].isSolid() && !lvl.c1i.city1Inside[s][playerLocalLeftTop].isSolid() && xDirection == 0 
+									|| lvl.c1i.city1Inside[s][playerLocalRightBtm].isSolid() && !lvl.c1i.city1Inside[s][playerLocalLeftBtm].isSolid() && yDirection == 0){
+								colLeftRight(-3);
+							}
+							
+							System.out.println("collision inside");
+							stopMoveChar();
+						}
 					}
 				}
 			}
