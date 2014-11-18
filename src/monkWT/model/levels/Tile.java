@@ -1,4 +1,4 @@
-package monkWT.model;
+package monkWT.model.levels;
 
 import java.awt.image.BufferedImage;
 

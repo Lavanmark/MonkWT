@@ -122,7 +122,7 @@ public class MonkKeyListener implements KeyListener{
 		        	 //TODO add in different way of saving. 
 		        	 try{
 		        		 if(!mainModel.getPlayer().sitting){
-		        			 contrlSaveLoad.save(mainModel.getPlayer().currentCity, mainModel.getLevel().getSecIn(), mainModel.getPlayer().buildingIn, mainModel.getLevel().isPlayerInside(), mainModel.getPlayer().playerRect.x,
+		        			 contrlSaveLoad.save(mainModel.getPlayer().currentCity, mainModel.getLevel().getSecIn(), mainModel.getLevel().c1i.getBuildingIn(), mainModel.getLevel().isPlayerInside(), mainModel.getPlayer().playerRect.x,
 		        					 mainModel.getPlayer().playerRect.y, mainModel.getHandCash(), mainModel.getBankCash(), mainModel.getCurrentQuest(), mainModel.getLevel().cityDeaths, mainModel.getLevel().ownerHouse, mainModel.getPlayer().HUD.inventory);
 		        			 mainModel.getPlayer().HUD.goSave = true;
 		        		 }

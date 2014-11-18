@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import monkWT.model.Door;
-import monkWT.model.Tile;
-import monkWT.model.TileLoader;
 import resources.ResourceLoader;
 
 

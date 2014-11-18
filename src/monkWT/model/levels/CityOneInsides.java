@@ -8,8 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import monkWT.model.Door;
-import monkWT.model.Tile;
-import monkWT.model.TileLoader;
 import resources.ResourceLoader;
 
 public class CityOneInsides {
@@ -32,8 +30,6 @@ public class CityOneInsides {
 	 *  24 = Monestary
 	*/
 	private int buildingEnt = 0;
-	//This is for floors 0 = basement 1 = first floor 2 = second floor etc...
-	public int buildingSubSec = 1;
 	
 	public Tile[][] city1Inside = new Tile[24][1200];
 	public Rectangle[] city1InsideBlocks = new Rectangle[1200];
@@ -48,8 +44,8 @@ public class CityOneInsides {
 	
 	public void setBuildingEnt(int buildingNum){
 		buildingEnt = buildingNum;
-		buildingSubSec = 1;
 	}
+	
 	
 	
 	public void cityOneInsidesInit(TileLoader tlin){
@@ -163,10 +159,16 @@ public class CityOneInsides {
 		doors.add(new Door(true, 582, 0, 0, 100));
 		doors.add(new Door(true, 583, 0, 0, 100));
 		//stairs only need one because they are at same location
-		doors.add(new Door(true, 1197, 19, 0, -20));
-		doors.add(new Door(true, 1198, 19, 0, -20));
+		doors.add(new Door(true, 1157, 20, 0, -5));
+		doors.add(new Door(true, 1158, 20, 0, -5));
 
 		doorsInsideOne.put(19, doors);
+		doors = new HashSet<Door>();
+		
+		doors.add(new Door(true, 1157, 19, 0, -5));
+		doors.add(new Door(true, 1158, 19, 0, -5));
+
+		doorsInsideOne.put(20, doors);
 		doors = new HashSet<Door>();
 		
 		doors.add(new Door(true, 525, 0, 340, -140));
@@ -175,6 +177,13 @@ public class CityOneInsides {
 
 		doorsInsideOne.put(21, doors);
 		
+	}
+	
+	public int getBuildingInArray(){
+		return (buildingEnt-1);
+	}
+	public int getBuildingIn(){
+		return buildingEnt;
 	}
 	
 	
@@ -672,7 +681,7 @@ public class CityOneInsides {
 	
 	
 	public void draw(Graphics g){
-		int s = (buildingEnt-1) + (buildingSubSec-1);
+		int s = getBuildingInArray();
 		for(int i = 0; i < 1200; i++){
 			g.drawImage(city1Inside[s][i].getImage(), city1InsideBlocks[i].x, city1InsideBlocks[i].y, null);
 		}

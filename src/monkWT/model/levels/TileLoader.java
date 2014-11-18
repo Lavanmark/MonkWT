@@ -1,7 +1,8 @@
-package monkWT.model;
+package monkWT.model.levels;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import monkWT.controller.SheetGrabber;
 import resources.ResourceLoader;
 
@@ -177,14 +178,14 @@ public class TileLoader {
 				tileArray[loc++] = TILE_IN_WHITE_PAT_PINK_MARB_DESK = new Tile(true, false, 380,80, sg1,1035);
 				tileArray[loc++] = TILE_IN_WHITE_PAT_PINK_MARB_COUCH_TOP = new Tile(true, false, 400,80, sg1,1036);
 				tileArray[loc++] = TILE_IN_WHITE_PAT_PINK_MARB_COUCH_BTM = new Tile(true, false, 420,80, sg1,1037);
-				tileArray[loc++] = TILE_IN_BLACK_STAIR_TL_U = new Tile(false, false, 440,80, sg1,1038);
-				tileArray[loc++] = TILE_IN_BLACK_STAIR_TR_U = new Tile(false, false, 460,80, sg1,1039);
-				tileArray[loc++] = TILE_IN_BLACK_STAIR_BL_U = new Tile(false, false, 480,80, sg1,1040);
-				tileArray[loc++] = TILE_IN_BLACK_STAIR_BR_U = new Tile(false, false, 500,80, sg1,1041);
-				tileArray[loc++] = TILE_IN_BLACK_STAIR_TL_D = new Tile(false, false, 520,80, sg1,1042);
-				tileArray[loc++] = TILE_IN_BLACK_STAIR_TR_D = new Tile(false, false, 540,80, sg1,1043);
-				tileArray[loc++] = TILE_IN_BLACK_STAIR_BL_D = new Tile(false, false, 560,80, sg1,1044);
-				tileArray[loc++] = TILE_IN_BLACK_STAIR_BR_D = new Tile(false, false, 580,80, sg1,1045);
+				tileArray[loc++] = TILE_IN_BLACK_STAIR_TL_U = new Tile(false, true, 440,80, sg1,1038);
+				tileArray[loc++] = TILE_IN_BLACK_STAIR_TR_U = new Tile(false, true, 460,80, sg1,1039);
+				tileArray[loc++] = TILE_IN_BLACK_STAIR_BL_U = new Tile(false, true, 480,80, sg1,1040);
+				tileArray[loc++] = TILE_IN_BLACK_STAIR_BR_U = new Tile(false, true, 500,80, sg1,1041);
+				tileArray[loc++] = TILE_IN_BLACK_STAIR_TL_D = new Tile(false, true, 520,80, sg1,1042);
+				tileArray[loc++] = TILE_IN_BLACK_STAIR_TR_D = new Tile(false, true, 540,80, sg1,1043);
+				tileArray[loc++] = TILE_IN_BLACK_STAIR_BL_D = new Tile(false, true, 560,80, sg1,1044);
+				tileArray[loc++] = TILE_IN_BLACK_STAIR_BR_D = new Tile(false, true, 580,80, sg1,1045);
 				tileArray[loc++] = TILE_IN_WOOD_RED = new Tile(false, false, 600,80, sg1,1046);
 				tileArray[loc++] = TILE_IN_WOOD_RED_BAR = new Tile(true, false, 620,80, sg1,1047);
 				tileArray[loc++] = TILE_IN_WOOD_RED_STOOL = new Tile(true, false, 640,80, sg1,1048);

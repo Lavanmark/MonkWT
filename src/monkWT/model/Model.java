@@ -121,7 +121,6 @@ public class Model {
 		//load player
 		player.playerInitialize(currentCity);
 		player.currentCity = currentCity;
-		player.buildingIn = contrlSaveLoad.getBuilding();
 		player.entBuilding(contrlSaveLoad.getBuilding(),0,0);
 		player.loadPosition(contrlSaveLoad.getXLoc(), contrlSaveLoad.getYLoc());
 		player.setDeathsForColl(contrlSaveLoad.getDeaths());

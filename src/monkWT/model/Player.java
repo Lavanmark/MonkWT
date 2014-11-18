@@ -3,7 +3,6 @@ package monkWT.model;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
 import java.util.Set;
 
 import monkWT.model.levels.Levels;
@@ -31,7 +30,6 @@ public class Player {
 	
 	public int currentCity;
 	
-	public int buildingIn;
 	public boolean justChanged = false;
 	public boolean sitting = false;
 	private boolean sittingUp = false, sittingDown = false, sittingLeft = false, sittingRight = false, sittingHigh = false, sittingLow = false;
@@ -135,11 +133,10 @@ public class Player {
 		   
 		   if(lvl.getCityIn() == 1){
 			   if(lvl.isPlayerInside()){
-				   Set<Door> checkDoor = lvl.c1i.doorsInsideOne.get(buildingIn);
+				   Set<Door> checkDoor = lvl.c1i.doorsInsideOne.get(lvl.c1i.getBuildingIn());
 				   for(Door d : checkDoor){
 					   if(d.getBlockLoc() == playerLocalLeftTop || d.getBlockLoc() == playerLocalRightTop 
 							   || d.getBlockLoc() == playerLocalLeftBtm || d.getBlockLoc() == playerLocalRightBtm){
-						   lvl.setBuildingEnt(d.getBuildingEnt());
 						   entBuilding(d.getBuildingEnt(),d.getxMoveDist(), d.getyMoveDist());
 						   break;
 					   }
@@ -149,8 +146,8 @@ public class Player {
 				   for(Door d : checkDoor){
 					   if(d.getBlockLoc() == playerLocalLeftTop || d.getBlockLoc() == playerLocalRightTop 
 							   || d.getBlockLoc() == playerLocalLeftBtm || d.getBlockLoc() == playerLocalRightBtm){
-						   lvl.setBuildingEnt(d.getBuildingEnt());
 						   entBuilding(d.getBuildingEnt(),d.getxMoveDist(), d.getyMoveDist());
+						   stopSprint();
 						   break;
 					   }
 				   } 
@@ -261,7 +258,16 @@ public class Player {
 	
 	
 	
-	
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 	
 	
 	
@@ -385,7 +391,7 @@ public class Player {
 	//called when player presses the sit button
 	public void checkChair(){
 		System.out.println("checking chair");
-		if(currentCity == 1){
+		/*if(currentCity == 1){
 			if(lvl.isPlayerInside()){
 				//Building 12 : Large Orange House Left
 				if(buildingIn == 12){
@@ -783,7 +789,7 @@ public class Player {
 					
 				}
 			}
-		}
+		}*/
 	}
 	
 	//called to check where it is sitting
@@ -1063,7 +1069,7 @@ public class Player {
 		int playerLocalRightTop = ((((playerTop.y/20) * 40) ) + ((playerTop.x + 14)/20) );
 		int playerLocalLeftBtm = ((((playerFeet.y/20) * 40) ) + (playerFeet.x/20) ); 
 		int playerLocalRightBtm = ((((playerFeet.y/20) * 40) ) + ((playerFeet.x + 14)/20) );
-		int s = (buildingIn-1) + (lvl.c1i.buildingSubSec-1);
+		int s = lvl.c1i.getBuildingInArray();
 			//Zebule
 		if(currentCity == 1){
 			if(!justChanged){
@@ -1210,20 +1216,20 @@ public class Player {
 		playerFeet.y = y+15;
 	}
 	public void entBuilding(int buildingNum, int xDist, int yDist){
-		buildingIn = buildingNum;
 		if(buildingNum == 0){
 			lvl.setPlayerInside(false);
-		}
-		if(buildingNum != 0){
+		}else{
 			lvl.setPlayerInside(true);
+			System.out.println(lvl.c1i.getBuildingIn());
+			if(buildingNum == 20 || lvl.c1i.getBuildingIn() == 20){
+				pDir = 1;
+				stopMoveChar();
+			}
 		}
-		lvl.c1i.setBuildingEnt(buildingNum);
+		lvl.setBuildingEnt(buildingNum);
 		entMove(xDist,yDist);
 	}
-	public void changeFloor(int floorNum){
-		lvl.c1i.buildingSubSec = floorNum;
-		justChanged = true;
-	}
+	
 	
 	static final int ONE_UP = 0, ONE_DOWN = 1, ONE_LEFT = 2, ONE_RIGHT = 3, TWO_UP = 4, TWO_DOWN = 5, TWO_LEFT = 6, TWO_RIGHT = 7, ACTION = 8;
 	public void moveCharCase(int mve){
