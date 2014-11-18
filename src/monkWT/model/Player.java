@@ -32,7 +32,6 @@ public class Player {
 	
 	public int buildingIn;
 	public boolean justChanged = false;
-	public boolean outside = true;
 	public boolean sitting = false;
 	private boolean sittingUp = false, sittingDown = false, sittingLeft = false, sittingRight = false, sittingHigh = false, sittingLow = false;
 	public boolean moving = false;
@@ -102,8 +101,408 @@ public class Player {
 	
 	//called when player is updated
 	public void update(){
+		//SPRINT
+		sprintChecks();
+		//Stealth updating
+		stealthChecks();
+		//Check if hitting a door
+		checkDoor();
 		movePlayer();
 	}
+	
+	/*
+	  * 
+	  * 
+	  * 
+	  * 
+	  * 
+	  * 
+	  * 
+	  * 
+	  */
+	   public void checkDoor(){
+		   //math for each corners square locations
+		   int playerLocalLeftTop = (((((playerTop.y + yDirection)/20) * 40) ) + ((playerTop.x + xDirection)/20) ); 
+		   int playerLocalRightTop = (((((playerTop.y + yDirection)/20) * 40) ) + ((playerTop.x + 14 + xDirection)/20) );
+		   int playerLocalLeftBtm = (((((playerFeet.y + yDirection)/20) * 40) ) + ((playerFeet.x + xDirection)/20) ); 
+		   int playerLocalRightBtm = (((((playerFeet.y + yDirection)/20) * 40) ) + ((playerFeet.x + 14 + xDirection)/20) );
+		   
+		   if(playerLocalLeftBtm > 1200){playerLocalLeftBtm -= 40;}
+		   if(playerLocalRightBtm > 1200){playerLocalRightBtm -= 40;}
+		   if(playerLocalLeftTop < 0){playerLocalLeftTop += 40;}
+		   if(playerLocalRightTop < 0){playerLocalRightTop += 40;}
+		   
+		   //TODO adding doors sucks. make it better
+		   if(lvl.getCityIn() == 1){
+			   if(lvl.isPlayerInside()){
+				   //Building 12 : Large Orange House Left Side
+				   if(buildingIn == 12){
+					   if(playerLocalLeftBtm == 579 || playerLocalRightBtm == 579
+							   || playerLocalLeftBtm == 580 || playerLocalRightBtm == 580){
+						   int xDist = -280;
+						   int yDist = -160;
+						   lvl.setBuildingEnt(0);
+						   entBuilding(0, xDist, yDist);
+					   }
+				   }
+				   //Building 13 : Large Orange House Right side
+				   if(buildingIn == 13){
+					   if(playerLocalLeftBtm == 579 || playerLocalRightBtm == 579
+							   || playerLocalLeftBtm == 580 || playerLocalRightBtm == 580){
+						   int xDist = -120;
+						   int yDist = -160;
+						   lvl.setBuildingEnt(0);
+						   entBuilding(0, xDist, yDist);
+					   }
+				   }
+				   //Building 14 : Small Orange House Top Left
+				   if(buildingIn == 14){
+					   if(playerLocalLeftBtm == 580 || playerLocalRightBtm == 580){
+						   int xDist = 120;
+						   int yDist = -160;
+						   lvl.setBuildingEnt(0);
+						   entBuilding(0, xDist, yDist);
+					   }
+				   }
+				   //Building 15 : Small Orange House Top Right
+				   if(buildingIn == 15){
+					   if(playerLocalLeftBtm == 580 || playerLocalRightBtm == 580){
+						   int xDist = 300;
+						   int yDist = -160;
+						   lvl.setBuildingEnt(0);
+						   entBuilding(0, xDist, yDist);
+					   }
+				   }
+				   //Building 16 : Small Orange House Bottom Left
+				   if(buildingIn == 16){
+					   if(playerLocalLeftTop == 380 || playerLocalRightTop == 380){
+						   int xDist = 120;
+						   int yDist = -40;
+						   lvl.setBuildingEnt(0);
+						   entBuilding(0, xDist, yDist);
+					   }
+				   }
+				   //Building 17 : Small Orange House Bottom Right
+				   if(buildingIn == 17){
+					   if(playerLocalLeftTop == 380 || playerLocalRightTop == 380){
+						   int xDist = 300;
+						   int yDist = -40;
+						   lvl.setBuildingEnt(0);
+						   entBuilding(0, xDist, yDist);
+					   }
+				   }
+				   //Building 18 : Bus Station
+				   if(buildingIn == 18){
+					   if(playerLocalRightTop == 627 || playerLocalRightBtm == 627
+							   || playerLocalRightTop == 667 || playerLocalRightBtm == 667
+							   || playerLocalRightTop == 707 || playerLocalRightBtm == 707 ){
+						   int xDist = -400;
+						   int yDist = 0;
+						   lvl.setBuildingEnt(0);
+						   entBuilding(0, xDist, yDist);
+					   }
+				   }
+				 //Building 19 : Hotel
+				   if(buildingIn == 19){
+					   //entrance
+					   if(playerLocalLeftTop > 577 && playerLocalLeftTop < 583 
+							   || playerLocalRightTop > 577 && playerLocalRightTop < 583){
+						   int xDist = 0;
+						   int yDist = 100;
+						   lvl.setBuildingEnt(0);
+						   entBuilding(0, xDist, yDist);
+					   }
+					   //stairs
+					   if(lvl.c1i.buildingSubSec == 1 && !justChanged){
+						   if(playerLocalLeftBtm == 1197 || playerLocalRightBtm == 1197 && playerLocalLeftBtm !=1196
+								   || playerLocalLeftBtm == 1198 || playerLocalRightBtm == 1198 ){
+							   int xDist = 0;
+							   int yDist = -20;
+							   lvl.c1i.buildingSubSec = 2;
+							   pDir = 1;
+							   changeFloor(2);
+							   entMove(xDist, yDist);
+						   }
+					   }
+					   if(lvl.c1i.buildingSubSec == 2 && !justChanged){
+						   if(playerLocalLeftBtm == 1197 || playerLocalRightBtm == 1197 && playerLocalLeftBtm !=1196
+								   || playerLocalLeftBtm == 1198 || playerLocalRightBtm == 1198 ){
+							   int xDist = 0;
+							   int yDist = -20;
+							   lvl.c1i.buildingSubSec = 1;
+							   pDir = 1;
+							   changeFloor(1);
+							   entMove(xDist, yDist);
+						   }
+					   }					   
+				   }
+				 //Building 21 : Club
+				   if(buildingIn == 21){
+					   if(playerLocalLeftTop == 525 || playerLocalLeftBtm == 525
+							   || playerLocalLeftTop == 565 || playerLocalLeftBtm == 565
+							   || playerLocalLeftTop == 605 || playerLocalLeftBtm == 605 ){
+						   int xDist = 340;
+						   int yDist = -140;
+						   lvl.setBuildingEnt(0);
+						   entBuilding(0, xDist, yDist);
+					   }
+				   }
+			   }else{
+				   if(lvl.getSecIn() == 1){
+					   
+				   }
+				   if(lvl.getSecIn() == 2){
+					   
+				   }
+				   if(lvl.getSecIn() == 3){
+					   
+				   }
+				   if(lvl.getSecIn() == 4){
+					   //Building 12 : Large Orange House Left Side
+					   if(playerLocalLeftTop == 165 || playerLocalRightTop == 165
+							   || playerLocalLeftTop == 166 || playerLocalRightTop == 166){
+						   int xDist = 280;
+						   int yDist = 160;
+						   lvl.setBuildingEnt(12);
+						   entBuilding(12, xDist, yDist);
+						   stopSprint();
+					   }
+					   //Building 13 : Large Orange House Right side
+					   if(playerLocalLeftTop == 173 || playerLocalRightTop == 173
+							   || playerLocalLeftTop == 174 || playerLocalRightTop == 174){
+						   int xDist = 120;
+						   int yDist = 160;
+						   lvl.setBuildingEnt(13);
+						   entBuilding(13, xDist, yDist);
+						   stopSprint();
+					   }
+					   //Building 14 : Small Orange House Top Left Side
+					   if(playerLocalLeftTop == 186 || playerLocalRightTop == 186){
+						   int xDist = -120;
+						   
+						   int yDist = 160;
+						   lvl.setBuildingEnt(14);
+						   entBuilding(14, xDist, yDist);
+						   stopSprint();
+					   }
+					   //Building 15 : Small Orange House Top Right Side
+					   if(playerLocalLeftTop == 195 || playerLocalRightTop == 195){
+						   int xDist = -300;
+						   int yDist = 160;
+						   lvl.setBuildingEnt(15);
+						   entBuilding(15, xDist, yDist);
+						   stopSprint();
+					   }
+					   //Building 16 : Small Orange House Bottom Left Side
+					   if(playerLocalLeftBtm == 386 || playerLocalRightBtm == 386){
+						   int xDist = -120;
+						   int yDist = 40;
+						   lvl.setBuildingEnt(16);
+						   entBuilding(16, xDist, yDist);
+						   stopSprint();
+					   }
+					   //Building 17 : Small Orange House Bottom Right Side
+					   if(playerLocalLeftBtm == 395 || playerLocalRightBtm == 395){
+						   int xDist = -300;
+						   int yDist = 40;
+						   lvl.setBuildingEnt(17);
+						   entBuilding(17, xDist, yDist);
+						   stopSprint();
+					   }
+					   //Building 18 : Bus Station
+					   if(playerLocalLeftTop == 605 || playerLocalLeftBtm == 605
+							   || playerLocalLeftTop == 645 || playerLocalLeftBtm == 645
+							   || playerLocalLeftTop == 685 || playerLocalLeftBtm == 685 ){
+						   int xDist = 400;
+						   int yDist = 0;
+						   lvl.setBuildingEnt(18);
+						   entBuilding(18, xDist, yDist);
+						   stopSprint();
+					   }
+					   //Building 19 : Hotel
+					   if(playerLocalLeftBtm > 857 && playerLocalLeftBtm < 863 
+							   || playerLocalRightBtm > 857 && playerLocalRightBtm < 863){
+						   int xDist = 0;
+						   int yDist = -100;
+						   lvl.setBuildingEnt(19);
+						   entBuilding(19, xDist, yDist);
+						   stopSprint();
+					   }
+					   
+				   }
+				   if(lvl.getSecIn() == 5){
+					   //Building 21 : Club
+					   if(playerLocalRightTop == 264 || playerLocalRightBtm == 264 
+							   || playerLocalRightTop == 304 || playerLocalRightBtm == 304
+							   || playerLocalRightTop == 344 || playerLocalRightBtm == 344){
+						   int xDist = -340;
+						   int yDist = 140;
+						   lvl.setBuildingEnt(21);
+						   entBuilding(21, xDist, yDist);
+						   stopSprint();
+					   }
+				   }
+				   if(lvl.getSecIn() == 6){
+					   if((playerLocalRightBtm > 848 && playerLocalRightBtm < 855 ) || (playerLocalLeftBtm > 848 && playerLocalLeftBtm < 855)){
+						   int xDist = -80;
+						   int yDist = -40;
+						   lvl.setBuildingEnt(24);
+						   entBuilding(24, xDist, yDist);
+						   stopSprint();
+					   }
+				   }
+				   if(lvl.getSecIn() == 7){
+					   
+				   }
+				   if(lvl.getSecIn() == 8){
+					   
+				   }
+				   if(lvl.getSecIn() == 9){
+					   
+				   }	   
+			   }
+		   }
+	   }
+	   
+	   //stops the player from sprinting
+	   private void stopSprint(){
+		   HUD.sprint = 1;
+		   HUD.dispSignText = false;
+		   if(xDirection == 2){xDirection = 1;}
+		   if(xDirection == -2){xDirection = -1;}
+		   if(yDirection == 2){yDirection = 1;}
+		   if(yDirection == -2){yDirection = -1;}
+	   }
+	   
+	   private void sprintChecks(){
+		   if(HUD.sprint == 2){
+			   //if not moving but pressing sprint refill stamina
+			   if(xDirection == 0 && yDirection == 0){   
+				   if(HUD.sprintTime < 500){
+					   //while the sprint time is less than 500 add one
+					   HUD.sprintTime += 1;
+				   }else if(HUD.sprintTime > 500){
+					   //if the sprint time is over 500 stop it at 500
+					   HUD.sprintTime = 500;
+				   }
+			   }else{
+				   //if moving remove one from sprint time
+				   HUD.sprintTime -= 1;
+			   }
+			   //if sprint time runs out then stop sprint and reset cool down time
+			   if(HUD.sprintTime <= 0){
+				   HUD.sprint = 1;
+				   HUD.sprintCoolDown = 250;
+			   }
+		   }else{
+			   //if you aren't sprinting and there is more cool down time then add some sprint time and take away cool down time
+			   if(HUD.sprintCoolDown > 0){
+				   HUD.sprintCoolDown -= 1;
+				   HUD.sprintTime = -2*HUD.sprintCoolDown+500;
+			   }else{
+				   //add some if you aren't sprinting and your sprint meter isn't full
+				   if(HUD.sprintTime < 500){
+					   HUD.sprintTime += 1;
+				   }else if(HUD.sprintTime > 500){
+					   //if its more than 500 then set it to 500
+					   HUD.sprintTime = 500;
+				   }
+			   }
+		   }
+	   }
+	   
+	   //checks different aspects to adjust the level of stealth
+	   @SuppressWarnings("unused")
+	   private void stealthChecks(){
+		   //You loose stealth when you sprint, walk near people, pull out a weapon, talk to people.
+		   //add stealth when far away from people, standing still, power ups?
+		   int sprintPenalty = 2;
+		   int walkingPenalty = 1;
+		   int weaponPenalty = 4;
+		   int locationPenalty = 1;
+		   int talkPenalty = 3;
+		   //sprint takes away all stealth
+		   if(HUD.sprint == 2 && moving){
+			   HUD.stealthAmt = 0;
+		   }
+		   //use later to measure distance from people. Use with nearPersonStealthCheck();
+		   int playerLocalLeftTop = (((((playerTop.y + yDirection)/20) * 40) ) + ((playerTop.x + xDirection)/20) ); 
+		   int playerLocalRightTop = (((((playerTop.y + yDirection)/20) * 40) ) + ((playerTop.x + 14 + xDirection)/20) );
+		   int playerLocalLeftBtm = (((((playerFeet.y + yDirection)/20) * 40) ) + ((playerFeet.x + xDirection)/20) ); 
+		   int playerLocalRightBtm = (((((playerFeet.y + yDirection)/20) * 40) ) + ((playerFeet.x + 14 + xDirection)/20) );
+		   
+		   if(playerLocalLeftBtm > 1200){playerLocalLeftBtm -= 40;}
+		   if(playerLocalRightBtm > 1200){playerLocalRightBtm -= 40;}
+		   if(playerLocalLeftTop < 0){playerLocalLeftTop += 40;}
+		   if(playerLocalRightTop < 0){playerLocalRightTop += 40;}
+		   //walking takes away 1
+		   if(moving){
+			   if(HUD.stealthAmt > 0){
+				   HUD.stealthAmt -= walkingPenalty;
+			   }
+		   }else{
+			   //standing still adds 2
+			   HUD.stealthAmt += sprintPenalty;
+		   }
+		   //sitting regenerates everything
+		   if(sitting){
+			   HUD.stealthAmt = 500;
+		   }
+		   //if stealth goes over or under then reset it
+		   if(HUD.stealthAmt > 500){
+			   HUD.stealthAmt = 500;
+		   }else if(HUD.stealthAmt < 0){
+			   HUD.stealthAmt = 0;
+		   }
+	   }
+	   
+	   @SuppressWarnings("unused")
+	   private boolean nearPersonStealthCheck(int PLLT, int PLLB, int PLRT, int PLRB){
+		   boolean near = false;
+		   
+		   
+		   
+		   return near;
+	   }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public void openInventory(){
 		HUD.dispInv = true;
@@ -193,7 +592,7 @@ public class Player {
 	public void checkChair(){
 		System.out.println("checking chair");
 		if(currentCity == 1){
-			if(!outside){
+			if(lvl.isPlayerInside()){
 				//Building 12 : Large Orange House Left
 				if(buildingIn == 12){
 					if(nearChair(420)){
@@ -940,7 +1339,7 @@ public class Player {
 	}
 	
 	public void movePlayer(){
-		if(outside){
+		if(!lvl.isPlayerInside()){
 			checkCollisionsOut();
 		}else{
 			checkCollisionIn();
@@ -1008,10 +1407,10 @@ public class Player {
 	public void entBuilding(int buildingNum, int xDist, int yDist){
 		buildingIn = buildingNum;
 		if(buildingNum == 0){
-			outside = true;
+			lvl.setPlayerInside(false);
 		}
 		if(buildingNum != 0){
-			outside = false;
+			lvl.setPlayerInside(true);
 		}
 		lvl.c1i.setBuildingEnt(buildingNum);
 		entMove(xDist,yDist);

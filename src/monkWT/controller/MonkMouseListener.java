@@ -62,7 +62,7 @@ public class MonkMouseListener implements MouseListener, MouseMotionListener{
 			int s = mainModel.getLevel().getSecIn()-1;
 			//city 1
 			if(mainModel.getLevel().getCityIn() == 1){
-				if(mainModel.getPlayer().outside){
+				if(!mainModel.getLevel().isPlayerInside()){
 					if(mainModel.getLevel().getSecIn() == 1){
 						//sign positions
 						if(mainModel.getLevel().city1[s][mouseBlock].isSign()){

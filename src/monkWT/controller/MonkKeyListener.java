@@ -92,7 +92,7 @@ public class MonkKeyListener implements KeyListener{
 		        	 break;
 		         case KeyEvent.VK_SHIFT:
 		        	 //sprint
-		        	 if(mainModel.getPlayer().outside){
+		        	 if(!mainModel.getLevel().isPlayerInside()){
 			        	 if(mainModel.getPlayer().HUD.sprintCoolDown <= 0){
 			        		 mainModel.getPlayer().HUD.sprint = 2;
 				        	 if(mainModel.getPlayer().xDirection == 1){mainModel.getPlayer().xDirection = 2;}
@@ -122,7 +122,7 @@ public class MonkKeyListener implements KeyListener{
 		        	 //TODO add in different way of saving. 
 		        	 try{
 		        		 if(!mainModel.getPlayer().sitting){
-		        			 contrlSaveLoad.save(mainModel.getPlayer().currentCity, mainModel.getLevel().getSecIn(), mainModel.getPlayer().buildingIn, mainModel.getPlayer().outside, mainModel.getPlayer().playerRect.x,
+		        			 contrlSaveLoad.save(mainModel.getPlayer().currentCity, mainModel.getLevel().getSecIn(), mainModel.getPlayer().buildingIn, mainModel.getLevel().isPlayerInside(), mainModel.getPlayer().playerRect.x,
 		        					 mainModel.getPlayer().playerRect.y, mainModel.getHandCash(), mainModel.getBankCash(), mainModel.getCurrentQuest(), mainModel.getLevel().cityDeaths, mainModel.getLevel().ownerHouse, mainModel.getPlayer().HUD.inventory);
 		        			 mainModel.getPlayer().HUD.goSave = true;
 		        		 }

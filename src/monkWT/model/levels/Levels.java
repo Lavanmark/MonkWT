@@ -3,6 +3,7 @@ package monkWT.model.levels;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.util.Set;
 
 import monkWT.model.Tile;
 import monkWT.model.TileLoader;
@@ -13,8 +14,7 @@ import resources.ResourceLoader;
 
 public class Levels {
 
-		private ResourceLoader rl = new ResourceLoader();
-		private TileLoader tl = new TileLoader();
+		
 	
 		//Level boxes
 		public Tile[][] city1Tree = new Tile[9][1200];
@@ -37,10 +37,15 @@ public class Levels {
 		public Rectangle spawnTop;
 		public Rectangle spawnFeet;
 		
+		//Doors
+		public Set doors;
+		
 		
 		//class declarations
 		//city one insides
 		public CityOneInsides c1i = new CityOneInsides();
+		private ResourceLoader rl = new ResourceLoader();
+		private TileLoader tl = new TileLoader();
 		
 		public void setBuildingEnt(int buildingNum){
 			c1i.setBuildingEnt(buildingNum);
