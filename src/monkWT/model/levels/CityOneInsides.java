@@ -82,7 +82,7 @@ public class CityOneInsides {
 		}
 		/*
 		//loadLargeHouseOrange();
-		loadSmallHouseOrange();
+		//loadSmallHouseOrange();
 		//changeSmallOrangeHouse();
 		//loadBusStation();
 		//loadHotelF1();
@@ -91,8 +91,8 @@ public class CityOneInsides {
 		try {
 			//rl.saveMap(city1Inside[11], "city1iLargeOrangeHouse");
 			//rl.saveMap(city1Inside[13], "city1iSmallOrangeHouseDwn");
-			changeSmallOrangeHouse();
-			rl.saveMap(city1Inside[15], "city1iSmallOrangeHouseUp");
+			//changeSmallOrangeHouse();
+			//rl.saveMap(city1Inside[15], "city1iSmallOrangeHouseUp");
 			//rl.saveMap(city1Inside[17], "city1iBusStation");
 			//rl.saveMap(city1Inside[18], "city1iHotelF1");
 			//rl.saveMap(city1Inside[19], "city1iHotelF2");
@@ -180,330 +180,205 @@ public class CityOneInsides {
 		doors.add(new Door(true, 565, 0, 340, -140));
 		doors.add(new Door(true, 605, 0, 340, -140));
 
-		doorsInsideOne.put(21, doors);
+		doorsInsideOne.put(22, doors);
 	}
 	
 	private void addInsideChairs(){
 		Set<Chair> chairs = new HashSet<Chair>();
 		
-		chairs.add(new Chair(567, 0, 0, false, 144, 282));
-		chairs.add(new Chair(568, 0, 0, false, 160, 282));
+		chairs.add(new Chair(420, 0, 0, 0, 402, 204));
 		
-		chairsInsideOne.put(4, chairs);
+		chairsInsideOne.put(12, chairs);
 		chairs = new HashSet<Chair>();
+		
+		chairs.add(new Chair(420, 0, 0, 0, 402, 204));
+		
+		chairsInsideOne.put(13, chairs);
+		chairs = new HashSet<Chair>();
+		
+		chairs.add(new Chair(420, 0, 0, 0, 402, 204));
+		
+		chairsInsideOne.put(14, chairs);
+		chairs = new HashSet<Chair>();
+
+		chairs.add(new Chair(420, 0, 0, 0, 402, 204));
+		
+		chairsInsideOne.put(15, chairs);
+		chairs = new HashSet<Chair>();
+
+		chairs.add(new Chair(540, 1, 1, 0, 402, 264));
+		
+		chairsInsideOne.put(16, chairs);
+		chairs = new HashSet<Chair>();
+
+		chairs.add(new Chair(540, 1, 1, 0, 402, 264));
+		
+		chairsInsideOne.put(17, chairs);
+		chairs = new HashSet<Chair>();
+
+		chairs.add(new Chair(821, 1, 1, 0, 424, 400));
+		chairs.add(new Chair(822, 1, 1, 0, 440, 400));
+		chairs.add(new Chair(824, 1, 1, 0, 484, 400));
+		chairs.add(new Chair(825, 1, 1, 0, 500, 400));
+		chairs.add(new Chair(741, 0, 0, 0, 424, 362));
+		chairs.add(new Chair(742, 0, 0, 0, 440, 362));
+		chairs.add(new Chair(744, 0, 0, 0, 484, 362));
+		chairs.add(new Chair(745, 0, 0, 0, 500, 362));
+		//TODO add when you sit on a bench it takes you to where ever you have a ticket to.
+		chairs.add(new Chair(533, 2, 2, 0, 262, 264));
+		chairs.add(new Chair(573, 2, 2, 0, 262, 280));
+		chairs.add(new Chair(733, 0, 0, 0, 262, 364));
+		chairs.add(new Chair(773, 0, 0, 0, 262, 380));
+
+		chairsInsideOne.put(18, chairs);
+		chairs = new HashSet<Chair>();
+		
+		//Lobby Couches
+		chairs.add(new Chair(668, 2, 2, 0, 562, 324));
+		chairs.add(new Chair(708, 2, 2, 0, 562, 340));
+		chairs.add(new Chair(788, 2, 2, 0, 562, 384));
+		chairs.add(new Chair(828, 2, 2, 0, 562, 400));
+		//Room 101
+		chairs.add(new Chair(1044, 2, 2, 0, 82, 524));
+		chairs.add(new Chair(1084, 2, 2, 0, 82, 540));
+		//Room 103
+		chairs.add(new Chair(1049, 2, 2, 0, 182, 524));
+		chairs.add(new Chair(1089, 2, 2, 0, 182, 540));
+		//Room 105
+		chairs.add(new Chair(1054, 2, 2, 0, 282, 524));
+		chairs.add(new Chair(1094, 2, 2, 0, 282, 540));
+		//Room 107
+		chairs.add(new Chair(1059, 2, 2, 0, 382, 524));
+		chairs.add(new Chair(1099, 2, 2, 0, 382, 540));
+		//Room 109
+		chairs.add(new Chair(1064, 2, 2, 0, 482, 524));
+		chairs.add(new Chair(1104, 2, 2, 0, 482, 540));
+		//Room 111
+		chairs.add(new Chair(1069, 2, 2, 0, 582, 524));
+		chairs.add(new Chair(1109, 2, 2, 0, 582, 540));
+		//Room 113
+		chairs.add(new Chair(1074, 2, 2, 0, 682, 524));
+		chairs.add(new Chair(1114, 2, 2, 0, 682, 540));
+		
+		chairsInsideOne.put(19, chairs);
+		chairs = new HashSet<Chair>();
+		
+		//Room 202
+			//couch
+		chairs.add(new Chair(650, 2, 2, 0, 202, 324));
+		chairs.add(new Chair(690, 2, 2, 0, 202, 340));
+		chairs.add(new Chair(770, 2, 2, 0, 202, 384));
+		chairs.add(new Chair(810, 2, 2, 0, 202, 400));
+			//table chairs
+		chairs.add(new Chair(645, 0, 2, 0, 102, 324));
+		chairs.add(new Chair(646, 0, 3, 0, 122, 324));
+		chairs.add(new Chair(765, 1, 2, 0, 102, 380));
+		chairs.add(new Chair(766, 1, 3, 0, 122, 380));
+		//Room 206
+			//couch
+		chairs.add(new Chair(659, 2, 2, 0, 382, 324));
+		chairs.add(new Chair(699, 2, 2, 0, 382, 340));
+		chairs.add(new Chair(779, 2, 2, 0, 382, 384));
+		chairs.add(new Chair(819, 2, 2, 0, 382, 400));
+			//table chairs
+		chairs.add(new Chair(655, 0, 2, 0, 302, 324));
+		chairs.add(new Chair(775, 1, 2, 0, 302, 380));
+		chairs.add(new Chair(776, 1, 3, 0, 322, 380));
+		//Room 210
+			//couch
+		chairs.add(new Chair(668, 2, 2, 0, 562, 324));
+		chairs.add(new Chair(708, 2, 2, 0, 562, 340));
+		chairs.add(new Chair(788, 2, 2, 0, 562, 384));
+		chairs.add(new Chair(828, 2, 2, 0, 562, 400));
+			//table chairs
+		chairs.add(new Chair(664, 0, 2, 0, 482, 324));
+		chairs.add(new Chair(665, 0, 3, 0, 502, 324));
+		chairs.add(new Chair(784, 1, 2, 0, 482, 380));
+		chairs.add(new Chair(785, 1, 3, 0, 502, 380));
+		//Room 214
+			//couch
+		chairs.add(new Chair(678, 2, 2, 0, 762, 324));
+		chairs.add(new Chair(718, 2, 2, 0, 762, 340));
+		chairs.add(new Chair(798, 2, 2, 0, 762, 384));
+		chairs.add(new Chair(838, 2, 2, 0, 762, 400));
+			//table chairs
+		chairs.add(new Chair(674, 0, 2, 0, 682, 324));
+		chairs.add(new Chair(675, 0, 3, 0, 702, 324));
+		chairs.add(new Chair(794, 1, 2, 0, 682, 380));
+		chairs.add(new Chair(795, 1, 3, 0, 702, 380));
+		//Room 201
+		chairs.add(new Chair(1044, 2, 2, 0, 82, 524));
+		chairs.add(new Chair(1084, 2, 2, 0, 82, 540));
+		//Room 203
+		chairs.add(new Chair(1049, 2, 2, 0, 182, 524));
+		chairs.add(new Chair(1089, 2, 2, 0, 182, 540));
+		//Room 205
+		chairs.add(new Chair(1054, 2, 2, 0, 282, 524));
+		chairs.add(new Chair(1094, 2, 2, 0, 282, 540));
+		//Room 207
+		chairs.add(new Chair(1059, 2, 2, 0, 382, 524));
+		chairs.add(new Chair(1099, 2, 2, 0, 382, 540));
+		//Room 209
+		chairs.add(new Chair(1064, 2, 2, 0, 482, 524));
+		chairs.add(new Chair(1104, 2, 2, 0, 482, 540));
+		//Room 211
+		chairs.add(new Chair(1069, 2, 2, 0, 582, 524));
+		chairs.add(new Chair(1109, 2, 2, 0, 582, 540));
+		//Room 213
+		chairs.add(new Chair(1074, 2, 2, 0, 682, 524));
+		chairs.add(new Chair(1114, 2, 2, 0, 682, 540));
+		
+		chairsInsideOne.put(20, chairs);
+		chairs = new HashSet<Chair>();
+		
+		//Booth top left
+		chairs.add(new Chair(206, 3, 0, 0, 120, 100));
+		chairs.add(new Chair(208, 2, 0, 0, 164, 100));
+		chairs.add(new Chair(166, 3, 0, 1, 120, 84));
+		chairs.add(new Chair(168, 2, 0, 1, 164, 84));
+		//Booth top middle left
+		chairs.add(new Chair(209, 3, 0, 0, 180, 100));
+		chairs.add(new Chair(211, 2, 0, 0, 224, 100));
+		chairs.add(new Chair(169, 3, 0, 1, 180, 84));
+		chairs.add(new Chair(171, 2, 0, 1, 224, 84));
+		//Booth top middle right
+		chairs.add(new Chair(212, 3, 0, 0, 240, 100));
+		chairs.add(new Chair(214, 2, 0, 0, 284, 100));
+		chairs.add(new Chair(172, 3, 0, 1, 240, 84));
+		chairs.add(new Chair(174, 2, 0, 1, 284, 84));
+		//Booth top right
+		chairs.add(new Chair(215, 3, 0, 0, 300, 100));
+		chairs.add(new Chair(217, 2, 0, 0, 344, 100));
+		chairs.add(new Chair(175, 3, 0, 1, 300, 84));
+		chairs.add(new Chair(177, 2, 0, 1, 344, 84));
+		//Booth bottom left
+		chairs.add(new Chair(1006, 3, 1, 2, 120, 500));
+		chairs.add(new Chair(1008, 2, 1, 2, 164, 500));
+		chairs.add(new Chair(966, 3, 1, 0, 120, 484));
+		chairs.add(new Chair(968, 2, 1, 0, 164, 484));
+		//Booth bottom middle left
+		chairs.add(new Chair(1009, 3, 1, 2, 180, 500));
+		chairs.add(new Chair(1011, 2, 1, 2, 224, 500));
+		chairs.add(new Chair(969, 3, 1, 0, 180, 484));
+		chairs.add(new Chair(971, 2, 1, 0, 224, 484));
+		//Booth top middle right
+		chairs.add(new Chair(1012, 3, 1, 2, 240, 500));
+		chairs.add(new Chair(1014, 2, 1, 2, 284, 500));
+		chairs.add(new Chair(972, 3, 1, 0, 240, 484));
+		chairs.add(new Chair(974, 2, 1, 0, 284, 484));
+		//Booth top right
+		chairs.add(new Chair(1015, 3, 1, 2, 300, 500));
+		chairs.add(new Chair(1017, 2, 1, 2, 344, 500));
+		chairs.add(new Chair(975, 3, 1, 0, 300, 484));
+		chairs.add(new Chair(977, 2, 1, 0, 344, 484));
+		//Bar stools
+		chairs.add(new Chair(219, 2, 0, 0, 300, 100));
+		
+		chairsInsideOne.put(22, chairs);
+		chairs = new HashSet<Chair>();
+		//TODO finish booths here and then bar stools
+		//TODO add monestary chairs.
 	}
-	
-	/*
-	 * 
-	 * //Building 12 : Large Orange House Left
-				if(lvl.c1i.getBuildingIn() == 12){
-					if(nearChair(420)){
-						makeSit(0,0,false,402,204);
-					}
-				}
-				//Building 13 : Large Orange House Right
-				if(lvl.c1i.getBuildingIn() == 13){
-					if(nearChair(420)){
-						makeSit(0,0,false,402,204);
-					}
-				}
-				//Building 14 : Small Orange House Top Left
-				if(lvl.c1i.getBuildingIn() == 14){
-					if(nearChair(420)){
-						makeSit(0,0,false,402,204);
-					}
-				}
-				//Building 15 : Small Orange House Top Right
-				if(lvl.c1i.getBuildingIn() == 15){
-					if(nearChair(420)){
-						makeSit(0,0,false,402,204);
-					}
-				}
-				//Building 16 : Small Orange House Bottom Left
-				if(lvl.c1i.getBuildingIn() == 16){
-					if(nearChair(540)){
-						makeSit(1,1,false,402,264);
-					}
-				}
-				//Building 17 : Small Orange House Bottom Right
-				if(lvl.c1i.getBuildingIn() == 17){
-					if(nearChair(540)){
-						makeSit(1,1,false,402,264);
-					}
-				}
-				//Building 18 : Bus Station
-				
-				if(lvl.c1i.getBuildingIn() == 18){
-					//Inside Benches
-					if(nearChair(821)){
-						makeSit(1,1,false,424,400);
-					}else if(nearChair(822)){
-						makeSit(1,1,false,440,400);
-					}
-					if(nearChair(824)){
-						makeSit(1,1,false,484,400);
-					}else if(nearChair(825)){
-						makeSit(1,1,false,500,400);
-					}
-					if(nearChair(741)){
-						makeSit(0,0,false,424,362);
-					}else if(nearChair(742)){
-						makeSit(0,0,false,440,362);
-					}
-					if(nearChair(744)){
-						makeSit(0,0,false,484,362);
-					}else if(nearChair(745)){
-						makeSit(0,0,false,500,362);
-					}
-					//TODO add when you sit on a bench it takes you to where ever you have a ticket to.
-					//Outside Benches
-					if(nearChair(533)){
-						makeSit(2,2,false,262,264);
-					}else if(nearChair(573)){
-						makeSit(2,2,false,262,280);
-					}
-					if(nearChair(733)){
-						makeSit(2,2,false,262,364);
-					}else if(nearChair(773)){
-						makeSit(2,2,false,262,380);
-					}
-				}
-				//Building 19 : Hotel 
-				if(lvl.c1i.getBuildingIn() == 19){
-					//First Floor
-					if(lvl.c1i.buildingSubSec == 1){
-						//Lobby Couches
-						if(nearChair(668)){
-							makeSit(2,2,false,562,324);
-						}else if(nearChair(708)){
-							makeSit(2,2,false,562,340);
-						}
-						if(nearChair(788)){
-							makeSit(2,2,false,562,384);
-						}else if(nearChair(828)){
-							makeSit(0,0,false,562,400);
-						}
-						//Room 101
-						if(nearChair(1044)){
-							makeSit(2,2,false,82,524);
-						}else if(nearChair(1084)){
-							makeSit(2,2,false,82,540);
-						}
-						//Room 103
-						if(nearChair(1049)){
-							makeSit(2,2,false,182,524);
-						}else if(nearChair(1089)){
-							makeSit(2,2,false,182,540);
-						}
-						//Room 105
-						if(nearChair(1054)){
-							makeSit(2,2,false,282,524);
-						}else if(nearChair(1094)){
-							makeSit(2,2,false,282,540);
-						}
-						//Room 107
-						if(nearChair(1059)){
-							makeSit(2,2,false,382,524);
-						}else if(nearChair(1099)){
-							makeSit(2,2,false,382,540);
-						}
-						//Room 109
-						if(nearChair(1064)){
-							makeSit(2,2,false,482,524);
-						}else if(nearChair(1104)){
-							makeSit(2,2,false,482,540);
-						}
-						//Room 111
-						if(nearChair(1069)){
-							makeSit(2,2,false,582,524);
-						}else if(nearChair(1109)){
-							makeSit(2,2,false,582,540);
-						}
-						//Room 113
-						if(nearChair(1074)){
-							makeSit(2,2,false,682,524);
-						}else if(nearChair(1114)){
-							makeSit(2,2,false,682,540);
-						}
-					}
-					if(lvl.c1i.buildingSubSec == 2){
-						//Room 202
-						if(nearChair(650)){
-							makeSit(2,2,false,202,324);
-						}else if(nearChair(690)){
-							makeSit(2,2,false,202,340);
-						}
-						if(nearChair(770)){
-							makeSit(2,2,false,202,384);
-						}else if(nearChair(810)){
-							makeSit(2,2,false,202,400);
-						}
-						//Top chairs
-						if(nearChair(645)){
-							makeSit(0,2,false,102,324);
-						}else if(nearChair(646)){
-							makeSit(0,3,false,122,324);
-						}
-						//bottom chairs
-						if(nearChair(765)){
-							makeSit(1,2,false,102,380);
-						}else if(nearChair(766)){
-							makeSit(1,3,false,122,380);
-						}
-						//Room 206
-						if(nearChair(659)){
-							makeSit(2,2,false,382,324);
-						}else if(nearChair(699)){
-							makeSit(2,2,false,382,340);
-						}
-						if(nearChair(779)){
-							makeSit(2,2,false,382,384);
-						}else if(nearChair(819)){
-							makeSit(2,2,false,382,400);
-						}
-						//Top chairs
-						if(nearChair(655)){
-							makeSit(0,2,false,302,324);
-						}
-						//bottom chairs
-						if(nearChair(775)){
-							makeSit(1,2,false,302,380);
-						}else if(nearChair(776)){
-							makeSit(1,3,false,322,380);
-						}
-						//Room 210
-						if(nearChair(668)){
-							makeSit(2,2,false,562,324);
-						}else if(nearChair(708)){
-							makeSit(2,2,false,562,340);
-							//TODO change these to makeSit(2,2,false,182,524);
-						}
-						if(nearChair(788)){
-							makeSit(2,2,false,562,384);
-						}else if(nearChair(828)){
-							makeSit(2,2,false,562,400);
-						}
-						//Top chairs
-						if(nearChair(664)){
-							makeSit(0,2,false,482,324);
-						}else if(nearChair(665)){
-							makeSit(0,3,false,502,324);
-						}
-						//bottom chairs
-						if(nearChair(784)){
-							makeSit(1,2,false,482,380);
-						}else if(nearChair(785)){
-							makeSit(1,3,false,502,380);
-						}
-						//Room 214
-						if(nearChair(678)){
-							makeSit(2,2,false,762,324);
-						}else if(nearChair(718)){
-							makeSit(2,2,false,762,340);
-						}
-						if(nearChair(798)){
-							makeSit(2,2,false,762,384);
-						}else if(nearChair(838)){
-							makeSit(2,2,false,762,400);
-						}
-						//Top chairs
-						if(nearChair(674)){
-							makeSit(0,2,false,682,324);
-						}else if(nearChair(675)){
-							makeSit(0,3,false,702,324);
-						}
-						//bottom chairs
-						if(nearChair(794)){
-							makeSit(1,2,false,682,380);
-						}else if(nearChair(795)){
-							makeSit(1,3,false,702,380);
-						}
-						//Room 201
-						if(nearChair(1044)){
-							makeSit(2,2,false,82,524);
-						}else if(nearChair(1084)){
-							makeSit(2,2,false,82,540);
-						}
-						//Room 203
-						if(nearChair(1049)){
-							makeSit(2,2,false,182,524);
-						}else if(nearChair(1089)){
-							makeSit(2,2,false,182,540);
-						}
-						//Room 205
-						if(nearChair(1054)){
-							makeSit(2,2,false,282,524);
-						}else if(nearChair(1094)){
-							makeSit(2,2,false,282,540);
-						}
-						//Room 207
-						if(nearChair(1059)){
-							makeSit(2,2,false,382,524);
-						}else if(nearChair(1099)){
-							makeSit(2,2,false,382,540);
-						}
-						//Room 209
-						if(nearChair(1064)){
-							makeSit(2,2,false,482,524);
-						}else if(nearChair(1104)){
-							makeSit(2,2,false,482,540);
-						}
-						//Room 211
-						if(nearChair(1069)){
-							makeSit(2,2,false,582,524);
-						}else if(nearChair(1109)){
-							makeSit(2,2,false,582,540);
-						}
-						//Room 213
-						if(nearChair(1074)){
-							makeSit(2,2,false,682,524);
-						}else if(nearChair(1114)){
-							makeSit(2,2,false,682,540);
-						}
-					}
-				}
-				//Building 21 : Club
-				if(lvl.c1i.getBuildingIn() == 21){
-					//booths top left
-					if(nearChair(206)){
-						makeSit(3,0,false,120,100);
-					}else if(nearChair(208)){
-						makeSit(2,0,false,164,100);
-					}else if(nearChair(166)){
-						makeSit(3,0,true,120,84);
-					}else if(nearChair(168)){
-						makeSit(2,0,true,164,84);
-					}
-					//booths top middle
-					if(nearChair(209)){
-						makeSit(3,0,false,180,100);
-					}else if(nearChair(211)){
-						makeSit(2,0,false,224,100);
-					}else if(nearChair(169)){
-						makeSit(3,0,true,180,84);
-					}else if(nearChair(171)){
-						makeSit(2,0,true,224,84);
-					}
-					//TODO wrong positions
-					//booths top middle
-					if(nearChair(212)){
-						makeSit(3,0,false,180,100);
-					}else if(nearChair(214)){
-						makeSit(2,0,false,224,100);
-					}else if(nearChair(169)){
-						makeSit(3,0,true,180,84);
-					}else if(nearChair(171)){
-						makeSit(2,0,true,224,84);
-					}
-					//TODO sitting isn't possible due to proximity in the booths or was it not changed yet??
-					//TODO finish booths here and then bar stools
-				}
-				//TODO add monestary chairs. this is a pain in the butt. change how chairs work?
-				
-	 * 
-	 * 
-	 * 
-	 */
 	
 	public int getBuildingInArray(){
 		return (buildingEnt-1);
@@ -999,9 +874,9 @@ public class CityOneInsides {
 			x+=20;
 		}
 			
-	}
+	}*/
 
-	*/
+	
 	
 	
 	public void draw(Graphics g){

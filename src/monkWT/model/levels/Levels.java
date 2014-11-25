@@ -161,9 +161,9 @@ public class Levels {
 			doorsLvlOne.put(4, doors);
 			doors = new HashSet<Door>();
 			
-			doors.add(new Door(false, 264, 21, -340, 140));
-			doors.add(new Door(false, 304, 21, -340, 140));
-			doors.add(new Door(false, 344, 21, -340, 140));
+			doors.add(new Door(false, 264, 22, -340, 140));
+			doors.add(new Door(false, 304, 22, -340, 140));
+			doors.add(new Door(false, 344, 22, -340, 140));
 			
 			doorsLvlOne.put(5, doors);
 			doors = new HashSet<Door>();
@@ -182,30 +182,30 @@ public class Levels {
 		private void addChairsLvlOne(){
 			Set<Chair> chairs = new HashSet<Chair>();
 			
-			chairs.add(new Chair(567, 0, 0, false, 144, 282));
-			chairs.add(new Chair(568, 0, 0, false, 160, 282));
+			chairs.add(new Chair(567, 0, 0, 0, 144, 282));
+			chairs.add(new Chair(568, 0, 0, 0, 160, 282));
 			
 			chairsLvlOne.put(4, chairs);
 			chairs = new HashSet<Chair>();
 			
-			chairs.add(new Chair(733, 1, 1, false, 264, 362));
-			chairs.add(new Chair(734, 1, 1, false, 280, 362));
-			chairs.add(new Chair(746, 1, 1, false, 524, 362));
-			chairs.add(new Chair(747, 1, 1, false, 540, 362));
+			chairs.add(new Chair(733, 1, 1, 0, 264, 362));
+			chairs.add(new Chair(734, 1, 1, 0, 280, 362));
+			chairs.add(new Chair(746, 1, 1, 0, 524, 362));
+			chairs.add(new Chair(747, 1, 1, 0, 540, 362));
 
 			chairsLvlOne.put(5, chairs);
 			chairs = new HashSet<Chair>();
 			
-			chairs.add(new Chair(41, 0, 0, false, 24, 22));
-			chairs.add(new Chair(42, 0, 0, false, 40, 22));
+			chairs.add(new Chair(41, 0, 0, 0, 24, 22));
+			chairs.add(new Chair(42, 0, 0, 0, 40, 22));
 
 			chairsLvlOne.put(6, chairs);
 			chairs = new HashSet<Chair>();
 			
-			chairs.add(new Chair(496, 0, 0, false, 324, 240));
-			chairs.add(new Chair(497, 0, 0, false, 340, 240));
-			chairs.add(new Chair(503, 0, 0, false, 464, 240));
-			chairs.add(new Chair(504, 0, 0, false, 480, 240));
+			chairs.add(new Chair(496, 0, 0, 0, 324, 240));
+			chairs.add(new Chair(497, 0, 0, 0, 340, 240));
+			chairs.add(new Chair(503, 0, 0, 0, 464, 240));
+			chairs.add(new Chair(504, 0, 0, 0, 480, 240));
 			
 			chairsLvlOne.put(8, chairs);
 			chairs = new HashSet<Chair>();

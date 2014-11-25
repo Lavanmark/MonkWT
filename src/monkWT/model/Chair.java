@@ -5,7 +5,8 @@ public class Chair {
 	private int chairLoc;
 	private int chairDir;
 	private int playerSitDir;
-	private boolean extra;
+	private boolean extraHigh;
+	private boolean extraLow;
 	private int playerX;
 	private int playerY;
 	
@@ -15,15 +16,25 @@ public class Chair {
 		this.playerSitDir = playerDirection;
 		this.playerX = playerXLoc;
 		this.playerY = playerYLoc;
-		this.extra = false;
+		this.extraHigh = false;
+		this.extraLow = false;
 	}
-	public Chair(int chairBlock, int playerDirection, int chairDirection, boolean extraSumthin, int playerXLoc, int playerYLoc){
+	public Chair(int chairBlock, int playerDirection, int chairDirection, int extraSumthin, int playerXLoc, int playerYLoc){
 		this.chairLoc = chairBlock;
 		this.chairDir = chairDirection;
 		this.playerSitDir = playerDirection;
 		this.playerX = playerXLoc;
 		this.playerY = playerYLoc;
-		this.extra = extraSumthin;
+		if(extraSumthin == 1){
+			this.extraHigh = true;
+			this.extraLow = false;
+		}else if(extraSumthin == 2){
+			this.extraHigh = false;
+			this.extraLow = true;
+		}else{
+			this.extraHigh = false;
+			this.extraLow = false;
+		}
 	}
 	
 	public int getChairLoc() {
@@ -44,11 +55,17 @@ public class Chair {
 	public void setPlayerSitDir(int playerSitDir) {
 		this.playerSitDir = playerSitDir;
 	}
-	public boolean isExtra() {
-		return extra;
+	public boolean isHigh() {
+		return extraHigh;
 	}
-	public void setExtra(boolean extra) {
-		this.extra = extra;
+	public void setHigh(boolean extra) {
+		this.extraHigh = extra;
+	}
+	public boolean isLow(){
+		return extraLow;
+	}
+	public void setLow(boolean extra){
+		this.extraLow = extra;
 	}
 	public int getPlayerX() {
 		return playerX;
