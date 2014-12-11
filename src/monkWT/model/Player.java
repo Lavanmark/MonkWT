@@ -381,6 +381,7 @@ public class Player {
 	private void makeSit(Chair chair){
 		pDir = chair.getPlayerSitDir();
 		setCharLoc(chair.getPlayerX(),chair.getPlayerY());
+		stopMoveChar();
 		sitting = true;
 		sittingHigh = chair.isHigh();
 		sittingLow = chair.isLow();
