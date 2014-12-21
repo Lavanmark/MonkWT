@@ -184,11 +184,11 @@ public class Levels {
 
 			chairsLvlOne.put(6, chairs);
 			chairs = new HashSet<Chair>();
-			
-			chairs.add(new Chair(496, 0, 0, 0, 324, 240));
-			chairs.add(new Chair(497, 0, 0, 0, 340, 240));
-			chairs.add(new Chair(503, 0, 0, 0, 464, 240));
-			chairs.add(new Chair(504, 0, 0, 0, 480, 240));
+			//TODO these chairs put you in the lake
+			chairs.add(new Chair(496, 0, 2, 0, 324, 240));
+			chairs.add(new Chair(497, 0, 3, 0, 340, 240));
+			chairs.add(new Chair(503, 0, 2, 0, 464, 240));
+			chairs.add(new Chair(504, 0, 3, 0, 480, 240));
 			
 			chairsLvlOne.put(8, chairs);
 			chairs = new HashSet<Chair>();

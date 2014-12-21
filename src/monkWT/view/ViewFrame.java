@@ -72,6 +72,7 @@ public class ViewFrame extends JFrame{
        	 mainModel.getLevel().draw(g2d);
        	 //draw the player over map
        	 mainModel.getPlayer().draw(g2d);
+       	 mainModel.getRandomGuy().draw(g2d);
        	 //draw trees over player and map
        	 mainModel.getLevel().drawTrees(g2d);
        	 //draw HUD over everything

@@ -1,9 +1,10 @@
 package monkWT.model;
 
 import java.io.IOException;
+import java.util.Vector;
 
 import resources.ResourceLoader;
-
+import monkWT.controller.RandomMaleAI;
 import monkWT.controller.SaveLoad;
 import monkWT.model.levels.Levels;
 
@@ -18,7 +19,8 @@ public class Model {
 	private Levels lvl;
 	private Player player;
 	private ResourceLoader rl = new ResourceLoader();
-	
+	private RandomMaleAI randomGuy;
+	private Vector<Player> randomPeople;
 	
 	public enum State {
 		INITIALIZED, MENU, LOAD, STARTNEW, PLAYING, INVENTORY, PAUSED, GAMEOVER, DESTROYED
@@ -36,6 +38,7 @@ public class Model {
 	public Model(){
 		lvl = new Levels();
 		player = new Player(lvl);
+		randomGuy = new RandomMaleAI(lvl);
 		setState(State.INITIALIZED);
 	}
 	
@@ -57,6 +60,11 @@ public class Model {
 		 
 		 //Update the player
 		 player.update();
+		 /*for(int i = 0; i < randomPeople.size(); i++)
+		 {
+			 //randomPeople
+		 }*/
+		 randomGuy.action();
 		 //Double check that the city your in is the same as it says across the system
 		 //does not actually do anything yet. 
 		 //probably take it out until a second city is there.
@@ -155,6 +163,16 @@ public class Model {
 				}
 			}
 		}
+		randomGuy.playerInitialize(currentCity);
+		randomGuy.currentCity = currentCity;
+		randomGuy.entBuilding(contrlSaveLoad.getBuilding(),0,0);
+		randomGuy.loadPosition(contrlSaveLoad.getXLoc(), contrlSaveLoad.getYLoc());
+		randomGuy.setDeathsForColl(contrlSaveLoad.getDeaths());
+		//load HUD
+		randomGuy.HUD.HUDInitialize();
+		randomGuy.HUD.setCityName(lvl.getCityIn());
+		randomGuy.HUD.setQuest(getCurrentQuest());
+		randomGuy.HUD.cash = getHandCash();
 	}
 
 	
@@ -166,7 +184,9 @@ public class Model {
 	public Levels getLevel(){
 		return lvl;
 	}
-	
+	public Player getRandomGuy(){
+		return randomGuy;
+	}
 	
 	public State getState() {
 		return state;

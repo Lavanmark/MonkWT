@@ -124,7 +124,7 @@ public class TileLoader {
 				tileArray[67] = TILE_TREE_CENT_CENT =new Tile(true, false, 180, 60, sg1,67);
 				tileArray[68] = TILE_HOUSE_BLACK_PAT_BROWN = new Tile(true, false, 200, 60, sg1,68);
 				tileArray[69] = TILE_DOOR_HOUSE_BLACK_PAT_BROWN = new Tile(true, true, 220, 60, sg1,69);
-				tileArray[70] = TILE_DOOR_HOUSE_MINE = new Tile(true, true, 240, 60, sg1,70);
+				tileArray[70] = TILE_DOOR_HOUSE_MINE = new Tile(false, false, 240, 60, sg1,70);
 				tileArray[71] = TILE_WATER_BASIC = new Tile(true, false, 260, 60, sg1,71);
 				
 			}

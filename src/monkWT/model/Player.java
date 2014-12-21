@@ -118,41 +118,6 @@ public class Player {
 	  * 
 	  * 
 	  */
-	   public void checkDoor(){
-		   //math for each corners square locations
-		   int playerLocalLeftTop = (((((playerTop.y + yDirection)/20) * 40) ) + ((playerTop.x + xDirection)/20) ); 
-		   int playerLocalRightTop = (((((playerTop.y + yDirection)/20) * 40) ) + ((playerTop.x + 14 + xDirection)/20) );
-		   int playerLocalLeftBtm = (((((playerFeet.y + yDirection)/20) * 40) ) + ((playerFeet.x + xDirection)/20) ); 
-		   int playerLocalRightBtm = (((((playerFeet.y + yDirection)/20) * 40) ) + ((playerFeet.x + 14 + xDirection)/20) );
-		   
-		   if(playerLocalLeftBtm > 1200){playerLocalLeftBtm -= 40;}
-		   if(playerLocalRightBtm > 1200){playerLocalRightBtm -= 40;}
-		   if(playerLocalLeftTop < 0){playerLocalLeftTop += 40;}
-		   if(playerLocalRightTop < 0){playerLocalRightTop += 40;}
-		   
-		   if(lvl.getCityIn() == 1){
-			   if(lvl.isPlayerInside()){
-				   Set<Door> checkDoor = lvl.c1i.doorsInsideOne.get(lvl.c1i.getBuildingIn());
-				   for(Door d : checkDoor){
-					   if(d.getBlockLoc() == playerLocalLeftTop || d.getBlockLoc() == playerLocalRightTop 
-							   || d.getBlockLoc() == playerLocalLeftBtm || d.getBlockLoc() == playerLocalRightBtm){
-						   entBuilding(d.getBuildingEnt(),d.getxMoveDist(), d.getyMoveDist());
-						   break;
-					   }
-				   }
-			   }else{
-				   Set<Door> checkDoor = lvl.doorsLvlOne.get(lvl.getSecIn());
-				   for(Door d : checkDoor){
-					   if(d.getBlockLoc() == playerLocalLeftTop || d.getBlockLoc() == playerLocalRightTop 
-							   || d.getBlockLoc() == playerLocalLeftBtm || d.getBlockLoc() == playerLocalRightBtm){
-						   entBuilding(d.getBuildingEnt(),d.getxMoveDist(), d.getyMoveDist());
-						   stopSprint();
-						   break;
-					   }
-				   }
-			   }
-		   }
-	   }
 	   
 	   //stops the player from sprinting
 	   private void stopSprint(){
@@ -301,7 +266,42 @@ public class Player {
 	
 	
 	
-	
+	   public void checkDoor(){
+		   //math for each corners square locations
+		   int playerLocalLeftTop = (((((playerTop.y + yDirection)/20) * 40) ) + ((playerTop.x + xDirection)/20) ); 
+		   int playerLocalRightTop = (((((playerTop.y + yDirection)/20) * 40) ) + ((playerTop.x + 14 + xDirection)/20) );
+		   int playerLocalLeftBtm = (((((playerFeet.y + yDirection)/20) * 40) ) + ((playerFeet.x + xDirection)/20) ); 
+		   int playerLocalRightBtm = (((((playerFeet.y + yDirection)/20) * 40) ) + ((playerFeet.x + 14 + xDirection)/20) );
+		   
+		   if(playerLocalLeftBtm > 1200){playerLocalLeftBtm -= 40;}
+		   if(playerLocalRightBtm > 1200){playerLocalRightBtm -= 40;}
+		   if(playerLocalLeftTop < 0){playerLocalLeftTop += 40;}
+		   if(playerLocalRightTop < 0){playerLocalRightTop += 40;}
+		   //TODO if door goes nowhere you can walk over it
+		   if(lvl.getCityIn() == 1){
+			   if(lvl.isPlayerInside()){
+				   Set<Door> checkDoor = lvl.c1i.doorsInsideOne.get(lvl.c1i.getBuildingIn());
+				   for(Door d : checkDoor){
+					   if(d.getBlockLoc() == playerLocalLeftTop || d.getBlockLoc() == playerLocalRightTop 
+							   || d.getBlockLoc() == playerLocalLeftBtm || d.getBlockLoc() == playerLocalRightBtm){
+						   entBuilding(d.getBuildingEnt(),d.getxMoveDist(), d.getyMoveDist());
+						   break;
+					   }
+				   }
+			   }else{
+				   Set<Door> checkDoor = lvl.doorsLvlOne.get(lvl.getSecIn());
+				   for(Door d : checkDoor){
+					   if(d.getBlockLoc() == playerLocalLeftTop || d.getBlockLoc() == playerLocalRightTop 
+							   || d.getBlockLoc() == playerLocalLeftBtm || d.getBlockLoc() == playerLocalRightBtm){
+						   entBuilding(d.getBuildingEnt(),d.getxMoveDist(), d.getyMoveDist());
+						   stopSprint();
+						   break;
+					   }
+				   }
+			   }
+		   }
+	   }
+	   
 	
 	public void openInventory(){
 		HUD.dispInv = true;
@@ -781,14 +781,14 @@ public class Player {
 	}
 	
 	
-	private void colLeftRight(int dir){
+	protected void colLeftRight(int dir){
 		playerRect.x += dir;
 		playerLeft.x += dir;
 		playerRight.x += dir;
 		playerTop.x += dir;
 		playerFeet.x += dir;
 	}
-	private void colUpDown(int dir){
+	protected void colUpDown(int dir){
 		playerRect.y += dir;
 		playerLeft.y += dir;
 		playerRight.y += dir;
