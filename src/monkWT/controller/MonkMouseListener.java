@@ -59,11 +59,11 @@ public class MonkMouseListener implements MouseListener, MouseMotionListener{
 			//gets the block your mouse is in
 			int mouseBlock = ((((y/20) * 40) ) + (x/20));
 			//sets section to one less because section 4 is actually 3 for the array
-			int s = mainModel.getLevel().getSecIn()-1;
+			int s = mainModel.getPlayer().getCurrentSec()-1;
 			//city 1
-			if(mainModel.getLevel().getCityIn() == 1){
-				if(!mainModel.getLevel().isPlayerInside()){
-					if(mainModel.getLevel().getSecIn() == 1){
+			if(mainModel.getPlayer().getCurrentCity() == 1){
+				if(!mainModel.getPlayer().getInside()){
+					if(mainModel.getPlayer().getCurrentSec() == 1){
 						//sign positions
 						if(mainModel.getLevel().city1[s][mouseBlock].isSign()){
 							//purple house
@@ -87,7 +87,7 @@ public class MonkMouseListener implements MouseListener, MouseMotionListener{
 							mainModel.getPlayer().HUD.dispSignText = false;
 						}
 					}
-					if(mainModel.getLevel().getSecIn() == 2){
+					if(mainModel.getPlayer().getCurrentSec() == 2){
 						if(mainModel.getLevel().city1[s][mouseBlock].isSign()){
 							//bank
 							if(mouseBlock == 496){
@@ -118,7 +118,7 @@ public class MonkMouseListener implements MouseListener, MouseMotionListener{
 							mainModel.getPlayer().HUD.dispSignText = false;
 						}
 					}
-					if(mainModel.getLevel().getSecIn() == 3){
+					if(mainModel.getPlayer().getCurrentSec() == 3){
 						if(mainModel.getLevel().city1[s][mouseBlock].isSign()){
 							//north school entrance
 							if(mouseBlock == 488){
@@ -133,7 +133,7 @@ public class MonkMouseListener implements MouseListener, MouseMotionListener{
 							mainModel.getPlayer().HUD.dispSignText = false;
 						}
 					}
-					if(mainModel.getLevel().getSecIn() == 4){
+					if(mainModel.getPlayer().getCurrentSec() == 4){
 						if(mainModel.getLevel().city1[s][mouseBlock].isSign()){
 							//bus station
 							if(mouseBlock == 765){
@@ -172,7 +172,7 @@ public class MonkMouseListener implements MouseListener, MouseMotionListener{
 							mainModel.getPlayer().HUD.dispSignText = false;
 						}
 					}
-					if(mainModel.getLevel().getSecIn() == 5){
+					if(mainModel.getPlayer().getCurrentSec() == 5){
 						if(mainModel.getLevel().city1[s][mouseBlock].isSign()){
 							//store
 							if(mouseBlock == 377){
@@ -191,7 +191,7 @@ public class MonkMouseListener implements MouseListener, MouseMotionListener{
 							mainModel.getPlayer().HUD.dispSignText = false;
 						}
 					}
-					if(mainModel.getLevel().getSecIn() == 6){
+					if(mainModel.getPlayer().getCurrentSec() == 6){
 						if(mainModel.getLevel().city1[s][mouseBlock].isSign()){
 							//monastery south entrance
 							if(mouseBlock == 808){
@@ -206,7 +206,7 @@ public class MonkMouseListener implements MouseListener, MouseMotionListener{
 							mainModel.getPlayer().HUD.dispSignText = false;
 						}
 					}
-					if(mainModel.getLevel().getSecIn() == 7){
+					if(mainModel.getPlayer().getCurrentSec() == 7){
 						//change this if you have any more signs in this square
 						//black smith hut
 						if(mainModel.getLevel().city1[s][mouseBlock].isSign()){
@@ -215,7 +215,7 @@ public class MonkMouseListener implements MouseListener, MouseMotionListener{
 							mainModel.getPlayer().HUD.dispSignText = false;
 						}
 					}
-					if(mainModel.getLevel().getSecIn() == 8){
+					if(mainModel.getPlayer().getCurrentSec() == 8){
 						//change this if you have any more signs in this square
 						//lake sign
 						if(mainModel.getLevel().city1[s][mouseBlock].isSign()){
@@ -224,7 +224,7 @@ public class MonkMouseListener implements MouseListener, MouseMotionListener{
 							mainModel.getPlayer().HUD.dispSignText = false;
 						}
 					}
-					if(mainModel.getLevel().getSecIn() == 9){
+					if(mainModel.getPlayer().getCurrentSec() == 9){
 						//change this if you have any more signs in this square
 						//Mine
 						if(mainModel.getLevel().city1[s][mouseBlock].isSign()){

@@ -69,27 +69,29 @@ public class ViewFrame extends JFrame{
        	 break;
         case PLAYING:
             //draw the main map
-       	 mainModel.getLevel().draw(g2d);
+       	 mainModel.getLevel().draw(g2d, mainModel.getPlayer());
        	 //draw the player over map
        	 mainModel.getPlayer().draw(g2d);
-       	 mainModel.getRandomGuy().draw(g2d);
+       	 if(mainModel.getPlayer().getCurrentSec() == mainModel.getRandomGuy().getCurrentSec() 
+       			 && mainModel.getRandomGuy().getInside() == mainModel.getPlayer().getInside())
+       		 mainModel.getRandomGuy().draw(g2d);
        	 //draw trees over player and map
-       	 mainModel.getLevel().drawTrees(g2d);
+       	 mainModel.getLevel().drawTrees(g2d, mainModel.getPlayer());
        	 //draw HUD over everything
        	 mainModel.getPlayer().HUD.draw(g2d);
 	        g2d.setColor(Color.BLACK);
 
            break;
         case INVENTORY:
-       	 mainModel.getLevel().draw(g2d);
+       	 mainModel.getLevel().draw(g2d, mainModel.getPlayer());
        	 mainModel.getPlayer().draw(g2d);
-       	 mainModel.getLevel().drawTrees(g2d);
+       	 mainModel.getLevel().drawTrees(g2d, mainModel.getPlayer());
        	 mainModel.getPlayer().HUD.draw(g2d);
        	 break;
         case PAUSED:
-       	 mainModel.getLevel().draw(g2d);
+       	 mainModel.getLevel().draw(g2d, mainModel.getPlayer());
        	 mainModel.getPlayer().draw(g2d);
-       	 mainModel.getLevel().drawTrees(g2d);
+       	 mainModel.getLevel().drawTrees(g2d, mainModel.getPlayer());
        	 mainModel.getPlayer().HUD.draw(g2d);
            break;
         case GAMEOVER:

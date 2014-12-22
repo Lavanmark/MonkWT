@@ -1,7 +1,7 @@
 package monkWT.model;
 
 import java.io.IOException;
-import java.util.Vector;
+//import java.util.Vector;
 
 import resources.ResourceLoader;
 import monkWT.controller.RandomMaleAI;
@@ -20,14 +20,13 @@ public class Model {
 	private Player player;
 	private ResourceLoader rl = new ResourceLoader();
 	private RandomMaleAI randomGuy;
-	private Vector<Player> randomPeople;
+	//private Vector<Player> randomPeople;
 	
 	public enum State {
 		INITIALIZED, MENU, LOAD, STARTNEW, PLAYING, INVENTORY, PAUSED, GAMEOVER, DESTROYED
 	}
 	private State state;
 	
-	 private int currentLvl = 1;
 	 private double bankCash = 0;
 	 private double handCash = 0;
 	 private int currentCity = 1;
@@ -65,13 +64,6 @@ public class Model {
 			 //randomPeople
 		 }*/
 		 randomGuy.action();
-		 //Double check that the city your in is the same as it says across the system
-		 //does not actually do anything yet. 
-		 //probably take it out until a second city is there.
-		 if(player.currentCity != lvl.getCityIn()){
-			 lvl.setCityIn(player.currentCity);
-			 player.HUD.setCityName(player.currentCity);
-		 }
 		 //sync the HUD cash and hand cash
 		 setHandCash(player.HUD.cash);
 		 //check for lives
@@ -116,25 +108,24 @@ public class Model {
 	  
 	  	  //load main
 		currentCity = contrlSaveLoad.getCity();
-		currentLvl = contrlSaveLoad.getSec();
+		contrlSaveLoad.getSec();
 		setHandCash(contrlSaveLoad.getCash());
 		setBankCash(contrlSaveLoad.getBankCash());
 		setCurrentQuest(contrlSaveLoad.getQuest());
 		//load levels
 		lvl.cityDeaths = contrlSaveLoad.getDeaths();
 		lvl.loadCity(currentCity);
-		lvl.setSecIn(currentLvl);
-		lvl.setBuildingEnt(contrlSaveLoad.getBuilding());
 		lvl.ownerHouse = contrlSaveLoad.getOwners();
 		//load player
 		player.playerInitialize(currentCity);
-		player.currentCity = currentCity;
+		player.setCurrentCity(currentCity);
+		player.setCurrentSec(contrlSaveLoad.getSec());
 		player.entBuilding(contrlSaveLoad.getBuilding(),0,0);
 		player.loadPosition(contrlSaveLoad.getXLoc(), contrlSaveLoad.getYLoc());
 		player.setDeathsForColl(contrlSaveLoad.getDeaths());
 		//load HUD
 		player.HUD.HUDInitialize();
-		player.HUD.setCityName(lvl.getCityIn());
+		player.HUD.setCityName(player.getCurrentCity());
 		player.HUD.setQuest(getCurrentQuest());
 		player.HUD.cash = getHandCash();
 		int[] tempSlist = contrlSaveLoad.getInv();
@@ -164,13 +155,14 @@ public class Model {
 			}
 		}
 		randomGuy.playerInitialize(currentCity);
-		randomGuy.currentCity = currentCity;
+		randomGuy.setCurrentCity(currentCity);
+		randomGuy.setCurrentSec(contrlSaveLoad.getSec());
 		randomGuy.entBuilding(contrlSaveLoad.getBuilding(),0,0);
 		randomGuy.loadPosition(contrlSaveLoad.getXLoc(), contrlSaveLoad.getYLoc());
 		randomGuy.setDeathsForColl(contrlSaveLoad.getDeaths());
 		//load HUD
 		randomGuy.HUD.HUDInitialize();
-		randomGuy.HUD.setCityName(lvl.getCityIn());
+		randomGuy.HUD.setCityName(randomGuy.getCurrentCity());
 		randomGuy.HUD.setQuest(getCurrentQuest());
 		randomGuy.HUD.cash = getHandCash();
 	}

@@ -28,7 +28,10 @@ public class Player {
 	public Rectangle playerTop;
 	public Rectangle playerFeet;
 	
-	public int currentCity;
+	private int currentCity;
+	private int currentSec;
+	private int currentBuilding;
+	private boolean inside;
 	
 	public boolean justChanged = false;
 	public boolean sitting = false;
@@ -48,7 +51,7 @@ public class Player {
 	
 	//initialize player variables
 	public void playerInitialize(int whichCity){
-		currentCity = whichCity;
+		setCurrentCity(whichCity);
 		try{
 			monkDown = rl.getSprite("monkDown.png");
 			monkUp = rl.getSprite("monkUp.png");
@@ -57,7 +60,7 @@ public class Player {
 		}catch(Exception e){
 			System.err.println("character probs");
 		}
-		lvl.loadCity(currentCity);
+		lvl.loadCity(getCurrentCity());
 		playerRect = new Rectangle(lvl.spawnRect.x, lvl.spawnRect.y, lvl.spawnRect.width, lvl.spawnRect.height);
         playerLeft = new Rectangle(lvl.spawnLeft.x, lvl.spawnLeft.y, lvl.spawnLeft.width, lvl.spawnLeft.height);
         playerRight = new Rectangle(lvl.spawnRight.x, lvl.spawnRight.y, lvl.spawnRight.width, lvl.spawnRight.height);
@@ -278,9 +281,9 @@ public class Player {
 		   if(playerLocalLeftTop < 0){playerLocalLeftTop += 40;}
 		   if(playerLocalRightTop < 0){playerLocalRightTop += 40;}
 		   //TODO if door goes nowhere you can walk over it
-		   if(lvl.getCityIn() == 1){
-			   if(lvl.isPlayerInside()){
-				   Set<Door> checkDoor = lvl.c1i.doorsInsideOne.get(lvl.c1i.getBuildingIn());
+		   if(getCurrentCity() == 1){
+			   if(inside){
+				   Set<Door> checkDoor = lvl.c1i.doorsInsideOne.get(currentBuilding);
 				   for(Door d : checkDoor){
 					   if(d.getBlockLoc() == playerLocalLeftTop || d.getBlockLoc() == playerLocalRightTop 
 							   || d.getBlockLoc() == playerLocalLeftBtm || d.getBlockLoc() == playerLocalRightBtm){
@@ -289,7 +292,7 @@ public class Player {
 					   }
 				   }
 			   }else{
-				   Set<Door> checkDoor = lvl.doorsLvlOne.get(lvl.getSecIn());
+				   Set<Door> checkDoor = lvl.doorsLvlOne.get(currentSec);
 				   for(Door d : checkDoor){
 					   if(d.getBlockLoc() == playerLocalLeftTop || d.getBlockLoc() == playerLocalRightTop 
 							   || d.getBlockLoc() == playerLocalLeftBtm || d.getBlockLoc() == playerLocalRightBtm){
@@ -411,11 +414,11 @@ public class Player {
 	public void checkChair(){
 		System.out.println("checking chair");
 		
-		if(currentCity == 1){
-			if(lvl.isPlayerInside()){
-				if(lvl.c1i.chairsInsideOne.containsKey(lvl.c1i.getBuildingIn())){
+		if(getCurrentCity() == 1){
+			if(inside){
+				if(lvl.c1i.chairsInsideOne.containsKey(currentBuilding)){
 					System.out.println("found chair");
-					Set<Chair> checkChair = lvl.c1i.chairsInsideOne.get(lvl.c1i.getBuildingIn());
+					Set<Chair> checkChair = lvl.c1i.chairsInsideOne.get(currentBuilding);
 					for(Chair c : checkChair){
 						if(nearChair(c.getChairLoc())){
 							makeSit(c);
@@ -424,9 +427,9 @@ public class Player {
 					}
 				}
 			}else{
-				if(lvl.chairsLvlOne.containsKey(lvl.getSecIn())){
+				if(lvl.chairsLvlOne.containsKey(currentSec)){
 					System.out.println("found chair");
-					Set<Chair> checkChair = lvl.chairsLvlOne.get(lvl.getSecIn());
+					Set<Chair> checkChair = lvl.chairsLvlOne.get(currentSec);
 					for(Chair c : checkChair){
 						if(nearChair(c.getChairLoc())){
 							makeSit(c);
@@ -504,8 +507,8 @@ public class Player {
 						playerRight.y = uColRH - 15;
 						playerTop.y = uColRH - 15;
 						playerFeet.y = uColRH;
-						lvl.setSecIn(3);
-						lvl.setSecIn(3);
+						this.setCurrentSec(3);
+						this.setCurrentSec(3);
 						doIt = true;
 					}
 				}
@@ -517,8 +520,8 @@ public class Player {
 						playerRight.x = lColRH;
 						playerTop.x = lColRH;
 						playerFeet.x = lColRH;
-						lvl.setSecIn(5);
-						lvl.setSecIn(5);
+						this.setCurrentSec(5);
+						this.setCurrentSec(5);
 						doIt = true;
 					}
 				}
@@ -541,7 +544,8 @@ public class Player {
 	}
 	
 	public void checkCollisionsOut(){
-		int s = lvl.getSecIn()-1;
+		//TODO Make this work with player collision
+		int s = currentSec-1;
 		
 		int playerLocalLeftTop = ((((playerTop.y/20) * 40) ) + (playerTop.x/20) ); 
 		int playerLocalRightTop = ((((playerTop.y/20) * 40) ) + ((playerTop.x + 14)/20) );
@@ -553,12 +557,12 @@ public class Player {
 		if(playerLocalLeftTop < 0){playerLocalLeftTop += 40;}
 		if(playerLocalRightTop < 0){playerLocalRightTop += 40;}
 		
-			if(currentCity == 1){
+			if(getCurrentCity() == 1){
 				if(!justChanged){
 					if(!sitting){
 						if((lvl.city1[s][playerLocalLeftTop].isDoor() || lvl.city1[s][playerLocalRightTop].isDoor() || lvl.city1[s][playerLocalLeftBtm].isDoor()
 								|| lvl.city1[s][playerLocalRightBtm].isDoor())
-								&& lvl.doorsLvlOne.containsKey(lvl.getSecIn())){
+								&& lvl.doorsLvlOne.containsKey(currentSec)){
 							checkDoor();
 						}else{
 							if(lvl.city1[s][playerLocalLeftTop].isSolid() || lvl.city1[s][playerLocalRightTop].isSolid() || lvl.city1[s][playerLocalLeftBtm].isSolid()
@@ -599,9 +603,9 @@ public class Player {
 				if(playerTop.y < 2 && !justChanged){
 					
 					//if that then check for solid and if not solid move up section
-					if(lvl.getSecIn() > 3){
+					if(currentSec > 3){
 						if(!lvl.city1[s][playerLocalLeftTop].isSolid() && !lvl.city1[s][playerLocalRightTop].isSolid()){
-							lvl.setSecIn(lvl.getSecIn() - 3);
+							this.setCurrentSec(currentSec - 3);
 							justChanged = true;
 							playerRect.y = uColRH - 15;//- height
 							playerLeft.y = uColRH - 15;
@@ -619,10 +623,10 @@ public class Player {
 				//bottom wall check
 				if(playerFeet.y > 598 && (playerFeet.y+14) > 598 && !justChanged){
 					//if that then check for solid and if not solid move down section
-					if(lvl.getSecIn() < 7){
+					if(currentSec < 7){
 						if(!lvl.city1[s][playerLocalLeftBtm].isSolid() && !lvl.city1[s][playerLocalRightBtm].isSolid() && !justChanged){
 							
-							if(lvl.getSecIn() == 3){
+							if(currentSec == 3){
 								justChanged = true;
 								playerRect.y = dColRH;
 								playerLeft.y = dColRH;
@@ -630,10 +634,10 @@ public class Player {
 								playerTop.y = dColRH;
 								playerFeet.y = dColRH + 15;//+ height
 								if(!preCheck(1,6,3)){
-									lvl.setSecIn(lvl.getSecIn() + 3);
+									this.setCurrentSec(currentSec + 3);
 								}
 							}else{
-								lvl.setSecIn(lvl.getSecIn() + 3);
+								this.setCurrentSec(currentSec + 3);
 								justChanged = true;
 								playerRect.y = dColRH;
 								playerLeft.y = dColRH;
@@ -652,9 +656,9 @@ public class Player {
 				if(playerFeet.x < 2 && playerTop.x < 2 && !justChanged){
 					
 					//if that then check for solid and if not solid move down section
-					if(lvl.getSecIn() != 1 && lvl.getSecIn() != 4 && lvl.getSecIn() != 7){
+					if(currentSec != 1 && currentSec != 4 && currentSec != 7){
 						if(!lvl.city1[s][playerLocalLeftBtm].isSolid() && !lvl.city1[s][playerLocalLeftTop].isSolid() && !justChanged){
-							lvl.setSecIn(lvl.getSecIn() - 1);							
+							this.setCurrentSec(currentSec - 1);							
 							playerRect.x = lColRH;
 							playerLeft.x = lColRH;
 							playerRight.x = lColRH;
@@ -673,10 +677,10 @@ public class Player {
 					//if that then check for solid and if not solid move down section
 					
 					//if you go to the bottom and you hit the right wall and bottom wall you get an error
-					if(lvl.getSecIn() != 3 && lvl.getSecIn() != 6 && lvl.getSecIn() != 9){
+					if(currentSec != 3 && currentSec != 6 && currentSec != 9){
 						if(!lvl.city1[s][playerLocalRightBtm].isSolid() && !lvl.city1[s][playerLocalRightTop].isSolid() && !justChanged){
 
-							if(lvl.getSecIn() == 5){
+							if(currentSec == 5){
 								justChanged = true;
 								playerRect.x = rColRH;
 								playerLeft.x = rColRH;
@@ -684,10 +688,10 @@ public class Player {
 								playerTop.x = rColRH;
 								playerFeet.x = rColRH;
 								if(!preCheck(1,6,5)){
-									lvl.setSecIn(lvl.getSecIn() + 1);
+									this.setCurrentSec(currentSec + 1);
 								}
 							}else{
-								lvl.setSecIn(lvl.getSecIn() + 1);
+								this.setCurrentSec(currentSec + 1);
 								justChanged = true;
 								playerRect.x = rColRH;
 								playerLeft.x = rColRH;
@@ -716,9 +720,9 @@ public class Player {
 		int playerLocalRightTop = ((((playerTop.y/20) * 40) ) + ((playerTop.x + 14)/20) );
 		int playerLocalLeftBtm = ((((playerFeet.y/20) * 40) ) + (playerFeet.x/20) ); 
 		int playerLocalRightBtm = ((((playerFeet.y/20) * 40) ) + ((playerFeet.x + 14)/20) );
-		int s = lvl.c1i.getBuildingInArray();
+		int s = currentBuilding-1;
 			//Zebule
-		if(currentCity == 1){
+		if(getCurrentCity() == 1){
 			if(!justChanged){
 				if(!sitting){
 					if(playerLocalLeftBtm > 1200 || playerLocalRightBtm > 1200){
@@ -740,7 +744,7 @@ public class Player {
 					}
 					if((lvl.c1i.city1Inside[s][playerLocalLeftTop].isDoor() || lvl.c1i.city1Inside[s][playerLocalRightTop].isDoor() 
 							|| lvl.c1i.city1Inside[s][playerLocalLeftBtm].isDoor() || lvl.c1i.city1Inside[s][playerLocalRightBtm].isDoor()) 
-							&& lvl.c1i.doorsInsideOne.containsKey(lvl.c1i.getBuildingIn())){
+							&& lvl.c1i.doorsInsideOne.containsKey(currentBuilding)){
 						checkDoor();
 					}else{
 						if(lvl.c1i.city1Inside[s][playerLocalLeftTop].isSolid() || lvl.c1i.city1Inside[s][playerLocalRightTop].isSolid() 
@@ -797,7 +801,7 @@ public class Player {
 	}
 	
 	public void movePlayer(){
-		if(!lvl.isPlayerInside()){
+		if(!inside){
 			checkCollisionsOut();
 		}else{
 			checkCollisionIn();
@@ -864,16 +868,16 @@ public class Player {
 	}
 	public void entBuilding(int buildingNum, int xDist, int yDist){
 		if(buildingNum == 0){
-			lvl.setPlayerInside(false);
+			this.setInside(false);
 		}else{
-			lvl.setPlayerInside(true);
-			System.out.println(lvl.c1i.getBuildingIn());
-			if(buildingNum == 20 || lvl.c1i.getBuildingIn() == 20){
+			this.setInside(true);
+			System.out.println(currentBuilding);
+			if(buildingNum == 20 || currentBuilding == 20){
 				pDir = 1;
 				stopMoveChar();
 			}
 		}
-		lvl.setBuildingEnt(buildingNum);
+		this.currentBuilding = buildingNum;
 		entMove(xDist,yDist);
 	}
 	
@@ -953,5 +957,37 @@ public class Player {
 			}
 			g.drawImage(monkRight, playerRect.x, playerRect.y, null);
 		}
+	}
+
+	public int getCurrentSec() {
+		return currentSec;
+	}
+
+	public void setCurrentSec(int currentSec) {
+		this.currentSec = currentSec;
+	}
+
+	public int getCurrentBuilding() {
+		return currentBuilding;
+	}
+
+	public void setCurrentBuilding(int currentBuilding) {
+		this.currentBuilding = currentBuilding;
+	}
+
+	public boolean getInside() {
+		return inside;
+	}
+
+	public void setInside(boolean inside) {
+		this.inside = inside;
+	}
+
+	public int getCurrentCity() {
+		return currentCity;
+	}
+
+	public void setCurrentCity(int currentCity) {
+		this.currentCity = currentCity;
 	}
 }

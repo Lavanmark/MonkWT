@@ -1,9 +1,6 @@
 package monkWT.controller;
 
-import java.awt.event.KeyEvent;
-
 import monkWT.model.Player;
-import monkWT.model.Model.State;
 import monkWT.model.levels.Levels;
 
 public class RandomMaleAI extends Player{
@@ -49,7 +46,7 @@ public class RandomMaleAI extends Player{
 		            // right
 		        	 this.pDir = 3;
 		        	 this.moveCharCase(3);
-		        	 break;
+		        	 break; 
 		         case UP:
 		        	 // up
 		        	 this.pDir = 1;

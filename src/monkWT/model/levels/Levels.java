@@ -9,6 +9,7 @@ import java.util.Set;
 
 import monkWT.model.Chair;
 import monkWT.model.Door;
+import monkWT.model.Player;
 import resources.ResourceLoader;
 
 
@@ -23,10 +24,6 @@ public class Levels {
 		public Tile[][] city1 = new Tile[9][1200];
 		public Rectangle[] city1Blocks = new Rectangle[1200];
 		
-		//player local
-		private int playerInSec;
-		private int playerInCity = 1;
-		private boolean playerInside = false;
 		
 		//city info
 		public int cityDeaths;
@@ -51,14 +48,14 @@ public class Levels {
 		private ResourceLoader rl = new ResourceLoader();
 		private TileLoader tl = new TileLoader();
 		
-		public void setBuildingEnt(int buildingNum){
+		/*public void setBuildingEnt(int buildingNum){
 			c1i.setBuildingEnt(buildingNum);
 			if(buildingNum == 0){
 				setPlayerInside(false);
 			}else{
 				setPlayerInside(true);
 			}
-		}
+		}*/
 		public void loadCity(int whichCity){
 			tl.setSquares();
 			if(whichCity == 1){	
@@ -160,7 +157,8 @@ public class Levels {
 			doors.add(new Door(false, 854, 24, -80, -40));
 			doors.add(new Door(false, 855, 24, -80, -40));
 			
-			doorsLvlOne.put(6, doors);			
+			doorsLvlOne.put(6, doors);
+			//TODO add monestary doors
 		}
 		private void addChairsLvlOne(){
 			Set<Chair> chairs = new HashSet<Chair>();
@@ -192,6 +190,7 @@ public class Levels {
 			
 			chairsLvlOne.put(8, chairs);
 			chairs = new HashSet<Chair>();
+			
 			
 		}
 		
@@ -431,11 +430,11 @@ public class Levels {
 			}		
 		}
 		
-		public void draw(Graphics g){
-			int s = getSecIn()-1;
-			if(getCityIn() == 1){
-				if(isPlayerInside()){
-					c1i.draw(g);
+		public void draw(Graphics g, Player p){
+			int s = p.getCurrentSec()-1;
+			if(p.getCurrentCity() == 1){
+				if(p.getInside()){
+					c1i.draw(g, p.getCurrentBuilding());
 				}else{
 					for(int i = 0; i < 1200; i++){
 						if(i < 1200){
@@ -448,12 +447,12 @@ public class Levels {
 			
 			
 		}
-		public void drawTrees(Graphics g){
-			if(getCityIn() == 1){
-				if(isPlayerInside()){
+		public void drawTrees(Graphics g, Player p){
+			if(p.getCurrentCity() == 1){
+				if(p.getInside()){
 					
 				}else{
-					int s = getSecIn()-1;
+					int s = p.getCurrentSec()-1;
 					for(int i = 0; i < 1200; i++){
 						if(s>5)
 							g.drawImage(city1Tree[s][i].getImage(), city1Blocks[i].x, city1Blocks[i].y, null);
@@ -461,24 +460,7 @@ public class Levels {
 				}
 			}
 		}
-		public int getSecIn() {
-			return playerInSec;
-		}
-		public void setSecIn(int playerInSec) {
-			this.playerInSec = playerInSec;
-		}
-		public int getCityIn() {
-			return playerInCity;
-		}
-		public void setCityIn(int playerInCity) {
-			this.playerInCity = playerInCity;
-		}
-		public boolean isPlayerInside() {
-			return playerInside;
-		}
-		public void setPlayerInside(boolean playerInside) {
-			this.playerInside = playerInside;
-		}
+		
 }
 	
 

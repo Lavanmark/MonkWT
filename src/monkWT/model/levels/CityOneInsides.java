@@ -30,7 +30,6 @@ public class CityOneInsides {
 	 *  23 = Town Hall
 	 *  24 = Monestary
 	*/
-	private int buildingEnt = 0;
 	
 	public Tile[][] city1Inside = new Tile[24][1200];
 	public Rectangle[] city1InsideBlocks = new Rectangle[1200];
@@ -44,9 +43,7 @@ public class CityOneInsides {
 
 	
 	
-	public void setBuildingEnt(int buildingNum){
-		buildingEnt = buildingNum;
-	}
+	
 	
 	
 	
@@ -364,14 +361,8 @@ public class CityOneInsides {
 		//TODO add monestary chairs.
 	}
 	
-	public int getBuildingInArray(){
-		return (buildingEnt-1);
-	}
-	public int getBuildingIn(){
-		return buildingEnt;
-	}
-	public void draw(Graphics g){
-		int s = getBuildingInArray();
+	public void draw(Graphics g, int buildIn){
+		int s = buildIn-1;
 		for(int i = 0; i < 1200; i++){
 			g.drawImage(city1Inside[s][i].getImage(), city1InsideBlocks[i].x, city1InsideBlocks[i].y, null);
 		}
