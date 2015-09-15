@@ -73,7 +73,8 @@ public class ViewFrame extends JFrame{
        	 //draw the player over map
        	 mainModel.getPlayer().draw(g2d);
        	 if(mainModel.getPlayer().getCurrentSec() == mainModel.getRandomGuy().getCurrentSec() 
-       			 && mainModel.getRandomGuy().getInside() == mainModel.getPlayer().getInside())
+       			 && (mainModel.getRandomGuy().getInside() == mainModel.getPlayer().getInside() 
+       			 		&& mainModel.getRandomGuy().getCurrentBuilding() == mainModel.getPlayer().getCurrentBuilding()))
        		 mainModel.getRandomGuy().draw(g2d);
        	 //draw trees over player and map
        	 mainModel.getLevel().drawTrees(g2d, mainModel.getPlayer());
