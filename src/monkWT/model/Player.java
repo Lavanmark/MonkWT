@@ -13,7 +13,7 @@ import resources.ResourceLoader;
 public class Player {
 
 	
-	private Levels lvl;
+	public Levels lvl;
 	public HUD HUD = new HUD();
 	
 	private ResourceLoader rl = new ResourceLoader();
@@ -23,26 +23,27 @@ public class Player {
 	// 0 = down 1 = up  2 = left  3 = right  
 	public int pDir = 0;
 	public Rectangle playerRect;
-	public Rectangle playerLeft;
-	public Rectangle playerRight;
-	public Rectangle playerTop;
-	public Rectangle playerFeet;
+	protected Rectangle playerLeft;
+	protected Rectangle playerRight;
+	protected Rectangle playerTop;
+	protected Rectangle playerFeet;
 	
 	private int currentCity;
 	private int currentSec;
 	private int currentBuilding;
 	private boolean inside;
 	
-	public boolean justChanged = false;
+	private boolean justChanged = false;
 	public boolean sitting = false;
 	private boolean sittingUp = false, sittingDown = false, sittingLeft = false, sittingRight = false, sittingHigh = false, sittingLow = false;
-	public boolean moving = false;
+	private boolean moving = false;
 	
 	//character traits
 	public int lives = 3;
 	public String playerName = "Jeffery";
 	
-	public int xDirection = 0, yDirection = 0;
+	public int xDirection = 0;
+	public int yDirection = 0;
 	private final int dColRH = 2, uColRH = 598, rColRH = 5, lColRH = 777;
 	
 	public Player(Levels l){
@@ -123,7 +124,7 @@ public class Player {
 	  */
 	   
 	   //stops the player from sprinting
-	   private void stopSprint(){
+	public void stopSprint(){
 		   HUD.sprint = 1;
 		   HUD.dispSignText = false;
 		   if(xDirection == 2){xDirection = 1;}
@@ -132,7 +133,7 @@ public class Player {
 		   if(yDirection == -2){yDirection = -1;}
 	   }
 	   
-	   private void sprintChecks(){
+	public void sprintChecks(){
 		   if(HUD.sprint == 2){
 			   //if not moving but pressing sprint refill stamina
 			   if(xDirection == 0 && yDirection == 0){   
@@ -269,7 +270,7 @@ public class Player {
 	
 	
 	
-	   public void checkDoor(){
+	   private void checkDoor(){
 		   //math for each corners square locations
 		   int playerLocalLeftTop = (((((playerTop.y + yDirection)/20) * 40) ) + ((playerTop.x + xDirection)/20) ); 
 		   int playerLocalRightTop = (((((playerTop.y + yDirection)/20) * 40) ) + ((playerTop.x + 14 + xDirection)/20) );
@@ -543,7 +544,7 @@ public class Player {
 		
 	}
 	
-	public void checkCollisionsOut(){
+	private void checkCollisionsOut(){
 		//TODO Make this work with player collision
 		int s = currentSec-1;
 		
@@ -792,6 +793,7 @@ public class Player {
 		playerTop.x += dir;
 		playerFeet.x += dir;
 	}
+	
 	protected void colUpDown(int dir){
 		playerRect.y += dir;
 		playerLeft.y += dir;
@@ -800,7 +802,7 @@ public class Player {
 		playerFeet.y += dir;
 	}
 	
-	public void movePlayer(){
+	private void movePlayer(){
 		if(!inside){
 			checkCollisionsOut();
 		}else{
@@ -823,7 +825,8 @@ public class Player {
 		}
 		justChanged = false;
 	}
-	public void stopMoveChar(){
+	
+	private void stopMoveChar(){
 		xDirection = 0;
 		yDirection = 0;
 	}
@@ -831,6 +834,7 @@ public class Player {
 	public void stopMoveCharX(){
 		xDirection = 0;
 	}
+	
 	public void stopMoveCharY(){
 		yDirection = 0;
 	}
@@ -842,7 +846,8 @@ public class Player {
 	public void setYDirection(int dir){
 		yDirection = dir;
 	}
-	public void entMove(int xDist, int yDist){
+	
+	private void entMove(int xDist, int yDist){
 		playerRect.x += xDist;
 		playerLeft.x += xDist;
 		playerRight.x += xDist;
@@ -854,7 +859,8 @@ public class Player {
 		playerTop.y += yDist;
 		playerFeet.y += yDist;
 	}
-	public void setCharLoc(int x, int y){
+	
+	private void setCharLoc(int x, int y){
 		playerRect.x = x;
 		playerLeft.x = x;
 		playerRight.x = x+15;
@@ -866,6 +872,7 @@ public class Player {
 		playerTop.y = y;
 		playerFeet.y = y+15;
 	}
+	
 	public void entBuilding(int buildingNum, int xDist, int yDist){
 		if(buildingNum == 0){
 			this.setInside(false);
@@ -931,6 +938,7 @@ public class Player {
 			pDir = 0;
 		}
 	}
+	
 	public void draw(Graphics g){
 		
 		if(pDir == 0){
@@ -979,7 +987,7 @@ public class Player {
 		return inside;
 	}
 
-	public void setInside(boolean inside) {
+	private void setInside(boolean inside) {
 		this.inside = inside;
 	}
 
