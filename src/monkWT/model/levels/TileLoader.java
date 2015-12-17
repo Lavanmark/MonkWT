@@ -3,7 +3,6 @@ package monkWT.model.levels;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import monkWT.controller.SheetGrabber;
 import resources.ResourceLoader;

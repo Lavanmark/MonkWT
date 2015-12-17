@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import monkWT.controller.SheetGrabber;
 
+@SuppressWarnings("rawtypes")
 public class Tile implements Comparable{
 	
 	//TODO convert all chairs to items
