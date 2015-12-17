@@ -4,9 +4,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -15,6 +15,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 import monkWT.model.levels.Tile;
+import monkWT.model.levels.TileXY;
 
 public class ResourceLoader implements Serializable{
 
@@ -41,41 +42,45 @@ public class ResourceLoader implements Serializable{
 		BufferedImage img = ImageIO.read(url);
 		return img;
 	}
+	
 	public static BufferedImage getSheet(String filename) throws IOException{
 		URL url = ResourceLoader.class.getResource("/resources/images/squares/" + filename);
 		BufferedImage img = ImageIO.read(url);
 		return img;
 	}
-	public int[] getMap(String city, boolean in, String filename) throws IOException{
-		int[] mint = new int[1200];
-		InputStream fin;
+	
+	public TileXY[] getMap(String city, boolean in, String filename) throws IOException{
+		TileXY[] mint = new TileXY[1200];
+		//TODO having a file input stream from a certain location might break if it is running from a jar
+		FileInputStream fin;
 		if(in){
-			fin = this.getClass().getResourceAsStream("/resources/files/maps/"+ city + "/inside/" + filename + ".txt");
+			fin = new FileInputStream("./res/resources/files/maps/"+ city + "/inside/" + filename + ".mmc");
 		}else{
-			fin = this.getClass().getResourceAsStream("/resources/files/maps/" + city + "/" + filename + ".txt");
+			fin = new FileInputStream("./res/resources/files/maps/" + city + "/" + filename + ".mmc");
 		}
 		ObjectInputStream finstrm = new ObjectInputStream(fin);
-		try {
-			mint = (int[]) finstrm.readObject();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		for(int i = 0; i < mint.length; i++){
+			mint[i] = new TileXY(finstrm.readInt(),finstrm.readInt());
 		}
-		
-		
-		
+		finstrm.close();
+		fin.close();
 		return mint;
 	}
+	
 	public void saveMap(Tile[] min, String filename) throws IOException{
-		int[] omap = new int[1200];
+		TileXY[] omap = new TileXY[1200];
 		for(int i = 0; i < 1200; i++){
-			omap[i] = min[i].getId();
+			omap[i] = new TileXY(min[i].getImgX(), min[i].getImgY());
 		}
 		
 		File hhm = new File(System.getProperty("user.home")+"/.monkwt/" + filename + ".txt");
 		if(!hhm.exists()){
-			FileOutputStream saveFile = new FileOutputStream(System.getProperty("user.home")+"/.monkwt/" + filename + ".txt");
+			FileOutputStream saveFile = new FileOutputStream(System.getProperty("user.home") + "/.monkwt/" + filename + ".txt");
 			ObjectOutputStream save = new ObjectOutputStream(saveFile);
-			save.writeObject(omap);
+			for(int i = 0; i < omap.length; i++){
+	        	 save.writeInt(omap[i].x);
+	        	 save.writeInt(omap[i].y);
+	        }
 			save.close();
 			saveFile.close();
 		}

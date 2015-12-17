@@ -39,6 +39,8 @@ public class Levels {
 		//Doors
 			//map<(int) Map section, set of doors>
 		public HashMap<Integer, Set<Door>> doorsLvlOne = new HashMap<Integer, Set<Door>>();
+		//Chairs
+			//map<(int) Map section, set of chairs>
 		public HashMap<Integer, Set<Chair>> chairsLvlOne = new HashMap<Integer, Set<Chair>>();
 		
 		
@@ -103,11 +105,11 @@ public class Levels {
 			}
 		}
 		
-		public Tile[] setMapSecs(int[] mapIn){
+		public Tile[] setMapSecs(TileXY[] mapIn){
 			Tile[] m = new Tile[1200];
 			
 			for(int i = 0; i < 1200; i++){
-				m[i] = tl.tileArray[mapIn[i]];
+				m[i] = tl.tileMap.get(mapIn[i]);
 			}
 			return m;
 		}

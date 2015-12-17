@@ -218,7 +218,7 @@ public class Player {
 	   @SuppressWarnings("unused")
 	   private boolean nearPersonStealthCheck(int PLLT, int PLLB, int PLRT, int PLRB){
 		   boolean near = false;
-		   
+		   //TODO implement this
 		   
 		   
 		   return near;
@@ -323,6 +323,7 @@ public class Player {
 			}
 		}
 	}
+	
 	public void closeInventory(){
 		HUD.dispInv = false;
 		if(HUD.inMouse != HUD.empty){
@@ -600,6 +601,7 @@ public class Player {
 						}
 					}
 				}
+				
 				//top wall check
 				if(playerTop.y < 2 && !justChanged){
 					
@@ -708,15 +710,10 @@ public class Player {
 					}
 				}
 			}
-			
-	
-		
 	}
 	
 	
 	private void checkCollisionIn(){
-		//TODO add the rest of the buildings
-		//TODO optimize
 		int playerLocalLeftTop = ((((playerTop.y/20) * 40) ) + (playerTop.x/20) ); 
 		int playerLocalRightTop = ((((playerTop.y/20) * 40) ) + ((playerTop.x + 14)/20) );
 		int playerLocalLeftBtm = ((((playerFeet.y/20) * 40) ) + (playerFeet.x/20) ); 
@@ -942,27 +939,23 @@ public class Player {
 	public void draw(Graphics g){
 		
 		if(pDir == 0){
-			if(HUD.inventory[0].getItemNum() != 0){
+			if(HUD.inventory[0].getItemNum() != 0)
 				g.drawImage(HUD.inventory[0].getPicDown(), playerRect.x+15-HUD.inventory[0].width-1, playerRect.y+15-2, null);
-			}
 			g.drawImage(monkDown, playerRect.x, playerRect.y, null);
 		}
 		if(pDir == 1){
-			if(HUD.inventory[0].getItemNum() != 0){
+			if(HUD.inventory[0].getItemNum() != 0)
 				g.drawImage(HUD.inventory[0].getPicUp(), playerRect.x+HUD.inventory[0].width/2-1, playerRect.y-HUD.inventory[0].height+2, null);
-			}
 			g.drawImage(monkUp, playerRect.x, playerRect.y, null);
 		}
 		if(pDir == 2){
-			if(HUD.inventory[0].getItemNum() != 0){
+			if(HUD.inventory[0].getItemNum() != 0)
 				g.drawImage(HUD.inventory[0].getPicLeft(), playerRect.x-HUD.inventory[0].height+2, playerRect.y+15-HUD.inventory[0].width-1, null);
-			}
 			g.drawImage(monkLeft, playerRect.x, playerRect.y, null);
 		}
 		if(pDir == 3){
-			if(HUD.inventory[0].getItemNum() != 0){
+			if(HUD.inventory[0].getItemNum() != 0)
 				g.drawImage(HUD.inventory[0].getPicRight(), playerRect.x+15-2, playerRect.y+1, null);
-			}
 			g.drawImage(monkRight, playerRect.x, playerRect.y, null);
 		}
 	}

@@ -50,32 +50,32 @@ public class SaveLoad {
 	
 	public void load() throws IOException{
 		//"/home/tyler/Desktop/Game/MonkWT/res/resources/files/save.txt"
-		String filePathString = System.getProperty("user.home")+"/.monkwt/save.txt";
+		String filePathString = System.getProperty("user.home") + "/.monkwt/save.txt";
 		File f = new File(filePathString);
 		if(f.exists()) {  
-		FileInputStream loadFile = new FileInputStream(filePathString);
-		ObjectInputStream load = new ObjectInputStream(loadFile);
-		try {
-			Scity = (Integer) load.readObject();
-			Ssec = (Integer) load.readObject();
-			Sbuilding = (Integer) load.readObject();
-			Sout = (Boolean) load.readObject();
-			Sx = (Integer) load.readObject();
-			Sy = (Integer) load.readObject();
-			Scash = (Double) load.readObject();
-			Sbankcash = (Double) load.readObject();
-			Squest = (Integer) load.readObject();
-			Sdeaths = (Integer) load.readObject();
-			Shouse = (String[]) load.readObject();
-			Sinv = (int[]) load.readObject();
+			FileInputStream loadFile = new FileInputStream(filePathString);
+			ObjectInputStream load = new ObjectInputStream(loadFile);
+			try {
+				Scity = (Integer) load.readObject();
+				Ssec = (Integer) load.readObject();
+				Sbuilding = (Integer) load.readObject();
+				Sout = (Boolean) load.readObject();
+				Sx = (Integer) load.readObject();
+				Sy = (Integer) load.readObject();
+				Scash = (Double) load.readObject();
+				Sbankcash = (Double) load.readObject();
+				Squest = (Integer) load.readObject();
+				Sdeaths = (Integer) load.readObject();
+				Shouse = (String[]) load.readObject();
+				Sinv = (int[]) load.readObject();
+				
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			load.close();
+			loadFile.close();
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		load.close();
-		loadFile.close();
-		
-		System.out.println("files loaded");
+			System.out.println("files loaded");
 		}else{
 			File d = new File(System.getProperty("user.home")+"/.monkwt");
 			d.mkdirs();
