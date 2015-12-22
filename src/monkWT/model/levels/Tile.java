@@ -16,9 +16,10 @@ public class Tile implements Comparable{
 	private boolean sign;
 	private int id;
 	private int imgX, imgY;
+	private String name;
 	
 	
-	public Tile(boolean solid, boolean door, int x, int y, SheetGrabber sg, int id){
+	public Tile(boolean solid, boolean door, int x, int y, SheetGrabber sg, int id, String name){
 		this.tileImage = null;
 		this.solid = solid;
 		this.door = door;
@@ -27,8 +28,9 @@ public class Tile implements Comparable{
 		this.id = id;
 		this.imgX = x;
 		this.imgY = y;
+		this.setName(name);
 	}
-	public Tile(boolean solid, boolean door, boolean sign, int x, int y, SheetGrabber sg, int id){
+	public Tile(boolean solid, boolean door, boolean sign, int x, int y, SheetGrabber sg, int id, String name){
 		this.tileImage = null;
 		this.solid = solid;
 		this.door = door;
@@ -37,6 +39,7 @@ public class Tile implements Comparable{
 		this.id = id;
 		this.imgX = x;
 		this.imgY = y;
+		this.setName(name);
 	}
 	
 	public BufferedImage getImage(){
@@ -121,5 +124,15 @@ public class Tile implements Comparable{
 			return 1;
 		else
 			return -1;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	@Override
+	public String toString(){
+		return name;
 	}
 }
